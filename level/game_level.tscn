@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwtr4ed7eju1b"]
+
+[ext_resource type="PackedScene" uid="uid://b4c1q3jiadym1" path="res://level/level_A1.tscn" id="1_o0yc1"]
+[ext_resource type="Script" path="res://level/game_level.gd" id="1_qdoty"]
+[ext_resource type="PackedScene" uid="uid://bapw7sr4haclc" path="res://player/player.tscn" id="2_idgyi"]
+[ext_resource type="PackedScene" uid="uid://cuj3f472e368v" path="res://camera/camera.tscn" id="4_6heqf"]
+
+[node name="game_level" type="Node2D"]
+script = ExtResource("1_qdoty")
+level_scene_1 = ExtResource("1_o0yc1")
+
+[node name="level" type="Node2D" parent="."]
+
+[node name="level_a0" parent="level" node_paths=PackedStringArray("next") instance=ExtResource("1_o0yc1")]
+position = Vector2(-8, 1080)
+next = NodePath("../level_a1")
+
+[node name="level_a1" parent="level" node_paths=PackedStringArray("previous", "next") instance=ExtResource("1_o0yc1")]
+previous = NodePath("../level_a0")
+next = NodePath("../level_a2")
+
+[node name="level_a2" parent="level" node_paths=PackedStringArray("previous") instance=ExtResource("1_o0yc1")]
+position = Vector2(0, -1080)
+previous = NodePath("../level_a1")
+
+[node name="enemy" type="Node2D" parent="."]
+
+[node name="player" type="Node2D" parent="."]
+
+[node name="player" parent="player" instance=ExtResource("2_idgyi")]
+position = Vector2(955, 992)
+
+[node name="camera" parent="player" node_paths=PackedStringArray("player") instance=ExtResource("4_6heqf")]
+player = NodePath("../player")

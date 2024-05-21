@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://b4c1q3jiadym1"]
+
+[ext_resource type="Script" path="res://level/level.gd" id="1_pduli"]
+
+[sub_resource type="Gradient" id="Gradient_3vfy3"]
+colors = PackedColorArray(0.489622, 0.489622, 0.489622, 1, 0.490196, 0.490196, 0.490196, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2qbus"]
+gradient = SubResource("Gradient_3vfy3")
+
+[sub_resource type="Gradient" id="Gradient_4ssxm"]
+colors = PackedColorArray(0, 0.563816, 0, 1, 0, 0.431373, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rpi0b"]
+gradient = SubResource("Gradient_4ssxm")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
+size = Vector2(261, 1106)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_34o4h"]
+gradient = SubResource("Gradient_4ssxm")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8b6yq"]
+size = Vector2(256, 1106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_id7lv"]
+size = Vector2(1930, 266)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e08w4"]
+size = Vector2(1930, 266)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpo8k"]
+size = Vector2(1930, 266)
+
+[node name="level_a" type="Node2D"]
+z_index = -1
+script = ExtResource("1_pduli")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(960, 544)
+scale = Vector2(30, 17)
+texture = SubResource("GradientTexture2D_2qbus")
+
+[node name="left_border" type="Sprite2D" parent="."]
+position = Vector2(128, 544)
+scale = Vector2(4, 17)
+texture = SubResource("GradientTexture2D_rpi0b")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="left_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D"]
+position = Vector2(125.5, 543)
+shape = SubResource("RectangleShape2D_y0j4l")
+
+[node name="right_border" type="Sprite2D" parent="."]
+position = Vector2(1760, 544)
+scale = Vector2(5, 17)
+texture = SubResource("GradientTexture2D_34o4h")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D"]
+position = Vector2(128, 543)
+shape = SubResource("RectangleShape2D_8b6yq")
+
+[node name="other_level" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="other_level"]
+position = Vector2(955, 123)
+shape = SubResource("RectangleShape2D_id7lv")
+
+[node name="block_last_level" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="block_last_level"]
+position = Vector2(960, 704)
+shape = SubResource("RectangleShape2D_e08w4")
+
+[node name="blocker" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blocker"]
+position = Vector2(955, 123)
+shape = SubResource("RectangleShape2D_xpo8k")
+debug_color = Color(0.954705, 0.109504, 0.462659, 0.42)
+
+[connection signal="body_entered" from="other_level" to="." method="_on_other_level_body_entered"]
+[connection signal="body_entered" from="block_last_level" to="." method="_on_block_last_level_body_entered"]

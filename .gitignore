@@ -1,0 +1,12 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+*.import
+/export/*
+/addons/*
+*.tmp
+desktop.ini
+*.gltf
+*.bin
+*.occ
+*.VoxelGI_data.res
