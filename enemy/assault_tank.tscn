@@ -34,9 +34,9 @@ target_position = Vector2(100, 0)
 collision_mask = 20
 
 [node name="right_shoot" type="RayCast2D" parent="."]
-position = Vector2(-40, 64)
+position = Vector2(-16, 64)
 target_position = Vector2(0, 400)
 
 [node name="left_shoot" type="RayCast2D" parent="."]
-position = Vector2(40, 64)
+position = Vector2(16, 64)
 target_position = Vector2(0, 400)

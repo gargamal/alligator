@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_fvypt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20uhp"]
-size = Vector2(128, 128)
+size = Vector2(64, 128)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
@@ -14,6 +14,8 @@ script = ExtResource("1_8wmr0")
 bullet_scene = ExtResource("2_fvypt")
 
 [node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(0.5, 1)
 texture = ExtResource("1_38tvh")
 
 [node name="col" type="CollisionShape2D" parent="."]

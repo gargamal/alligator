@@ -51,6 +51,7 @@ func manage_shoot(delta :float):
 		bullet.exclude_body = self 
 		bullet.global_position = target.global_position
 		bullet.direction = (target.global_position - global_position).normalized()
+		bullet.origin = target.global_position
 		bullet_time = 0.0
 
 func take_hit(power: int):

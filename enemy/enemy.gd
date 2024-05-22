@@ -12,6 +12,7 @@ class_name Enemy
 @export var bullet_cooldown :float = 0.75
 @export var world :Node2D
 @export var bombshell_scene :PackedScene
+@export var is_running :bool = false
 
 @onready var target = $target
 @onready var left_wall = $left_wall
@@ -21,22 +22,28 @@ class_name Enemy
 @onready var right_shoot = $right_shoot
 @onready var left_shoot = $left_shoot
 
+signal i_am_ready_enemy(my_self)
+
 enum Enemy_State { IDLE, MOVE_UP, MOVE_DOWN, MOVE_SIDE_LEFT, MOVE_SIDE_RIGHT, SHOOT }
 
 var enemy_state :Enemy_State = Enemy_State.IDLE
 var previous_enemy_state :Enemy_State = Enemy_State.IDLE
 var bullet_time :float = 0.0
 
+func _ready():
+	emit_signal("i_am_ready_enemy", self)
+
 func _physics_process(delta):
-	state_machine()
-	var direction :Vector2 = process_direction()
-	velocity = lerp(velocity, process_velocity(direction), smooth * delta)
-	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
-	collision.rotation = sprite_2d.rotation
-	fire(delta)
-	move_and_slide()
-	
-	previous_enemy_state = enemy_state
+	if is_running:
+		state_machine()
+		var direction :Vector2 = process_direction()
+		velocity = lerp(velocity, process_velocity(direction), smooth * delta)
+		sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
+		collision.rotation = sprite_2d.rotation
+		fire(delta)
+		move_and_slide()
+		
+		previous_enemy_state = enemy_state
 
 func estimate__angle_smooth() -> float:
 	match enemy_state:
@@ -131,14 +138,15 @@ func must_move_down() -> bool:
 
 func fire(delta :float):
 	if previous_enemy_state != enemy_state and enemy_state == Enemy_State.SHOOT:
-		bullet_time = 0.0
-	
+		bullet_time = bullet_cooldown * 0.825
+	#
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
 		var bombshell :Bombshell = bombshell_scene.instantiate()
 		world.add_child(bombshell)
 		bombshell.exclude_body = self 
 		bombshell.global_position = target.global_position
+		bombshell.origin = target.global_position
 		bombshell.direction = (target.global_position - global_position).normalized()
 		bullet_time = 0.0
 

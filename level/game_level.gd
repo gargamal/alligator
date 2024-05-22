@@ -8,6 +8,8 @@ const HEIGHT :int = 1080
 @onready var level_a_2 = $level/level_a2
 @onready var level_a_1 = $level/level_a1
 @onready var level_a_0 = $level/level_a0
+@onready var enemy = $enemy
+@onready var bullet = $bullet
 
 @export var level_scene_1 :PackedScene
 @export var level_scene_2 :PackedScene
@@ -58,17 +60,24 @@ func _ready():
 func _on_spawn_new_level(actual_level :Level):
 	var level_scene :PackedScene = level_scene_instianble[rng.randi_range(0, level_scene_instianble.size() - 1)]
 	var level_inst :Level = level_scene.instantiate()
-	level_inst.z_index = -1
 	level.call_deferred("add_child", level_inst)
+	
+	level_inst.z_index = -1
 	level_inst.position.y = last_postion_level.y - HEIGHT
 	last_postion_level = level_inst.position
-	level_inst.connect("spawn_new_level", _on_spawn_new_level)
-	level_inst.connect("block_last_level", _on_block_last_level)
-	level_inst.name = "Level_" + str(id_spawn)
-	id_spawn += 1
-	
 	level_inst.previous = actual_level.next
 	level_inst.previous.next = level_inst
+	level_inst.world = enemy
+	
+	level_inst.connect("spawn_new_level", _on_spawn_new_level)
+	level_inst.connect("block_last_level", _on_block_last_level)
+	level_inst.connect("i_am_ready_level", _on_level_is_ready)
+		
+	level_inst.name = "Level_" + str(id_spawn)
+	id_spawn += 1
+
+func _on_level_is_ready(p_level :Level):
+	p_level.spawn(rng.randi_range(1,3), player, bullet)
 
 func free_level():
 	if level.get_child_count() > 4:

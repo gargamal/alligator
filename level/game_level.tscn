@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwtr4ed7eju1b"]
+[gd_scene load_steps=5 format=3 uid="uid://bwtr4ed7eju1b"]
 
 [ext_resource type="PackedScene" uid="uid://b4c1q3jiadym1" path="res://level/level_A1.tscn" id="1_o0yc1"]
 [ext_resource type="Script" path="res://level/game_level.gd" id="1_qdoty"]
 [ext_resource type="PackedScene" uid="uid://bapw7sr4haclc" path="res://player/player.tscn" id="2_idgyi"]
-[ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://enemy/assault_tank.tscn" id="3_vo37k"]
 [ext_resource type="PackedScene" uid="uid://cuj3f472e368v" path="res://camera/camera.tscn" id="4_6heqf"]
 
 [node name="game_level" type="Node2D"]
@@ -25,11 +24,6 @@ position = Vector2(0, -1040)
 previous = NodePath("../level_a1")
 
 [node name="enemy" type="Node2D" parent="."]
-
-[node name="assault_tank" parent="enemy" node_paths=PackedStringArray("player", "world") instance=ExtResource("3_vo37k")]
-position = Vector2(1072, -720)
-player = NodePath("../../player/player")
-world = NodePath("../../bullet")
 
 [node name="player" type="Node2D" parent="."]
 

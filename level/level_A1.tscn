@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4c1q3jiadym1"]
+[gd_scene load_steps=13 format=3 uid="uid://b4c1q3jiadym1"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_pduli"]
+[ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://enemy/assault_tank.tscn" id="2_cb05k"]
 
 [sub_resource type="Gradient" id="Gradient_3vfy3"]
 colors = PackedColorArray(0.489622, 0.489622, 0.489622, 1, 0.490196, 0.490196, 0.490196, 1)
@@ -35,6 +36,7 @@ size = Vector2(1930, 266)
 [node name="level_a" type="Node2D"]
 z_index = -1
 script = ExtResource("1_pduli")
+assault_tank_scene = ExtResource("2_cb05k")
 
 [node name="background" type="Sprite2D" parent="."]
 position = Vector2(960, 544)
@@ -93,6 +95,29 @@ collision_mask = 0
 position = Vector2(960, 944)
 shape = SubResource("RectangleShape2D_xpo8k")
 debug_color = Color(0.954705, 0.109504, 0.462659, 0.42)
+
+[node name="spawn_point" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="spawn_point"]
+position = Vector2(456, 152)
+
+[node name="Marker2D3" type="Marker2D" parent="spawn_point"]
+position = Vector2(480, 488)
+
+[node name="Marker2D2" type="Marker2D" parent="spawn_point"]
+position = Vector2(1408, 392)
+
+[node name="Marker2D4" type="Marker2D" parent="spawn_point"]
+position = Vector2(1048, 472)
+
+[node name="Marker2D7" type="Marker2D" parent="spawn_point"]
+position = Vector2(1200, 192)
+
+[node name="Marker2D5" type="Marker2D" parent="spawn_point"]
+position = Vector2(632, 672)
+
+[node name="Marker2D6" type="Marker2D" parent="spawn_point"]
+position = Vector2(1456, 712)
 
 [connection signal="body_entered" from="other_level" to="." method="_on_other_level_body_entered"]
 [connection signal="body_entered" from="block_last_level" to="." method="_on_block_last_level_body_entered"]
