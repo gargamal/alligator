@@ -11,7 +11,7 @@ class_name Enemy
 @export var margin_shoot_range :float = 500.0
 @export var bullet_cooldown :float = 0.75
 @export var world :Node2D
-@export var bombshell_scene :PackedScene
+@export var ammo_scene :PackedScene
 @export var is_running :bool = false
 
 @onready var target = $target
@@ -142,14 +142,18 @@ func fire(delta :float):
 	#
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
-		var bombshell :Bombshell = bombshell_scene.instantiate()
-		world.add_child(bombshell)
-		bombshell.exclude_body = self 
-		bombshell.global_position = target.global_position
-		bombshell.origin = target.global_position
-		bombshell.direction = (target.global_position - global_position).normalized()
+		var ammo = ammo_scene.instantiate()
+		world.add_child(ammo)
+		ammo.exclude_body = self 
+		ammo.global_position = target.global_position
+		ammo.origin = target.global_position
+		ammo.direction = (target.global_position - global_position).normalized()
 		bullet_time = 0.0
 
 func take_hit(power: int):
 	life -= power
-	print("enemy life=", life)
+	if life <= 0:
+		death()
+
+func death():
+	queue_free()

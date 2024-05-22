@@ -1,3 +1,44 @@
-[gd_scene format=3 uid="uid://pu6gx570i247"]
+[gd_scene load_steps=5 format=3 uid="uid://pu6gx570i247"]
 
-[node name="jeep" type="Node2D"]
+[ext_resource type="Script" path="res://enemy/jeep.gd" id="1_c2b0c"]
+[ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_vsdth"]
+[ext_resource type="Texture2D" uid="uid://cwecdhbnnyvyq" path="res://icon.svg" id="3_ubwmg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jy5v2"]
+size = Vector2(48, 112)
+
+[node name="jeep" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 29
+script = ExtResource("1_c2b0c")
+speed = 300.0
+speed_up = 1000.0
+ammo_scene = ExtResource("2_vsdth")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.454047, 0.995186, 1)
+rotation = 3.14159
+scale = Vector2(0.367757, 0.867757)
+texture = ExtResource("3_ubwmg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jy5v2")
+
+[node name="target" type="Marker2D" parent="."]
+position = Vector2(0, 72)
+
+[node name="left_wall" type="RayCast2D" parent="."]
+target_position = Vector2(-100, 0)
+collision_mask = 20
+
+[node name="right_wall" type="RayCast2D" parent="."]
+target_position = Vector2(100, 0)
+collision_mask = 20
+
+[node name="right_shoot" type="RayCast2D" parent="."]
+position = Vector2(-16, 64)
+target_position = Vector2(0, 400)
+
+[node name="left_shoot" type="RayCast2D" parent="."]
+position = Vector2(16, 64)
+target_position = Vector2(0, 400)

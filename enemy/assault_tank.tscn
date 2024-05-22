@@ -5,18 +5,20 @@
 [ext_resource type="PackedScene" uid="uid://c25takgk0e4pj" path="res://bombshell/bombshell.tscn" id="2_l5q7x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3yaxg"]
-size = Vector2(64, 128)
+size = Vector2(80, 128)
 
 [node name="assault_tank" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 20
+collision_mask = 29
 script = ExtResource("1_xoni6")
-bombshell_scene = ExtResource("2_l5q7x")
+life = 20
+ammo_scene = ExtResource("2_l5q7x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.696379, 0.398425, 3.85046e-07, 1)
+position = Vector2(0.222713, -5.64619e-07)
 rotation = 3.14159
-scale = Vector2(0.5, 1)
+scale = Vector2(0.628763, 1)
 texture = ExtResource("2_ccq3y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
