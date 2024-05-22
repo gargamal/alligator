@@ -52,3 +52,7 @@ func manage_shoot(delta :float):
 		bullet.global_position = target.global_position
 		bullet.direction = (target.global_position - global_position).normalized()
 		bullet_time = 0.0
+
+func take_hit(power: int):
+	life -= power
+	print("player life=", life)

@@ -14,12 +14,13 @@ height = 16
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydjsr"]
 size = Vector2(17, 16)
 
-[node name="bombshell" type="Area2D"]
+[node name="bombshell" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 31
 script = ExtResource("1_1m84w")
-speed_shoot = 550.0
+speed_shoot = 25.0
 smooth = 1.0
+power = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.499999, 0)
@@ -34,6 +35,3 @@ shape = SubResource("RectangleShape2D_ydjsr")
 wait_time = 3.0
 one_shot = true
 autostart = true
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="bullet_time" to="." method="_on_bullet_time_timeout"]

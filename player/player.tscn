@@ -20,4 +20,4 @@ texture = ExtResource("1_38tvh")
 shape = SubResource("RectangleShape2D_20uhp")
 
 [node name="target" type="Marker2D" parent="."]
-position = Vector2(0, -72)
+position = Vector2(0, -88)

@@ -4,7 +4,6 @@ class_name Enemy
 @export var speed :float = 200.0
 @export var speed_up :float = 800.0
 @export var life :int = 10
-@export var power :int = 10
 @export var smooth :float = 5.0
 @export var player :Player
 @export var max_distance_between_player :float = 900.0
@@ -142,3 +141,7 @@ func fire(delta :float):
 		bombshell.global_position = target.global_position
 		bombshell.direction = (target.global_position - global_position).normalized()
 		bullet_time = 0.0
+
+func take_hit(power: int):
+	life -= power
+	print("enemy life=", life)
