@@ -46,7 +46,7 @@ position = Vector2(128, 544)
 scale = Vector2(4, 17)
 texture = SubResource("GradientTexture2D_rpi0b")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="left_border"]
+[node name="StaticBody2D" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
 position = Vector2(-32, -32)
 scale = Vector2(0.25, 0.0588235)
 collision_layer = 16
@@ -83,13 +83,14 @@ shape = SubResource("RectangleShape2D_id7lv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="block_last_level"]
 position = Vector2(960, 704)
 shape = SubResource("RectangleShape2D_e08w4")
+debug_color = Color(0.647492, 0.521134, 3.85046e-07, 0.42)
 
 [node name="blocker" type="StaticBody2D" parent="."]
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blocker"]
-position = Vector2(955, 123)
+position = Vector2(960, 944)
 shape = SubResource("RectangleShape2D_xpo8k")
 debug_color = Color(0.954705, 0.109504, 0.462659, 0.42)
 

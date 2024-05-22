@@ -71,7 +71,7 @@ func _on_spawn_new_level(actual_level :Level):
 	level_inst.previous.next = level_inst
 
 func free_level():
-	if level.get_child_count() > 3:
+	if level.get_child_count() > 4:
 		level.get_child(0).queue_free()
 
 func _on_block_last_level(actual_level :Level):
