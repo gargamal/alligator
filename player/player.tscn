@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bapw7sr4haclc"]
+[gd_scene load_steps=18 format=3 uid="uid://bapw7sr4haclc"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8wmr0"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://ammo/bullet.tscn" id="2_fvypt"]
@@ -6,6 +6,21 @@
 [ext_resource type="Texture2D" uid="uid://by7uo10544i08" path="res://player/asset/Armeslvl2.png" id="4_7bnte"]
 [ext_resource type="Texture2D" uid="uid://ceqkvis8lgfrw" path="res://player/asset/Cockpit_Helicot.png" id="4_26pmp"]
 [ext_resource type="Texture2D" uid="uid://dgnxc3h01e3yn" path="res://player/asset/Rotor1.png" id="5_thjcd"]
+[ext_resource type="Texture2D" uid="uid://dol42udrs0lk1" path="res://ammo/asset/fire_sparkles.png" id="6_ba3k0"]
+[ext_resource type="Animation" path="res://ammo/animation/player_fire_basic.tres" id="8_8pnhb"]
+[ext_resource type="Animation" path="res://ammo/animation/player_fire_left.tres" id="9_emuoo"]
+[ext_resource type="Animation" path="res://ammo/animation/player_fire_right.tres" id="10_dgs86"]
+
+[sub_resource type="Animation" id="Animation_8tswv"]
+resource_name = "RESET"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jvdsf"]
+_data = {
+"RESET": SubResource("Animation_8tswv"),
+"player_fire_basic": ExtResource("8_8pnhb"),
+"player_fire_left": ExtResource("9_emuoo"),
+"player_fire_right": ExtResource("10_dgs86")
+}
 
 [sub_resource type="Animation" id="Animation_yho3y"]
 length = 0.001
@@ -74,6 +89,56 @@ texture = ExtResource("4_26pmp")
 
 [node name="col" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -56, -24, -32, -24, -16, -32, -16, -32, 8, -16, 64, 16, 64, 32, 8, 32, -16, 24, -16, 24, -32)
+
+[node name="fire_sparkles" type="Node2D" parent="."]
+
+[node name="fire_sparkles_basic" type="Sprite2D" parent="fire_sparkles"]
+visible = false
+position = Vector2(2.47837e-11, -75)
+rotation = 3.14159
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("6_ba3k0")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="fire_sparkles_left" type="Sprite2D" parent="fire_sparkles"]
+visible = false
+position = Vector2(-28, -47)
+rotation = 3.14159
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("6_ba3k0")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="fire_sparkles_right" type="Sprite2D" parent="fire_sparkles"]
+visible = false
+position = Vector2(27, -49)
+rotation = 3.14159
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("6_ba3k0")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="anim_smoke_fire_basic" type="AnimationPlayer" parent="fire_sparkles"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_jvdsf")
+}
+
+[node name="anim_smoke_fire_left" type="AnimationPlayer" parent="fire_sparkles"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_jvdsf")
+}
+
+[node name="anim_smoke_fire_right" type="AnimationPlayer" parent="fire_sparkles"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_jvdsf")
+}
 
 [node name="rotor_sprite" type="Sprite2D" parent="."]
 position = Vector2(4.5759e-14, -9)

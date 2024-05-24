@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b4c1q3jiadym1"]
+[gd_scene load_steps=15 format=3 uid="uid://b4c1q3jiadym1"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_pduli"]
 [ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://enemy/assault_tank.tscn" id="2_cb05k"]
@@ -6,12 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://enemy/jeep.tscn" id="3_q0cp1"]
 [ext_resource type="Texture2D" uid="uid://bjiiouh5otxtt" path="res://level/asset/city_1.png" id="4_2dmgx"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://enemy/Drop/item_drop.tscn" id="5_80beb"]
-
-[sub_resource type="Gradient" id="Gradient_3vfy3"]
-colors = PackedColorArray(0.489622, 0.489622, 0.489622, 1, 0.490196, 0.490196, 0.490196, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2qbus"]
-gradient = SubResource("Gradient_3vfy3")
+[ext_resource type="Texture2D" uid="uid://b37228dh0yj38" path="res://level/asset/city_2.png" id="6_32e8q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
 size = Vector2(424.5, 1106)
@@ -44,8 +39,7 @@ item_drop_scene = ExtResource("5_80beb")
 
 [node name="road2_sprite" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
-scale = Vector2(30, 16.875)
-texture = SubResource("GradientTexture2D_2qbus")
+texture = ExtResource("6_32e8q")
 
 [node name="road1_sprite" type="Sprite2D" parent="."]
 texture = ExtResource("4_2dmgx")

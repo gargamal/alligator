@@ -1,6 +1,9 @@
 extends RigidBody2D
 class_name Bullet
 
+@onready var explosion = $Explosion
+@onready var sprite_2d = $Sprite2D
+
 @export var exclude_body :Node2D
 @export var speed_shoot :float = 50.0
 @export var smooth :float = 2.0
@@ -13,7 +16,7 @@ var is_firing :bool = false
 var colliders_known :Array = []
 
 func _process(_delta):
-	if is_firing:
+	if is_firing and explosion and not explosion.emitting:
 		if origin.distance_to(global_position) > distance_max:
 			queue_free()
 		
@@ -27,12 +30,18 @@ func _process(_delta):
 				if obj_colide != exclude_body:
 					if obj_colide is Player:
 						obj_colide.take_hit(power)
-						queue_free()
+						free_bullet()
 					elif obj_colide is Enemy and obj_colide.is_alive:
 						obj_colide.take_hit(power)
-						queue_free()
+						free_bullet()
 					elif "decor_static" in obj_colide.get_groups():
-						queue_free()
+						free_bullet()
+
+func free_bullet():
+	sprite_2d.visible = false
+	explosion.emitting = true
+	await get_tree().create_timer(0.1).timeout
+	queue_free()
 
 func set_fire(new_direction :Vector2):
 	direction = new_direction

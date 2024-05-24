@@ -7,6 +7,8 @@ const COLLISION_DECOR :int = 16
 
 @onready var blocker = $blocker
 @onready var spawn_point = $spawn_point
+@onready var road_2_sprite = $road2_sprite
+@onready var road_1_sprite = $road1_sprite
 
 signal spawn_new_level(my_self)
 signal block_last_level(my_self)
@@ -40,6 +42,13 @@ func _ready():
 		scene_of_spawn.append(jeep_scene)
 	if artillery_scene:
 		scene_of_spawn.append(artillery_scene)
+	
+	if rng.randi_range(1, 3) == 1:
+		road_1_sprite.visible = true
+		road_2_sprite.visible = false
+	else:
+		road_1_sprite.visible = false
+		road_2_sprite.visible = true
 	
 	emit_signal("i_am_ready_level", self)
 

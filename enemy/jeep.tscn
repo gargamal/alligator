@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://pu6gx570i247"]
+[gd_scene load_steps=11 format=3 uid="uid://pu6gx570i247"]
 
 [ext_resource type="Script" path="res://enemy/jeep.gd" id="1_c2b0c"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://ammo/bullet.tscn" id="2_t8rcc"]
 [ext_resource type="Texture2D" uid="uid://g6nokwkad4ha" path="res://enemy/asset/jeep.png" id="3_01osj"]
 [ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="3_8iuek"]
+[ext_resource type="Texture2D" uid="uid://dol42udrs0lk1" path="res://ammo/asset/fire_sparkles.png" id="5_lewg6"]
+[ext_resource type="Animation" uid="uid://biigdmqba1ogp" path="res://ammo/animation/fire_basis.tres" id="7_mxjk1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jy5v2"]
 size = Vector2(48, 112)
@@ -15,6 +17,11 @@ colors = PackedColorArray(1, 0.607843, 0, 1, 0.526793, 5.72633e-07, 1.06417e-07,
 [sub_resource type="Gradient" id="Gradient_706j5"]
 offsets = PackedFloat32Array(0, 0.705521, 1)
 colors = PackedColorArray(0.219501, 0.219501, 0.219501, 1, 0.490196, 0.490196, 0.490196, 1, 1, 1, 1, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lie06"]
+_data = {
+"fire_basis": ExtResource("7_mxjk1")
+}
 
 [node name="jeep" type="CharacterBody2D"]
 collision_layer = 4
@@ -147,3 +154,16 @@ linear_accel_max = 10.0
 radial_accel_min = 1.0
 radial_accel_max = 1.0
 color_ramp = SubResource("Gradient_706j5")
+
+[node name="fire_sparkles" type="Sprite2D" parent="."]
+position = Vector2(1, 38)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("5_lewg6")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lie06")
+}

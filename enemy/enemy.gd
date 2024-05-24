@@ -16,7 +16,6 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @export var is_running :bool = false
 @export var is_alive : bool = true
 
-@onready var ourself = $"."
 @onready var left_wall = $left_wall
 @onready var right_wall = $right_wall
 @onready var collision = $CollisionShape2D
@@ -29,7 +28,7 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @onready var smoke_60 = $Smokes/Smoke60
 @onready var smoke_80 = $Smokes/Smoke80
 @onready var death_smoke = $Smokes/Death_Smoke
-
+@onready var animation_player = $AnimationPlayer
 
 signal i_am_ready_enemy(my_self)
 signal i_am_death(my_self)
@@ -44,15 +43,18 @@ var margin_can_shoot :float = 400.0
 var rng = RandomNumberGenerator.new()
 var time_estimate_distance_can_shoot :float = 0.0
 var target
+var fire_sparkles
 
 func _ready():
 	emit_signal("i_am_ready_enemy", self)
 	margin_can_shoot = rng.randf_range(100.0 , 500.0)
 	time_estimate_distance_can_shoot = rng.randf_range(0.0, TIME_ESTIMATE_DISTANCE_CAN_SHOOT)
 	_specific_ready()
+	fire_sparkles.visible = false
 
 func _specific_ready():
 	target = $target
+	fire_sparkles = $fire_sparkles
 
 func _physics_process(delta :float):
 	if is_running:
@@ -180,6 +182,10 @@ func fire(delta :float):
 		ammo.origin = target.global_position
 		ammo.direction = Vector2(0, 1)
 		bullet_time = 0.0
+		fire_anim()
+
+func fire_anim():
+	animation_player.play("fire_basis")
 
 func take_hit(power: int):
 	life -= power
@@ -213,8 +219,8 @@ func take_hit(power: int):
 func death():
 	if is_alive:
 		is_alive = false
-		ourself.collision_mask = 4
-		ourself.collision_layer = 32
+		collision_mask = 4
+		collision_layer = 32
 		process_explosion()
 		emit_signal("i_am_death", self)
 

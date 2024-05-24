@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgdys3ik2womk"]
+[gd_scene load_steps=11 format=3 uid="uid://dgdys3ik2womk"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_uctic"]
-[ext_resource type="Texture2D" uid="uid://d33ldkylp5thw" path="res://enemy/asset/tank.png" id="2_0psp7"]
-[ext_resource type="Texture2D" uid="uid://dbur07fvjbtc" path="res://enemy/asset/tank_canon.png" id="3_cb7eq"]
-[ext_resource type="Texture2D" uid="uid://boq4yxw2yop37" path="res://enemy/asset/vortex.png" id="4_vdtxd"]
+[ext_resource type="Texture2D" uid="uid://ppt3flqmec72" path="res://enemy/asset/tank.png" id="2_0psp7"]
+[ext_resource type="Texture2D" uid="uid://60htj46yelxm" path="res://enemy/asset/tank_canon.png" id="3_cb7eq"]
+[ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="4_vdtxd"]
 
 [sub_resource type="Gradient" id="Gradient_16nrq"]
 offsets = PackedFloat32Array(0, 0.997006)
@@ -12,66 +12,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ujedw"]
 gradient = SubResource("Gradient_16nrq")
 
-[sub_resource type="Animation" id="Animation_rpwx8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("death_sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("death_sprite:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_5k4qk"]
-resource_name = "death"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("death_sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("death_sprite:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0001),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1xgdx"]
-_data = {
-"RESET": SubResource("Animation_rpwx8"),
-"death": SubResource("Animation_5k4qk")
-}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbv3s"]
 size = Vector2(64, 159)

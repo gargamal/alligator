@@ -12,9 +12,9 @@ enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
 @onready var weapon_sprite = $weapon_sprite
 @onready var weapon_double_sprite = $weapon_double_sprite
 @onready var life_level = $life_level
-@onready var main_fire = $targets/main_target/fire
-@onready var left_fire = $targets/left_target/fire
-@onready var right_fire = $targets/right_target/fire
+@onready var anim_smoke_fire_basic = $fire_sparkles/anim_smoke_fire_basic
+@onready var anim_smoke_fire_left = $fire_sparkles/anim_smoke_fire_left
+@onready var anim_smoke_fire_right = $fire_sparkles/anim_smoke_fire_right
 
 @export var speed :float = 500.0
 @export var life :float = 50.0
@@ -70,16 +70,26 @@ func manage_shoot(delta :float):
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and shoot_state == Shoot_State.SHOOT:
 		match level_weapon:
-			Level_Weapon.BASIC: basic_shoot(main_target)
-			Level_Weapon.DOUBLE: double_shoot()
-			Level_Weapon.TRIPLE: triple_shoot()
+			Level_Weapon.BASIC: 
+				basic_shoot(main_target)
+				anim_smoke_fire_basic.play("player_fire_basic")
+			Level_Weapon.DOUBLE:
+				double_shoot()
+				anim_smoke_fire_left.play("player_fire_left")
+				anim_smoke_fire_right.play("player_fire_right")
+				
+			Level_Weapon.TRIPLE: 
+				triple_shoot()
+				anim_smoke_fire_basic.play("player_fire_basic")
+				anim_smoke_fire_left.play("player_fire_left")
+				anim_smoke_fire_right.play("player_fire_right")
 
 func basic_shoot(target_node :Marker2D):
 	var bullet :Bullet = bullet_scene.instantiate()
 	world.add_child(bullet)
 	bullet.exclude_body = self 
 	bullet.global_position = target_node.global_position
-	bullet.direction = (target_node.global_position - global_position).normalized()
+	bullet.direction = Vector2(0, -1)
 	bullet.origin = target_node.global_position
 	bullet_time = 0.0
 

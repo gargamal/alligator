@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c25takgk0e4pj"]
+[gd_scene load_steps=6 format=3 uid="uid://c25takgk0e4pj"]
 
 [ext_resource type="Script" path="res://ammo/bombshell.gd" id="1_53kau"]
 [ext_resource type="Texture2D" uid="uid://bruue5jlx2dha" path="res://ammo/asset/Bullet.png" id="2_10dti"]
+[ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="3_il36v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydjsr"]
 size = Vector2(17, 16)
+
+[sub_resource type="Gradient" id="Gradient_2ncfa"]
+offsets = PackedFloat32Array(0.162577, 0.831288, 0.990798)
+colors = PackedColorArray(0.992004, 0.857897, 0.463893, 1, 1, 0.641748, 0.58665, 0.560784, 1, 1, 1, 0)
 
 [node name="bombshell" type="RigidBody2D"]
 collision_layer = 8
@@ -24,3 +29,21 @@ texture = ExtResource("2_10dti")
 visible = false
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_ydjsr")
+
+[node name="Explosion" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("3_il36v")
+emission_shape = 1
+emission_sphere_radius = 14.47
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 18.96
+initial_velocity_max = 142.18
+angular_velocity_max = 354.88
+scale_amount_min = 0.33
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_2ncfa")
