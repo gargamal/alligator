@@ -27,9 +27,12 @@ func _process(_delta):
 				if obj_colide != exclude_body:
 					if obj_colide is Player:
 						obj_colide.take_hit(power)
-					elif obj_colide is Enemy:
+						queue_free()
+					elif obj_colide is Enemy and obj_colide.is_alive:
 						obj_colide.take_hit(power)
-				queue_free()
+						queue_free()
+					elif "decor_static" in obj_colide.get_groups():
+						queue_free()
 
 func set_fire(new_direction :Vector2):
 	direction = new_direction

@@ -1,14 +1,14 @@
 extends CharacterBody2D
 class_name Enemy
 
+const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
+
 @export var speed :float = 200.0
 @export var speed_up :float = 800.0
 @export var life_max :float = 10.0
-var life :float = life_max
 @export var smooth :float = 5.0
 @export var player :Player
 @export var max_distance_between_player :float = 900.0
-@export var margin_can_shoot :float = 400.0
 @export var margin_shoot_range :float = 500.0
 @export var bullet_cooldown :float = 0.75
 @export var world :Node2D
@@ -34,19 +34,27 @@ var life :float = life_max
 
 
 signal i_am_ready_enemy(my_self)
+signal i_am_death(my_self)
 
 enum Enemy_State { IDLE, MOVE_UP, MOVE_DOWN, MOVE_SIDE_LEFT, MOVE_SIDE_RIGHT, SHOOT }
 
 var enemy_state :Enemy_State = Enemy_State.IDLE
 var previous_enemy_state :Enemy_State = Enemy_State.IDLE
 var bullet_time :float = 0.0
+var life :float = life_max
+var margin_can_shoot :float = 400.0
+var rng = RandomNumberGenerator.new()
+var time_estimate_distance_can_shoot :float = 0.0
 
 func _ready():
 	emit_signal("i_am_ready_enemy", self)
+	margin_can_shoot = rng.randf_range(100.0 , 500.0)
+	time_estimate_distance_can_shoot = rng.randf_range(0.0, TIME_ESTIMATE_DISTANCE_CAN_SHOOT)
 
 func _physics_process(delta :float):
 	if is_running:
 		if is_alive:
+			process_distance_can_shoot(delta)
 			state_machine()
 			var direction :Vector2 = process_direction()
 			velocity = lerp(velocity, process_velocity(direction), smooth * delta)
@@ -56,6 +64,11 @@ func _physics_process(delta :float):
 			
 			previous_enemy_state = enemy_state
 
+func process_distance_can_shoot(delta :float):
+	time_estimate_distance_can_shoot += delta
+	if time_estimate_distance_can_shoot > TIME_ESTIMATE_DISTANCE_CAN_SHOOT:
+		margin_can_shoot = rng.randf_range(100.0 , 500.0)
+		time_estimate_distance_can_shoot = 0.0
 
 func rotation_animation(delta :float, direction :Vector2):
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
@@ -199,9 +212,10 @@ func take_hit(power: int):
 func death():
 	if is_alive:
 		is_alive = false
-		ourself.collision_mask = 4 
-		ourself.collision_layer = 4 
+		ourself.collision_mask = 4
+		ourself.collision_layer = 32
 		process_explosion()
+		emit_signal("i_am_death", self)
 
 func process_explosion():
 	explosion.emitting = true

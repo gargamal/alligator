@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4c1q3jiadym1"]
+[gd_scene load_steps=16 format=3 uid="uid://b4c1q3jiadym1"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_pduli"]
 [ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://enemy/assault_tank.tscn" id="2_cb05k"]
 [ext_resource type="PackedScene" uid="uid://bbtkbj3sj8rn1" path="res://enemy/helicopter.tscn" id="3_7hinm"]
 [ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://enemy/jeep.tscn" id="3_q0cp1"]
 [ext_resource type="Texture2D" uid="uid://bjiiouh5otxtt" path="res://level/asset/city_1.png" id="4_2dmgx"]
+[ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://enemy/Drop/item_drop.tscn" id="5_80beb"]
 
 [sub_resource type="Gradient" id="Gradient_3vfy3"]
 colors = PackedColorArray(0.489622, 0.489622, 0.489622, 1, 0.490196, 0.490196, 0.490196, 1)
@@ -39,6 +40,7 @@ script = ExtResource("1_pduli")
 assault_tank_scene = ExtResource("2_cb05k")
 helicopter_scene = ExtResource("3_7hinm")
 jeep_scene = ExtResource("3_q0cp1")
+item_drop_scene = ExtResource("5_80beb")
 
 [node name="road2_sprite" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
@@ -109,7 +111,7 @@ position = Vector2(960, 704)
 shape = SubResource("RectangleShape2D_e08w4")
 debug_color = Color(0.647492, 0.521134, 3.85046e-07, 0.42)
 
-[node name="blocker" type="StaticBody2D" parent="."]
+[node name="blocker" type="StaticBody2D" parent="." groups=["decor_static"]]
 collision_layer = 0
 collision_mask = 0
 

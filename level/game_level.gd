@@ -11,6 +11,7 @@ const max_dist_diedbody :int = 3000
 @onready var level_a_0 = $level/level_a0
 @onready var enemy = $enemy
 @onready var bullet = $bullet
+@onready var drop_item = $drop_item
 
 @export var level_scene_1 :PackedScene
 @export var level_scene_2 :PackedScene
@@ -71,6 +72,7 @@ func _on_spawn_new_level(actual_level :Level):
 	level_inst.previous = actual_level.next
 	level_inst.previous.next = level_inst
 	level_inst.world = enemy
+	level_inst.world_drop_item = drop_item
 	
 	level_inst.connect("spawn_new_level", _on_spawn_new_level)
 	level_inst.connect("block_last_level", _on_block_last_level)

@@ -8,6 +8,7 @@ class_name Helicopter
 func death():
 	super()
 	animation_player.stop()
+	z_index = 0
 
 func rotation_animation(_delta :float, direction :Vector2):
 	cockpit_sprite.skew = lerp(cockpit_sprite.skew, -direction.x * PI/15.0, 0.1)

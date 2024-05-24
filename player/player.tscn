@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bapw7sr4haclc"]
+[gd_scene load_steps=13 format=3 uid="uid://bapw7sr4haclc"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8wmr0"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_fvypt"]
 [ext_resource type="Texture2D" uid="uid://xdpk1ypymrvn" path="res://player/asset/Armelvl1.png" id="3_nww2b"]
+[ext_resource type="Texture2D" uid="uid://by7uo10544i08" path="res://player/asset/Armeslvl2.png" id="4_7bnte"]
 [ext_resource type="Texture2D" uid="uid://ceqkvis8lgfrw" path="res://player/asset/Cockpit_Helicot.png" id="4_26pmp"]
 [ext_resource type="Texture2D" uid="uid://dgnxc3h01e3yn" path="res://player/asset/Rotor1.png" id="5_thjcd"]
 
@@ -46,16 +47,28 @@ _data = {
 "rotor": SubResource("Animation_2eb17")
 }
 
+[sub_resource type="Gradient" id="Gradient_eymlk"]
+offsets = PackedFloat32Array(0, 0.15, 1)
+colors = PackedColorArray(0.32549, 0, 0, 1, 0.32549, 0, 0, 1, 0.999657, 0.125947, 0.0876117, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sif7m"]
+gradient = SubResource("Gradient_eymlk")
+width = 100
+height = 8
+
 [node name="player" type="CharacterBody2D"]
-z_index = 1
+z_index = 2
 collision_mask = 18
 script = ExtResource("1_8wmr0")
-life = 30
 bullet_scene = ExtResource("2_fvypt")
 
 [node name="weapon_sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.305, 0.305)
 texture = ExtResource("3_nww2b")
+
+[node name="weapon_double_sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.305, 0.305)
+texture = ExtResource("4_7bnte")
 
 [node name="cockpit_sprite" type="Sprite2D" parent="."]
 position = Vector2(9.53674e-07, 0)
@@ -64,9 +77,6 @@ texture = ExtResource("4_26pmp")
 
 [node name="col" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_20uhp")
-
-[node name="target" type="Marker2D" parent="."]
-position = Vector2(0, -88)
 
 [node name="rotor_sprite" type="Sprite2D" parent="."]
 position = Vector2(4.5759e-14, -9)
@@ -80,3 +90,19 @@ libraries = {
 }
 autoplay = "rotor"
 speed_scale = 2.0
+
+[node name="targets" type="Node2D" parent="."]
+
+[node name="main_target" type="Marker2D" parent="targets"]
+position = Vector2(0, -88)
+
+[node name="left_target" type="Marker2D" parent="targets"]
+position = Vector2(32, -72)
+
+[node name="right_target" type="Marker2D" parent="targets"]
+position = Vector2(-32, -72)
+
+[node name="life_level" type="Sprite2D" parent="."]
+position = Vector2(-50, 72)
+texture = SubResource("GradientTexture2D_sif7m")
+centered = false

@@ -18,10 +18,13 @@ signal i_am_ready_level(my_self)
 @export var previous :Level
 @export var next :Level
 @export var world :Node2D
+@export var world_drop_item :Node2D
 @export var assault_tank_scene :PackedScene
 @export var helicopter_scene :PackedScene
 @export var jeep_scene :PackedScene
 @export var artillery_scene :PackedScene
+@export var item_drop_scene :PackedScene
+@export_range(0.0, 1.0) var drop_chance :float = 0.2
 
 var array_of_spawn :Array = []
 var scene_of_spawn :Array = []
@@ -50,9 +53,16 @@ func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D):
 		enemy.world = bullet_world
 		enemy.player = player
 		enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
+		enemy.connect("i_am_death", _on_enemy_is_death)
 		world.add_child(enemy)
 		enemy.global_position = point_spawn.global_position
 		work_arr.remove_at(index)
+
+func _on_enemy_is_death(enemy :Enemy):
+	if rng.randf_range(0.0, 1.0) <= drop_chance:
+		var item_drop :ItemBox = item_drop_scene.instantiate()
+		world_drop_item.add_child(item_drop)
+		item_drop.global_position = enemy.global_position
 
 func _on_enemy_is_ready(enemy :Enemy):
 	enemy.is_running = true

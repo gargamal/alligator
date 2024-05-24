@@ -44,11 +44,11 @@ collision_mask = 20
 
 [node name="right_shoot" type="RayCast2D" parent="."]
 position = Vector2(-16, 64)
-target_position = Vector2(2.08165e-12, 300)
+target_position = Vector2(0, 600)
 
 [node name="left_shoot" type="RayCast2D" parent="."]
 position = Vector2(16, 64)
-target_position = Vector2(2.08165e-12, 300)
+target_position = Vector2(0, 600)
 
 [node name="Explosion" type="CPUParticles2D" parent="."]
 emitting = false
