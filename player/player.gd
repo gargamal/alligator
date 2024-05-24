@@ -69,13 +69,28 @@ func _input(_event):
 func manage_shoot(delta :float):
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and shoot_state == Shoot_State.SHOOT:
-		var bullet :Bullet = bullet_scene.instantiate()
-		world.add_child(bullet)
-		bullet.exclude_body = self 
-		bullet.global_position = main_target.global_position
-		bullet.direction = (main_target.global_position - global_position).normalized()
-		bullet.origin = main_target.global_position
-		bullet_time = 0.0
+		match level_weapon:
+			Level_Weapon.BASIC: basic_shoot(main_target)
+			Level_Weapon.DOUBLE: double_shoot()
+			Level_Weapon.TRIPLE: triple_shoot()
+
+func basic_shoot(target_node :Marker2D):
+	var bullet :Bullet = bullet_scene.instantiate()
+	world.add_child(bullet)
+	bullet.exclude_body = self 
+	bullet.global_position = target_node.global_position
+	bullet.direction = (target_node.global_position - global_position).normalized()
+	bullet.origin = target_node.global_position
+	bullet_time = 0.0
+
+func double_shoot():
+	basic_shoot(left_target)
+	basic_shoot(right_target)
+
+func triple_shoot():
+	basic_shoot(main_target)
+	basic_shoot(left_target)
+	basic_shoot(right_target)
 
 func take_hit(power: int):
 	var tween :Tween = get_tree().create_tween()
@@ -88,7 +103,7 @@ func take_hit(power: int):
 
 func take_itembox(itembox :ItemBox.Type_ItemBox):
 	match itembox:
-		ItemBox.Type_ItemBox.HEAL: 
+		ItemBox.Type_ItemBox.HEAL:
 			var tween :Tween = get_tree().create_tween()
 			tween.tween_method(set_life, life, life + (life_max - life) * percent_healing, 1.0).set_trans(Tween.TRANS_SINE)
 			

@@ -17,10 +17,8 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @export var is_alive : bool = true
 
 @onready var ourself = $"."
-@onready var target = $target
 @onready var left_wall = $left_wall
 @onready var right_wall = $right_wall
-@onready var sprite_2d = $Sprite2D
 @onready var collision = $CollisionShape2D
 @onready var right_shoot = $right_shoot
 @onready var left_shoot = $left_shoot
@@ -45,11 +43,16 @@ var life :float = life_max
 var margin_can_shoot :float = 400.0
 var rng = RandomNumberGenerator.new()
 var time_estimate_distance_can_shoot :float = 0.0
+var target
 
 func _ready():
 	emit_signal("i_am_ready_enemy", self)
 	margin_can_shoot = rng.randf_range(100.0 , 500.0)
 	time_estimate_distance_can_shoot = rng.randf_range(0.0, TIME_ESTIMATE_DISTANCE_CAN_SHOOT)
+	_specific_ready()
+
+func _specific_ready():
+	target = $target
 
 func _physics_process(delta :float):
 	if is_running:
@@ -70,12 +73,10 @@ func process_distance_can_shoot(delta :float):
 		margin_can_shoot = rng.randf_range(100.0 , 500.0)
 		time_estimate_distance_can_shoot = 0.0
 
-func rotation_animation(delta :float, direction :Vector2):
-	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
-	collision.rotation = sprite_2d.rotation
+func rotation_animation(_delta :float, _direction :Vector2):
+	pass
 
-
-func estimate__angle_smooth() -> float:
+func estimate_angle_smooth() -> float:
 	match enemy_state:
 		Enemy_State.MOVE_SIDE_LEFT, Enemy_State.MOVE_SIDE_RIGHT: return 2.0
 		_: return 5.0
@@ -177,7 +178,7 @@ func fire(delta :float):
 		ammo.exclude_body = self 
 		ammo.global_position = target.global_position
 		ammo.origin = target.global_position
-		ammo.direction = (target.global_position - global_position).normalized()
+		ammo.direction = Vector2(0, 1)
 		bullet_time = 0.0
 
 func take_hit(power: int):

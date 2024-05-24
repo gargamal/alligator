@@ -1,72 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://dg5dmtikklnwn"]
+[gd_scene load_steps=12 format=3 uid="uid://dg5dmtikklnwn"]
 
 [ext_resource type="Script" path="res://enemy/assault_tank.gd" id="1_4tft8"]
-[ext_resource type="PackedScene" uid="uid://c25takgk0e4pj" path="res://bombshell/bombshell.tscn" id="2_d5cl6"]
+[ext_resource type="PackedScene" uid="uid://c25takgk0e4pj" path="res://ammo/bombshell.tscn" id="2_d5cl6"]
 [ext_resource type="Texture2D" uid="uid://ppt3flqmec72" path="res://enemy/asset/tank.png" id="3_650x3"]
 [ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="4_10bd6"]
 [ext_resource type="Texture2D" uid="uid://60htj46yelxm" path="res://enemy/asset/tank_canon.png" id="4_cc358"]
 
-[sub_resource type="Gradient" id="Gradient_754a7"]
-offsets = PackedFloat32Array(0, 0.997006)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4ongr"]
-gradient = SubResource("Gradient_754a7")
-
 [sub_resource type="Animation" id="Animation_rpwx8"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("death_sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("death_sprite:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_5k4qk"]
 resource_name = "death"
 length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("death_sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("death_sprite:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0001),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1xgdx"]
 _data = {
@@ -91,22 +36,21 @@ collision_mask = 13
 script = ExtResource("1_4tft8")
 ammo_scene = ExtResource("2_d5cl6")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="body_sprite" type="Sprite2D" parent="."]
 modulate = Color(0.696379, 0.398425, 3.85046e-07, 1)
-scale = Vector2(0.194791, 0.309801)
+scale = Vector2(0.31, 0.31)
 texture = ExtResource("3_650x3")
 flip_v = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-modulate = Color(0.696379, 0.398425, 3.85046e-07, 1)
-position = Vector2(-0.0433825, 1.71127e-07)
+[node name="tower_sprite" type="Sprite2D" parent="body_sprite"]
+position = Vector2(-4.69417e-11, -103.226)
 rotation = -3.14159
-scale = Vector2(0.194791, 0.309801)
 texture = ExtResource("4_cc358")
+offset = Vector2(-0.681217, -124.483)
 
-[node name="death_sprite" type="Sprite2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
-texture = SubResource("GradientTexture2D_4ongr")
+[node name="target" type="Marker2D" parent="body_sprite"]
+position = Vector2(0, 206.452)
+scale = Vector2(3.22581, 3.22581)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -116,9 +60,6 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_3yaxg")
-
-[node name="target" type="Marker2D" parent="."]
-position = Vector2(0, 72)
 
 [node name="left_wall" type="RayCast2D" parent="."]
 target_position = Vector2(-50, 2.08165e-12)

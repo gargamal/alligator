@@ -1,14 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bapw7sr4haclc"]
+[gd_scene load_steps=12 format=3 uid="uid://bapw7sr4haclc"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8wmr0"]
-[ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_fvypt"]
+[ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://ammo/bullet.tscn" id="2_fvypt"]
 [ext_resource type="Texture2D" uid="uid://xdpk1ypymrvn" path="res://player/asset/Armelvl1.png" id="3_nww2b"]
 [ext_resource type="Texture2D" uid="uid://by7uo10544i08" path="res://player/asset/Armeslvl2.png" id="4_7bnte"]
 [ext_resource type="Texture2D" uid="uid://ceqkvis8lgfrw" path="res://player/asset/Cockpit_Helicot.png" id="4_26pmp"]
 [ext_resource type="Texture2D" uid="uid://dgnxc3h01e3yn" path="res://player/asset/Rotor1.png" id="5_thjcd"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_20uhp"]
-size = Vector2(64, 128)
 
 [sub_resource type="Animation" id="Animation_yho3y"]
 length = 0.001
@@ -47,10 +44,6 @@ _data = {
 "rotor": SubResource("Animation_2eb17")
 }
 
-[sub_resource type="Gradient" id="Gradient_0tcyl"]
-offsets = PackedFloat32Array(0, 0.554878, 0.993902)
-colors = PackedColorArray(0.713683, 0.958298, 0, 1, 0.831373, 0, 0.176471, 1, 0.179322, 0, 0.0139132, 0)
-
 [sub_resource type="Gradient" id="Gradient_eymlk"]
 offsets = PackedFloat32Array(0, 0.15, 1)
 colors = PackedColorArray(0.32549, 0, 0, 1, 0.32549, 0, 0, 1, 0.999657, 0.125947, 0.0876117, 1)
@@ -79,8 +72,8 @@ position = Vector2(9.53674e-07, 0)
 scale = Vector2(0.304688, 0.304688)
 texture = ExtResource("4_26pmp")
 
-[node name="col" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_20uhp")
+[node name="col" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -56, -24, -32, -24, -16, -32, -16, -32, 8, -16, 64, 16, 64, 32, 8, 32, -16, 24, -16, 24, -32)
 
 [node name="rotor_sprite" type="Sprite2D" parent="."]
 position = Vector2(4.5759e-14, -9)
@@ -98,58 +91,16 @@ speed_scale = 2.0
 [node name="targets" type="Node2D" parent="."]
 
 [node name="main_target" type="Marker2D" parent="targets"]
-position = Vector2(0, -88)
-
-[node name="fire" type="CPUParticles2D" parent="targets/main_target"]
-emitting = false
-amount = 100
-lifetime = 0.15
-one_shot = true
-explosiveness = 1.0
-direction = Vector2(0, -1)
-spread = 0.0
-gravity = Vector2(0, -980)
-initial_velocity_min = 20.0
-initial_velocity_max = 50.0
-orbit_velocity_min = -2.0
-orbit_velocity_max = 2.0
-color_ramp = SubResource("Gradient_0tcyl")
+position = Vector2(0, -64)
+metadata/_edit_group_ = true
 
 [node name="left_target" type="Marker2D" parent="targets"]
-position = Vector2(32, -72)
-
-[node name="fire" type="CPUParticles2D" parent="targets/left_target"]
-emitting = false
-amount = 100
-lifetime = 0.15
-one_shot = true
-explosiveness = 1.0
-direction = Vector2(0, -1)
-spread = 0.0
-gravity = Vector2(0, -980)
-initial_velocity_min = 20.0
-initial_velocity_max = 50.0
-orbit_velocity_min = -2.0
-orbit_velocity_max = 2.0
-color_ramp = SubResource("Gradient_0tcyl")
+position = Vector2(28, -40)
+metadata/_edit_group_ = true
 
 [node name="right_target" type="Marker2D" parent="targets"]
-position = Vector2(-32, -72)
-
-[node name="fire" type="CPUParticles2D" parent="targets/right_target"]
-emitting = false
-amount = 100
-lifetime = 0.15
-one_shot = true
-explosiveness = 1.0
-direction = Vector2(0, -1)
-spread = 0.0
-gravity = Vector2(0, -980)
-initial_velocity_min = 20.0
-initial_velocity_max = 50.0
-orbit_velocity_min = -2.0
-orbit_velocity_max = 2.0
-color_ramp = SubResource("Gradient_0tcyl")
+position = Vector2(-28, -40)
+metadata/_edit_group_ = true
 
 [node name="life_level" type="Sprite2D" parent="."]
 position = Vector2(-50, 72)
