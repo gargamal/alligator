@@ -12,6 +12,9 @@ enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
 @onready var weapon_sprite = $weapon_sprite
 @onready var weapon_double_sprite = $weapon_double_sprite
 @onready var life_level = $life_level
+@onready var main_fire = $targets/main_target/fire
+@onready var left_fire = $targets/left_target/fire
+@onready var right_fire = $targets/right_target/fire
 
 @export var speed :float = 500.0
 @export var life :float = 50.0
@@ -43,10 +46,8 @@ func _physics_process(delta :float):
 	move_and_slide()
 	manage_shoot(delta)
 
-
 func get_speed() -> float:
 	return speed * (0.75 if input_dir.y > 0 else 1.0)
-
 
 func _input(_event):
 	if Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
@@ -61,9 +62,9 @@ func _input(_event):
 	
 	if Input.is_action_pressed("ui_shoot"):
 		shoot_state = Shoot_State.SHOOT
+	
 	elif Input.is_action_just_released("ui_shoot"):
 		shoot_state = Shoot_State.IDLE
-
 
 func manage_shoot(delta :float):
 	bullet_time += delta

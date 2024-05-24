@@ -13,17 +13,20 @@ item_scene = ExtResource("3_2i3rj")
 
 [node name="level" type="Node2D" parent="."]
 
-[node name="level_a0" parent="level" node_paths=PackedStringArray("next") instance=ExtResource("1_o0yc1")]
+[node name="level_a0" parent="level" node_paths=PackedStringArray("next", "world_drop_item") instance=ExtResource("1_o0yc1")]
 position = Vector2(0, 1080)
 next = NodePath("../level_a1")
+world_drop_item = NodePath("../../drop_item")
 
-[node name="level_a1" parent="level" node_paths=PackedStringArray("previous", "next") instance=ExtResource("1_o0yc1")]
+[node name="level_a1" parent="level" node_paths=PackedStringArray("previous", "next", "world_drop_item") instance=ExtResource("1_o0yc1")]
 previous = NodePath("../level_a0")
 next = NodePath("../level_a2")
+world_drop_item = NodePath("../../drop_item")
 
-[node name="level_a2" parent="level" node_paths=PackedStringArray("previous") instance=ExtResource("1_o0yc1")]
+[node name="level_a2" parent="level" node_paths=PackedStringArray("previous", "world_drop_item") instance=ExtResource("1_o0yc1")]
 position = Vector2(0, -1040)
 previous = NodePath("../level_a1")
+world_drop_item = NodePath("../../drop_item")
 
 [node name="enemy" type="Node2D" parent="."]
 
@@ -33,7 +36,6 @@ previous = NodePath("../level_a1")
 
 [node name="player" parent="player" node_paths=PackedStringArray("world") instance=ExtResource("2_idgyi")]
 position = Vector2(955, 992)
-life = 50.0
 world = NodePath("../../bullet")
 
 [node name="camera" parent="player" node_paths=PackedStringArray("player") instance=ExtResource("4_6heqf")]

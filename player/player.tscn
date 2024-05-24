@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bapw7sr4haclc"]
+[gd_scene load_steps=14 format=3 uid="uid://bapw7sr4haclc"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8wmr0"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_fvypt"]
@@ -46,6 +46,10 @@ _data = {
 "RESET": SubResource("Animation_yho3y"),
 "rotor": SubResource("Animation_2eb17")
 }
+
+[sub_resource type="Gradient" id="Gradient_0tcyl"]
+offsets = PackedFloat32Array(0, 0.554878, 0.993902)
+colors = PackedColorArray(0.713683, 0.958298, 0, 1, 0.831373, 0, 0.176471, 1, 0.179322, 0, 0.0139132, 0)
 
 [sub_resource type="Gradient" id="Gradient_eymlk"]
 offsets = PackedFloat32Array(0, 0.15, 1)
@@ -96,11 +100,56 @@ speed_scale = 2.0
 [node name="main_target" type="Marker2D" parent="targets"]
 position = Vector2(0, -88)
 
+[node name="fire" type="CPUParticles2D" parent="targets/main_target"]
+emitting = false
+amount = 100
+lifetime = 0.15
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, -980)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+color_ramp = SubResource("Gradient_0tcyl")
+
 [node name="left_target" type="Marker2D" parent="targets"]
 position = Vector2(32, -72)
 
+[node name="fire" type="CPUParticles2D" parent="targets/left_target"]
+emitting = false
+amount = 100
+lifetime = 0.15
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, -980)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+color_ramp = SubResource("Gradient_0tcyl")
+
 [node name="right_target" type="Marker2D" parent="targets"]
 position = Vector2(-32, -72)
+
+[node name="fire" type="CPUParticles2D" parent="targets/right_target"]
+emitting = false
+amount = 100
+lifetime = 0.15
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, -980)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+orbit_velocity_min = -2.0
+orbit_velocity_max = 2.0
+color_ramp = SubResource("Gradient_0tcyl")
 
 [node name="life_level" type="Sprite2D" parent="."]
 position = Vector2(-50, 72)

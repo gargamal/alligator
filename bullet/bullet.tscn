@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bow40sr71gndy"]
 
 [ext_resource type="Script" path="res://bullet/bullet.gd" id="1_pfi1p"]
-[ext_resource type="Texture2D" uid="uid://bgchbvx3614cl" path="res://bullet/asset/Bullet.png" id="2_bqk4v"]
+[ext_resource type="Texture2D" uid="uid://bruue5jlx2dha" path="res://bullet/asset/Bullet.png" id="2_tnt2l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giwgv"]
 size = Vector2(8, 16)
@@ -13,9 +13,9 @@ script = ExtResource("1_pfi1p")
 distance_max = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.6, 0, 1)
-scale = Vector2(0.3125, 0.3125)
-texture = ExtResource("2_bqk4v")
+modulate = Color(0.519039, 0.618789, 0.637263, 1)
+scale = Vector2(0.46875, 0.34375)
+texture = ExtResource("2_tnt2l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
