@@ -10,6 +10,7 @@ class_name Bullet
 @export var distance_max :float = 400.0
 
 var is_firing :bool = false
+var colliders_known :Array = []
 
 func _process(_delta):
 	if is_firing:
@@ -20,12 +21,14 @@ func _process(_delta):
 			var velocity :Vector2 = Vector2.ZERO
 			velocity = direction * speed_shoot
 			var collider :KinematicCollision2D = move_and_collide(velocity)
-			if collider:
+			if collider and not collider in colliders_known:
+				colliders_known.append(collider)
 				var obj_colide = collider.get_collider()
-				if obj_colide is Player:
-					obj_colide.take_hit(power)
-				elif obj_colide is Enemy:
-					obj_colide.take_hit(power)
+				if obj_colide != exclude_body:
+					if obj_colide is Player:
+						obj_colide.take_hit(power)
+					elif obj_colide is Enemy:
+						obj_colide.take_hit(power)
 				queue_free()
 
 func set_fire(new_direction :Vector2):

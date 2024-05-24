@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://enemy/assault_tank.tscn" id="2_cb05k"]
 [ext_resource type="PackedScene" uid="uid://bbtkbj3sj8rn1" path="res://enemy/helicopter.tscn" id="3_7hinm"]
 [ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://enemy/jeep.tscn" id="3_q0cp1"]
-[ext_resource type="Texture2D" uid="uid://bip3jsu205142" path="res://level/asset/city_1.png" id="4_2dmgx"]
+[ext_resource type="Texture2D" uid="uid://bjiiouh5otxtt" path="res://level/asset/city_1.png" id="4_2dmgx"]
 
 [sub_resource type="Gradient" id="Gradient_3vfy3"]
 colors = PackedColorArray(0.489622, 0.489622, 0.489622, 1, 0.490196, 0.490196, 0.490196, 1)

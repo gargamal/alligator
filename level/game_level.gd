@@ -22,6 +22,7 @@ const max_dist_diedbody :int = 3000
 @export var level_scene_8 :PackedScene
 @export var level_scene_9 :PackedScene
 @export var item_scene : PackedScene
+@export var max_enemy :int = 4
 
 var level_scene_instianble :Array =[]
 var rng = RandomNumberGenerator.new()
@@ -79,7 +80,10 @@ func _on_spawn_new_level(actual_level :Level):
 	id_spawn += 1
 
 func _on_level_is_ready(p_level :Level):
-	p_level.spawn(rng.randi_range(1,3), player, bullet)
+	var number_enemy_spawnable :int = max_enemy - enemy.get_children().filter(func(child): return child is Enemy and child.is_alive).size()
+	
+	if number_enemy_spawnable > 0:
+		p_level.spawn(rng.randi_range(1, number_enemy_spawnable), player, bullet)
 
 func free_level():
 	if level.get_child_count() > 4:

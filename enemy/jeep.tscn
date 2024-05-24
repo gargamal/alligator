@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://enemy/jeep.gd" id="1_c2b0c"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_df26y"]
-[ext_resource type="Texture2D" uid="uid://d2sgronx7fkr6" path="res://enemy/asset/jeep.png" id="3_01osj"]
-[ext_resource type="Texture2D" uid="uid://boq4yxw2yop37" path="res://enemy/asset/vortex.png" id="3_8iuek"]
+[ext_resource type="Texture2D" uid="uid://g6nokwkad4ha" path="res://enemy/asset/jeep.png" id="3_01osj"]
+[ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="3_8iuek"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jy5v2"]
 size = Vector2(48, 112)
@@ -23,11 +23,12 @@ script = ExtResource("1_c2b0c")
 ammo_scene = ExtResource("2_df26y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0.454047, 0.995186, 1)
+modulate = Color(0.422735, 0.449496, 0.101642, 1)
 scale = Vector2(0.248216, 0.248216)
 texture = ExtResource("3_01osj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_jy5v2")
 
 [node name="target" type="Marker2D" parent="."]

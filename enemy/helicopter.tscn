@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://enemy/helicopter.gd" id="1_kj8kn"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_kye17"]
-[ext_resource type="Texture2D" uid="uid://b5udr4xujnj81" path="res://player/asset/Armelvl1.png" id="3_anmkq"]
-[ext_resource type="Texture2D" uid="uid://bk5mscdxpbb2k" path="res://player/asset/Cockpit_Helicot.png" id="4_keh50"]
-[ext_resource type="Texture2D" uid="uid://j0fx8e7tqox2" path="res://player/asset/Rotor1.png" id="5_83xji"]
-[ext_resource type="Texture2D" uid="uid://boq4yxw2yop37" path="res://enemy/asset/vortex.png" id="5_wou5k"]
+[ext_resource type="Texture2D" uid="uid://xdpk1ypymrvn" path="res://player/asset/Armelvl1.png" id="3_anmkq"]
+[ext_resource type="Texture2D" uid="uid://ceqkvis8lgfrw" path="res://player/asset/Cockpit_Helicot.png" id="4_keh50"]
+[ext_resource type="Texture2D" uid="uid://dgnxc3h01e3yn" path="res://player/asset/Rotor1.png" id="5_83xji"]
+[ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="5_wou5k"]
 
 [sub_resource type="Animation" id="Animation_37p6c"]
 length = 0.001
@@ -56,6 +56,7 @@ offsets = PackedFloat32Array(0, 0.705521, 1)
 colors = PackedColorArray(0.219501, 0.219501, 0.219501, 1, 0.490196, 0.490196, 0.490196, 1, 1, 1, 1, 0)
 
 [node name="helicopter" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 2
 collision_mask = 11
 motion_mode = 1
@@ -100,11 +101,11 @@ position = Vector2(0, 72)
 
 [node name="left_wall" type="RayCast2D" parent="."]
 target_position = Vector2(-50, 2.08165e-12)
-collision_mask = 20
+collision_mask = 16
 
 [node name="right_wall" type="RayCast2D" parent="."]
 target_position = Vector2(50, 2.08165e-12)
-collision_mask = 20
+collision_mask = 16
 
 [node name="right_shoot" type="RayCast2D" parent="."]
 position = Vector2(-16, 64)

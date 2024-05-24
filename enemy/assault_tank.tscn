@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dg5dmtikklnwn"]
+[gd_scene load_steps=14 format=3 uid="uid://dg5dmtikklnwn"]
 
 [ext_resource type="Script" path="res://enemy/assault_tank.gd" id="1_4tft8"]
 [ext_resource type="PackedScene" uid="uid://c25takgk0e4pj" path="res://bombshell/bombshell.tscn" id="2_d5cl6"]
-[ext_resource type="Texture2D" uid="uid://d33ldkylp5thw" path="res://enemy/asset/tank.png" id="3_650x3"]
-[ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://enemy/Drop/item_drop.tscn" id="3_bm4a7"]
-[ext_resource type="Texture2D" uid="uid://boq4yxw2yop37" path="res://enemy/asset/vortex.png" id="4_10bd6"]
-[ext_resource type="Texture2D" uid="uid://dbur07fvjbtc" path="res://enemy/asset/tank_canon.png" id="4_cc358"]
+[ext_resource type="Texture2D" uid="uid://ppt3flqmec72" path="res://enemy/asset/tank.png" id="3_650x3"]
+[ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="4_10bd6"]
+[ext_resource type="Texture2D" uid="uid://60htj46yelxm" path="res://enemy/asset/tank_canon.png" id="4_cc358"]
 
 [sub_resource type="Gradient" id="Gradient_754a7"]
 offsets = PackedFloat32Array(0, 0.997006)
@@ -91,7 +90,6 @@ collision_layer = 4
 collision_mask = 13
 script = ExtResource("1_4tft8")
 ammo_scene = ExtResource("2_d5cl6")
-item_scene = ExtResource("3_bm4a7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.696379, 0.398425, 3.85046e-07, 1)

@@ -44,18 +44,23 @@ var bullet_time :float = 0.0
 func _ready():
 	emit_signal("i_am_ready_enemy", self)
 
-func _physics_process(delta):
+func _physics_process(delta :float):
 	if is_running:
 		if is_alive:
 			state_machine()
 			var direction :Vector2 = process_direction()
 			velocity = lerp(velocity, process_velocity(direction), smooth * delta)
-			sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
-			collision.rotation = sprite_2d.rotation
+			rotation_animation(delta, direction)
 			fire(delta)
 			move_and_slide()
 			
 			previous_enemy_state = enemy_state
+
+
+func rotation_animation(delta :float, direction :Vector2):
+	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
+	collision.rotation = sprite_2d.rotation
+
 
 func estimate__angle_smooth() -> float:
 	match enemy_state:
@@ -172,12 +177,22 @@ func take_hit(power: int):
 	elif quotient > 0.6:
 		smoke_20.emitting = true
 	elif quotient > 0.4:
+		if not smoke_20.emitting: smoke_20.emitting = true
 		smoke_40.emitting = true
 	elif quotient > 0.2:
+		if not smoke_20.emitting: smoke_20.emitting = true
+		if not smoke_40.emitting: smoke_40.emitting = true
 		smoke_60.emitting = true
 	elif quotient > 0.0:
+		if not smoke_20.emitting: smoke_20.emitting = true
+		if not smoke_40.emitting: smoke_40.emitting = true
+		if not smoke_60.emitting: smoke_60.emitting = true
 		smoke_80.emitting = true
 	else:
+		if not smoke_20.emitting: smoke_20.emitting = true
+		if not smoke_40.emitting: smoke_40.emitting = true
+		if not smoke_60.emitting: smoke_60.emitting = true
+		if not smoke_80.emitting: smoke_60.emitting = true
 		death_smoke.emitting = true
 		death()
 

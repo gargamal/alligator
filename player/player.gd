@@ -23,14 +23,17 @@ var shoot_state :Shoot_State = Shoot_State.IDLE
 var bullet_time :float = 0.0
 
 func _physics_process(delta :float):
-	velocity = lerp(velocity, input_dir * speed, smooth * delta)
+	velocity = lerp(velocity, input_dir * get_speed(), smooth * delta)
 	
-	#var skew = lerp(cockpit_sprite.skew, input_dir.x*skew_grain, smooth*delta)
 	cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/15.0, 0.1)
 	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/15.0, 0.1)
 	
 	move_and_slide()
 	manage_shoot(delta)
+
+
+func get_speed() -> float:
+	return speed * (0.75 if input_dir.y > 0 else 1.0)
 
 
 func _input(_event):
