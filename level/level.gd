@@ -72,3 +72,9 @@ func block_player():
 		block_player_is_done = true
 		blocker.collision_layer = COLLISION_DECOR
 		blocker.collision_mask = COLLISION_PLAYER
+
+
+
+func _on_static_body_2d_other_body_entered(body):
+	if body is Bullet:
+		body.queue_free()

@@ -1,0 +1,147 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgntfh7ttfv45"]
+
+[ext_resource type="Script" path="res://enemy/Drop/item_drop.gd" id="1_uaijw"]
+[ext_resource type="Texture2D" uid="uid://caqto478jrv65" path="res://enemy/Drop/asset/Circle.png" id="2_xw1qx"]
+[ext_resource type="Texture2D" uid="uid://b5udr4xujnj81" path="res://player/asset/Armelvl1.png" id="3_ypskh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3m7kw"]
+radius = 32.0
+
+[sub_resource type="Animation" id="Animation_bqegi"]
+resource_name = "item_drop"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon_Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.305, 0.305), Vector2(0.4, 0.4), Vector2(0.305, 0.305), Vector2(0.4, 0.4), Vector2(0.305, 0.305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon_Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Weapon_Sprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.533037, 0.533037, 0.533037, 1), Color(1, 1, 1, 1), Color(0.533037, 0.533037, 0.533037, 1), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Circle_Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 0.619608), Color(1, 1, 0, 0.180392), Color(1, 1, 0, 0.619608)]
+}
+
+[sub_resource type="Animation" id="Animation_m1x2o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon_Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.305, 0.305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon_Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Weapon_Sprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Circle_Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0, 0.619608)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ych88"]
+_data = {
+"RESET": SubResource("Animation_m1x2o"),
+"item_drop": SubResource("Animation_bqegi")
+}
+
+[node name="ItemDrop" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_uaijw")
+
+[node name="Circle_Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 0.619608)
+scale = Vector2(0.09375, 0.092625)
+texture = ExtResource("2_xw1qx")
+
+[node name="Heal_Sprite" type="Sprite2D" parent="."]
+
+[node name="Weapon_Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.305, 0.305)
+texture = ExtResource("3_ypskh")
+offset = Vector2(2.08165e-12, 136)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_3m7kw")
+one_way_collision_margin = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ych88")
+}
+autoplay = "item_drop"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -5,6 +5,8 @@ enum Movement_State { IDLE, RUN }
 enum Shoot_State { IDLE, SHOOT }
 
 @onready var target = $target
+@onready var cockpit_sprite = $cockpit_sprite
+@onready var weapon_sprite = $weapon_sprite
 
 
 @export var speed :float = 500.0
@@ -14,7 +16,7 @@ enum Shoot_State { IDLE, SHOOT }
 @export var world :Node2D
 @export var bullet_scene :PackedScene
 
-
+var skew_grain = 10.0
 var input_dir :Vector2
 var movement_state :Movement_State = Movement_State.IDLE
 var shoot_state :Shoot_State = Shoot_State.IDLE
@@ -22,6 +24,11 @@ var bullet_time :float = 0.0
 
 func _physics_process(delta :float):
 	velocity = lerp(velocity, input_dir * speed, smooth * delta)
+	
+	#var skew = lerp(cockpit_sprite.skew, input_dir.x*skew_grain, smooth*delta)
+	cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/15.0, 0.1)
+	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/15.0, 0.1)
+	
 	move_and_slide()
 	manage_shoot(delta)
 

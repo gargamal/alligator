@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwtr4ed7eju1b"]
+[gd_scene load_steps=6 format=3 uid="uid://bwtr4ed7eju1b"]
 
 [ext_resource type="PackedScene" uid="uid://b4c1q3jiadym1" path="res://level/level_A1.tscn" id="1_o0yc1"]
 [ext_resource type="Script" path="res://level/game_level.gd" id="1_qdoty"]
 [ext_resource type="PackedScene" uid="uid://bapw7sr4haclc" path="res://player/player.tscn" id="2_idgyi"]
+[ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://enemy/Drop/item_drop.tscn" id="3_2i3rj"]
 [ext_resource type="PackedScene" uid="uid://cuj3f472e368v" path="res://camera/camera.tscn" id="4_6heqf"]
 
 [node name="game_level" type="Node2D"]
 script = ExtResource("1_qdoty")
 level_scene_1 = ExtResource("1_o0yc1")
+item_scene = ExtResource("3_2i3rj")
 
 [node name="level" type="Node2D" parent="."]
 
@@ -35,3 +37,9 @@ world = NodePath("../../bullet")
 player = NodePath("../player")
 
 [node name="bullet" type="Node2D" parent="."]
+
+[node name="clear" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="clear" to="." method="_on_clear_timeout"]

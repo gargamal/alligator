@@ -1,25 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://bapw7sr4haclc"]
+[gd_scene load_steps=10 format=3 uid="uid://bapw7sr4haclc"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8wmr0"]
-[ext_resource type="Texture2D" uid="uid://cwecdhbnnyvyq" path="res://icon.svg" id="1_38tvh"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://bullet/bullet.tscn" id="2_fvypt"]
+[ext_resource type="Texture2D" uid="uid://b5udr4xujnj81" path="res://player/asset/Armelvl1.png" id="3_nww2b"]
+[ext_resource type="Texture2D" uid="uid://bk5mscdxpbb2k" path="res://player/asset/Cockpit_Helicot.png" id="4_26pmp"]
+[ext_resource type="Texture2D" uid="uid://j0fx8e7tqox2" path="res://player/asset/Rotor1.png" id="5_thjcd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20uhp"]
 size = Vector2(64, 128)
+
+[sub_resource type="Animation" id="Animation_yho3y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rotor_sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2eb17"]
+resource_name = "rotor"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rotor_sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sip65"]
+_data = {
+"RESET": SubResource("Animation_yho3y"),
+"rotor": SubResource("Animation_2eb17")
+}
 
 [node name="player" type="CharacterBody2D"]
 z_index = 1
 collision_mask = 18
 script = ExtResource("1_8wmr0")
+life = 30
 bullet_scene = ExtResource("2_fvypt")
 
-[node name="sprite" type="Sprite2D" parent="."]
+[node name="weapon_sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.305, 0.305)
+texture = ExtResource("3_nww2b")
+
+[node name="cockpit_sprite" type="Sprite2D" parent="."]
 position = Vector2(9.53674e-07, 0)
-scale = Vector2(0.5, 1)
-texture = ExtResource("1_38tvh")
+scale = Vector2(0.304688, 0.304688)
+texture = ExtResource("4_26pmp")
 
 [node name="col" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_20uhp")
 
 [node name="target" type="Marker2D" parent="."]
 position = Vector2(0, -88)
+
+[node name="rotor_sprite" type="Sprite2D" parent="."]
+position = Vector2(4.5759e-14, -9)
+scale = Vector2(0.305, 0.305)
+texture = ExtResource("5_thjcd")
+offset = Vector2(0, 29.5082)
+
+[node name="AnimatedSprite2D" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sip65")
+}
+autoplay = "rotor"
+speed_scale = 2.0

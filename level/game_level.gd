@@ -2,6 +2,7 @@ extends Node2D
 class_name Game_Level
 
 const HEIGHT :int = 1080
+const max_dist_diedbody :int = 3000
 
 @onready var level :Node2D = $level
 @onready var player = $player/player
@@ -20,6 +21,7 @@ const HEIGHT :int = 1080
 @export var level_scene_7 :PackedScene
 @export var level_scene_8 :PackedScene
 @export var level_scene_9 :PackedScene
+@export var item_scene : PackedScene
 
 var level_scene_instianble :Array =[]
 var rng = RandomNumberGenerator.new()
@@ -88,3 +90,9 @@ func _on_block_last_level(actual_level :Level):
 		actual_level.previous.block_player()
 		free_level()
 
+
+
+func _on_clear_timeout():
+	for enemy_body in enemy.get_children():
+		if enemy_body.global_position.y > player.global_position.y + max_dist_diedbody :
+			enemy_body.queue_free()

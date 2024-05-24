@@ -3,7 +3,8 @@ class_name Enemy
 
 @export var speed :float = 200.0
 @export var speed_up :float = 800.0
-@export var life :int = 10
+@export var life_max :float = 10.0
+var life :float = life_max
 @export var smooth :float = 5.0
 @export var player :Player
 @export var max_distance_between_player :float = 900.0
@@ -13,7 +14,9 @@ class_name Enemy
 @export var world :Node2D
 @export var ammo_scene :PackedScene
 @export var is_running :bool = false
+@export var is_alive : bool = true
 
+@onready var ourself = $"."
 @onready var target = $target
 @onready var left_wall = $left_wall
 @onready var right_wall = $right_wall
@@ -21,6 +24,14 @@ class_name Enemy
 @onready var collision = $CollisionShape2D
 @onready var right_shoot = $right_shoot
 @onready var left_shoot = $left_shoot
+@onready var collision_shape_2d = $CollisionShape2D
+@onready var explosion = $Explosion
+@onready var smoke_20 = $Smokes/Smoke20
+@onready var smoke_40 = $Smokes/Smoke40
+@onready var smoke_60 = $Smokes/Smoke60
+@onready var smoke_80 = $Smokes/Smoke80
+@onready var death_smoke = $Smokes/Death_Smoke
+
 
 signal i_am_ready_enemy(my_self)
 
@@ -35,15 +46,16 @@ func _ready():
 
 func _physics_process(delta):
 	if is_running:
-		state_machine()
-		var direction :Vector2 = process_direction()
-		velocity = lerp(velocity, process_velocity(direction), smooth * delta)
-		sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
-		collision.rotation = sprite_2d.rotation
-		fire(delta)
-		move_and_slide()
-		
-		previous_enemy_state = enemy_state
+		if is_alive:
+			state_machine()
+			var direction :Vector2 = process_direction()
+			velocity = lerp(velocity, process_velocity(direction), smooth * delta)
+			sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate__angle_smooth() * delta)
+			collision.rotation = sprite_2d.rotation
+			fire(delta)
+			move_and_slide()
+			
+			previous_enemy_state = enemy_state
 
 func estimate__angle_smooth() -> float:
 	match enemy_state:
@@ -54,7 +66,7 @@ func estimate_target_angle(direction :Vector2) -> float:
 	if right_shoot.is_colliding() and left_shoot.is_colliding():
 		return 0.0
 	else:
-		return atan2(direction.x, -direction.y)
+		return atan2(-direction.x, direction.y)
 
 func process_direction():
 	var estimate_direction :Vector2 = Vector2.ZERO
@@ -152,8 +164,30 @@ func fire(delta :float):
 
 func take_hit(power: int):
 	life -= power
-	if life <= 0:
+	
+	var quotient:float = life/life_max
+	
+	if quotient > 0.8:
+		pass
+	elif quotient > 0.6:
+		smoke_20.emitting = true
+	elif quotient > 0.4:
+		smoke_40.emitting = true
+	elif quotient > 0.2:
+		smoke_60.emitting = true
+	elif quotient > 0.0:
+		smoke_80.emitting = true
+	else:
+		death_smoke.emitting = true
 		death()
 
 func death():
-	queue_free()
+	if is_alive:
+		is_alive = false
+		ourself.collision_mask = 4 
+		ourself.collision_layer = 4 
+		process_explosion()
+
+func process_explosion():
+	explosion.emitting = true
+
