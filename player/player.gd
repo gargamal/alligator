@@ -16,6 +16,8 @@ enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
 @onready var anim_smoke_fire_left = $fire_sparkles/anim_smoke_fire_left
 @onready var anim_smoke_fire_right = $fire_sparkles/anim_smoke_fire_right
 
+signal i_am_dead(my_self)
+
 @export var speed :float = 500.0
 @export var life :float = 50.0
 @export var life_max :float = 50.0
@@ -129,6 +131,7 @@ func set_life(new_life :float):
 		life_level.texture.width = int(life / life_max * 100.0 + .5)
 	else:
 		life_level.visible = false
+		emit_signal("i_am_dead")
 
 func animation_weapon():
 	match level_weapon:

@@ -12,7 +12,8 @@ const max_dist_diedbody :int = 3000
 @onready var enemy = $enemy
 @onready var bullet = $bullet
 @onready var drop_item = $drop_item
-@onready var label = $Score/Score/Label
+@onready var score_label = $Score/Score/Score_Label
+@onready var game_over = $Game_Over/Game_Over
 
 @export var level_scene_1 :PackedScene
 @export var level_scene_2 :PackedScene
@@ -109,4 +110,11 @@ func _on_clear_timeout():
 func _on_add_point():
 	points += points_per_kill
 	var strText = str(points)
-	label.text = "Score : " + strText
+	score_label.text = "Score : " + strText
+
+func _on_player_dead():
+	game_over.show()
+
+func _on_button_pressed():
+	get_tree().reload_current_scene()
+	player.set_life(player.life_max)
