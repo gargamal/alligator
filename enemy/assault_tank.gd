@@ -4,6 +4,7 @@ class_name Assault_Tank
 @onready var sprite_2d = $body_sprite
 @onready var tower_sprite = $body_sprite/tower_sprite
 
+
 func _specific_ready():
 	target = $body_sprite/target
 	fire_sparkles = $body_sprite/tower_sprite/fire_sparkles

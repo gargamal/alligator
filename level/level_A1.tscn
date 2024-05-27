@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4c1q3jiadym1"]
+[gd_scene load_steps=16 format=3 uid="uid://b4c1q3jiadym1"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_pduli"]
 [ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://enemy/assault_tank.tscn" id="2_cb05k"]
 [ext_resource type="PackedScene" uid="uid://bbtkbj3sj8rn1" path="res://enemy/helicopter.tscn" id="3_7hinm"]
 [ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://enemy/jeep.tscn" id="3_q0cp1"]
-[ext_resource type="Texture2D" uid="uid://bjiiouh5otxtt" path="res://level/asset/city_1.png" id="4_2dmgx"]
+[ext_resource type="Texture2D" uid="uid://da63co3ix33ku" path="res://level/asset/city_1.png" id="4_2dmgx"]
+[ext_resource type="PackedScene" uid="uid://mp15xma1rlvc" path="res://enemy/artillery.tscn" id="5_7yxxl"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://enemy/Drop/item_drop.tscn" id="5_80beb"]
-[ext_resource type="Texture2D" uid="uid://b37228dh0yj38" path="res://level/asset/city_2.png" id="6_32e8q"]
+[ext_resource type="Texture2D" uid="uid://cs6s0ype7ijf7" path="res://level/asset/city_2.png" id="6_32e8q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
 size = Vector2(424.5, 1106)
@@ -32,10 +33,15 @@ size = Vector2(1930, 266)
 [node name="level_a" type="Node2D"]
 z_index = -1
 script = ExtResource("1_pduli")
+signal_next_level_has_sent = null
+signal_previous_level_has_sent = null
+block_player_is_done = null
 assault_tank_scene = ExtResource("2_cb05k")
 helicopter_scene = ExtResource("3_7hinm")
 jeep_scene = ExtResource("3_q0cp1")
+artillery_scene = ExtResource("5_7yxxl")
 item_drop_scene = ExtResource("5_80beb")
+drop_chance = null
 
 [node name="road2_sprite" type="Sprite2D" parent="."]
 position = Vector2(960, 540)

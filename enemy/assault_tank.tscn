@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://enemy/assault_tank.gd" id="1_4tft8"]
 [ext_resource type="PackedScene" uid="uid://c25takgk0e4pj" path="res://ammo/bombshell.tscn" id="2_d5cl6"]
-[ext_resource type="Texture2D" uid="uid://ppt3flqmec72" path="res://enemy/asset/tank.png" id="3_650x3"]
-[ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="4_10bd6"]
-[ext_resource type="Texture2D" uid="uid://60htj46yelxm" path="res://enemy/asset/tank_canon.png" id="4_cc358"]
-[ext_resource type="Texture2D" uid="uid://dol42udrs0lk1" path="res://ammo/asset/fire_sparkles.png" id="6_4jwea"]
+[ext_resource type="Texture2D" uid="uid://doalklehclslr" path="res://enemy/asset/tank.png" id="3_650x3"]
+[ext_resource type="Texture2D" uid="uid://cqjcflkgtheav" path="res://enemy/asset/vortex.png" id="4_10bd6"]
+[ext_resource type="Texture2D" uid="uid://dao7g4jc8djwv" path="res://enemy/asset/tank_canon.png" id="4_cc358"]
+[ext_resource type="Texture2D" uid="uid://i4x7qa4bl4c3" path="res://ammo/asset/fire_sparkles.png" id="6_4jwea"]
 [ext_resource type="Animation" uid="uid://nkjfkttfa207" path="res://ammo/animation/fire_tank.tres" id="7_2ymvu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3yaxg"]
@@ -28,7 +28,16 @@ _data = {
 collision_layer = 4
 collision_mask = 13
 script = ExtResource("1_4tft8")
+speed = null
+speed_up = null
+life_max = null
+smooth = null
+max_distance_between_player = null
+margin_shoot_range = null
+bullet_cooldown = null
 ammo_scene = ExtResource("2_d5cl6")
+is_running = null
+is_alive = null
 
 [node name="body_sprite" type="Sprite2D" parent="."]
 self_modulate = Color(0.698039, 0.4, 0, 1)
