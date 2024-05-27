@@ -265,10 +265,11 @@ _data = {
 
 [node name="artillery" type="CharacterBody2D"]
 script = ExtResource("1_kjnej")
+bullet_cooldown = 1.5
 ammo_scene = ExtResource("2_hn3br")
 
 [node name="body_sprite" type="Sprite2D" parent="."]
-modulate = Color(0, 0.286275, 0.811765, 1)
+self_modulate = Color(0, 0.286275, 0.811765, 1)
 scale = Vector2(0.31, 0.31)
 texture = ExtResource("2_p5uix")
 
@@ -284,12 +285,11 @@ texture = ExtResource("2_p5uix")
 
 [node name="tower_sprite" type="Sprite2D" parent="body_sprite"]
 self_modulate = Color(0, 0.286275, 0.811765, 1)
-position = Vector2(2.1684e-19, -129.032)
-scale = Vector2(1, 1)
+position = Vector2(0, -130)
 texture = ExtResource("3_14bam")
 
 [node name="target" type="Marker2D" parent="body_sprite/tower_sprite"]
-position = Vector2(0.000823647, 309.678)
+position = Vector2(-2.1684e-19, 464.516)
 scale = Vector2(1.56088, 3.22581)
 
 [node name="fire_sparkles" type="Sprite2D" parent="body_sprite/tower_sprite"]

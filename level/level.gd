@@ -13,6 +13,7 @@ const COLLISION_DECOR :int = 16
 signal spawn_new_level(my_self)
 signal block_last_level(my_self)
 signal i_am_ready_level(my_self)
+signal add_point(my_self)
 
 @export var signal_next_level_has_sent :bool = false
 @export var signal_previous_level_has_sent :bool = false
@@ -72,6 +73,7 @@ func _on_enemy_is_death(enemy :Enemy):
 		var item_drop :ItemBox = item_drop_scene.instantiate()
 		world_drop_item.add_child(item_drop)
 		item_drop.global_position = enemy.global_position
+	emit_signal("add_point")
 
 func _on_enemy_is_ready(enemy :Enemy):
 	enemy.is_running = true

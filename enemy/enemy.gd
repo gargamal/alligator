@@ -180,7 +180,7 @@ func fire(delta :float):
 		ammo.exclude_body = self 
 		ammo.global_position = target.global_position
 		ammo.origin = target.global_position
-		ammo.direction = Vector2(0, 1)
+		ammo.direction = Vector2(0,1)
 		bullet_time = 0.0
 		fire_anim()
 

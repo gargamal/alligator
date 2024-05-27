@@ -12,6 +12,7 @@ const max_dist_diedbody :int = 3000
 @onready var enemy = $enemy
 @onready var bullet = $bullet
 @onready var drop_item = $drop_item
+@onready var label = $Score/Score/Label
 
 @export var level_scene_1 :PackedScene
 @export var level_scene_2 :PackedScene
@@ -24,11 +25,13 @@ const max_dist_diedbody :int = 3000
 @export var level_scene_9 :PackedScene
 @export var item_scene : PackedScene
 @export var max_enemy :int = 4
+@export var points_per_kill :int = 1
 
 var level_scene_instianble :Array =[]
 var rng = RandomNumberGenerator.new()
 var last_postion_level :Vector2
 var id_spawn :int = 1
+var points:int = 0
 
 func _ready():
 	for child_level in level.get_children():
@@ -77,6 +80,7 @@ func _on_spawn_new_level(actual_level :Level):
 	level_inst.connect("spawn_new_level", _on_spawn_new_level)
 	level_inst.connect("block_last_level", _on_block_last_level)
 	level_inst.connect("i_am_ready_level", _on_level_is_ready)
+	level_inst.connect("add_point", _on_add_point)
 		
 	level_inst.name = "Level_" + str(id_spawn)
 	id_spawn += 1
@@ -96,9 +100,13 @@ func _on_block_last_level(actual_level :Level):
 		actual_level.previous.block_player()
 		free_level()
 
-
-
 func _on_clear_timeout():
 	for enemy_body in enemy.get_children():
 		if enemy_body.global_position.y > player.global_position.y + max_dist_diedbody :
 			enemy_body.queue_free()
+	
+
+func _on_add_point():
+	points += points_per_kill
+	var strText = str(points)
+	label.text = "Score : " + strText

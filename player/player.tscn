@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8wmr0"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://ammo/bullet.tscn" id="2_fvypt"]
-[ext_resource type="Texture2D" uid="uid://xdpk1ypymrvn" path="res://player/asset/Armelvl1.png" id="3_nww2b"]
-[ext_resource type="Texture2D" uid="uid://by7uo10544i08" path="res://player/asset/Armeslvl2.png" id="4_7bnte"]
-[ext_resource type="Texture2D" uid="uid://ceqkvis8lgfrw" path="res://player/asset/Cockpit_Helicot.png" id="4_26pmp"]
-[ext_resource type="Texture2D" uid="uid://dgnxc3h01e3yn" path="res://player/asset/Rotor1.png" id="5_thjcd"]
-[ext_resource type="Texture2D" uid="uid://dol42udrs0lk1" path="res://ammo/asset/fire_sparkles.png" id="6_ba3k0"]
-[ext_resource type="Animation" path="res://ammo/animation/player_fire_basic.tres" id="8_8pnhb"]
-[ext_resource type="Animation" path="res://ammo/animation/player_fire_left.tres" id="9_emuoo"]
-[ext_resource type="Animation" path="res://ammo/animation/player_fire_right.tres" id="10_dgs86"]
+[ext_resource type="Texture2D" uid="uid://durtf0g7xwbr2" path="res://player/asset/Armelvl1.png" id="3_nww2b"]
+[ext_resource type="Texture2D" uid="uid://q23lqemkpumi" path="res://player/asset/Armeslvl2.png" id="4_7bnte"]
+[ext_resource type="Texture2D" uid="uid://piomf7i331s5" path="res://player/asset/Cockpit_Helicot.png" id="4_26pmp"]
+[ext_resource type="Texture2D" uid="uid://dbjght3itjd4e" path="res://player/asset/Rotor1.png" id="5_thjcd"]
+[ext_resource type="Texture2D" uid="uid://i4x7qa4bl4c3" path="res://ammo/asset/fire_sparkles.png" id="6_ba3k0"]
+[ext_resource type="Animation" uid="uid://biigdmqba2ogp" path="res://ammo/animation/player_fire_basic.tres" id="8_8pnhb"]
+[ext_resource type="Animation" uid="uid://biigdmqba4ogp" path="res://ammo/animation/player_fire_left.tres" id="9_emuoo"]
+[ext_resource type="Animation" uid="uid://biigdmqba3ogp" path="res://ammo/animation/player_fire_right.tres" id="10_dgs86"]
 
 [sub_resource type="Animation" id="Animation_8tswv"]
 resource_name = "RESET"

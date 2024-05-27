@@ -10,36 +10,23 @@
 script = ExtResource("1_qdoty")
 level_scene_1 = ExtResource("1_o0yc1")
 item_scene = ExtResource("3_2i3rj")
-max_enemy = null
 
 [node name="level" type="Node2D" parent="."]
 
 [node name="level_a0" parent="level" node_paths=PackedStringArray("next", "world_drop_item") instance=ExtResource("1_o0yc1")]
 position = Vector2(0, 1080)
-signal_next_level_has_sent = null
-signal_previous_level_has_sent = null
-block_player_is_done = null
 next = NodePath("../level_a1")
 world_drop_item = NodePath("../../drop_item")
-drop_chance = null
 
 [node name="level_a1" parent="level" node_paths=PackedStringArray("previous", "next", "world_drop_item") instance=ExtResource("1_o0yc1")]
-signal_next_level_has_sent = null
-signal_previous_level_has_sent = null
-block_player_is_done = null
 previous = NodePath("../level_a0")
 next = NodePath("../level_a2")
 world_drop_item = NodePath("../../drop_item")
-drop_chance = null
 
 [node name="level_a2" parent="level" node_paths=PackedStringArray("previous", "world_drop_item") instance=ExtResource("1_o0yc1")]
 position = Vector2(0, -1040)
-signal_next_level_has_sent = null
-signal_previous_level_has_sent = null
-block_player_is_done = null
 previous = NodePath("../level_a1")
 world_drop_item = NodePath("../../drop_item")
-drop_chance = null
 
 [node name="enemy" type="Node2D" parent="."]
 
@@ -59,5 +46,24 @@ player = NodePath("../player")
 [node name="clear" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="Score" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Control" parent="Score"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Score/Score"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 224.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 46
+text = "Score : "
 
 [connection signal="timeout" from="clear" to="." method="_on_clear_timeout"]
