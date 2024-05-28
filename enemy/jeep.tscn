@@ -27,16 +27,7 @@ _data = {
 collision_layer = 4
 collision_mask = 13
 script = ExtResource("1_c2b0c")
-speed = null
-speed_up = null
-life_max = null
-smooth = null
-max_distance_between_player = null
-margin_shoot_range = null
-bullet_cooldown = null
 ammo_scene = ExtResource("2_t8rcc")
-is_running = null
-is_alive = null
 
 [node name="body_sprite" type="Sprite2D" parent="."]
 modulate = Color(0.422735, 0.449496, 0.101642, 1)

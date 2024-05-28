@@ -289,8 +289,7 @@ position = Vector2(0, -130)
 texture = ExtResource("3_14bam")
 
 [node name="target" type="Marker2D" parent="body_sprite/tower_sprite"]
-position = Vector2(-2.1684e-19, 464.516)
-scale = Vector2(1.56088, 3.22581)
+position = Vector2(0, 470)
 
 [node name="fire_sparkles" type="Sprite2D" parent="body_sprite/tower_sprite"]
 visible = false

@@ -6,7 +6,7 @@ class_name Assault_Tank
 
 
 func _specific_ready():
-	target = $body_sprite/target
+	target = $body_sprite/tower_sprite/target
 	fire_sparkles = $body_sprite/tower_sprite/fire_sparkles
 
 func _physics_process(delta):
@@ -19,3 +19,15 @@ func rotation_animation(delta :float, direction :Vector2):
 
 func fire_anim():
 	animation_player.play("fire_tank")
+
+func fire(delta :float):
+	bullet_time += delta
+	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
+		var ammo = ammo_scene.instantiate()
+		world.add_child(ammo)
+		ammo.exclude_body = self 
+		ammo.global_position = target.global_position
+		ammo.origin = target.global_position
+		ammo.direction = Vector2(0,1)
+		bullet_time = 0.0
+		fire_anim()

@@ -6,7 +6,6 @@ class_name Artillery
 @onready var animation_player_body = $AnimationPlayer_body
 @onready var insight_shoot = $body_sprite/tower_sprite/insight_shoot
 
-
 func rotation_animation(delta :float, direction :Vector2):
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
 	collision.rotation = sprite_2d.rotation
@@ -83,16 +82,15 @@ func must_move_down() -> bool:
 	return global_position.y < player.global_position.y - margin_shoot_range and global_position.y - player.global_position.y > -max_distance_between_player
 
 func fire(delta :float):
-	if previous_enemy_state != enemy_state and enemy_state == Enemy_State.SHOOT:
-		bullet_time = bullet_cooldown 
 	#
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
-		var ammo = ammo_scene.instantiate()
-		world.add_child(ammo)
-		ammo.exclude_body = self 
-		ammo.global_position = target.global_position
-		ammo.origin = target.global_position 
-		ammo.direction = (target.global_position - global_position)
+		for i in range (5):
+			var ammo = ammo_scene.instantiate()
+			world.add_child(ammo)
+			ammo.exclude_body = self 
+			ammo.global_position = target.global_position
+			ammo.origin = target.global_position 
+			ammo.direction = (target.global_position - global_position + Vector2(-i*5,i*10)).normalized()
 		bullet_time = 0.0
 		fire_anim()

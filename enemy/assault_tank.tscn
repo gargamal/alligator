@@ -28,16 +28,8 @@ _data = {
 collision_layer = 4
 collision_mask = 13
 script = ExtResource("1_4tft8")
-speed = null
-speed_up = null
-life_max = null
-smooth = null
-max_distance_between_player = null
-margin_shoot_range = null
-bullet_cooldown = null
+bullet_cooldown = 2.0
 ammo_scene = ExtResource("2_d5cl6")
-is_running = null
-is_alive = null
 
 [node name="body_sprite" type="Sprite2D" parent="."]
 self_modulate = Color(0.698039, 0.4, 0, 1)
@@ -61,8 +53,9 @@ flip_v = true
 vframes = 3
 frame = 2
 
-[node name="target" type="Marker2D" parent="body_sprite"]
-position = Vector2(0, 206.452)
+[node name="target" type="Marker2D" parent="body_sprite/tower_sprite"]
+position = Vector2(0, -412.903)
+rotation = 3.14159
 scale = Vector2(3.22581, 3.22581)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

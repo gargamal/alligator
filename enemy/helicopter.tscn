@@ -68,16 +68,7 @@ collision_layer = 2
 collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_kj8kn")
-speed = null
-speed_up = null
-life_max = null
-smooth = null
-max_distance_between_player = null
-margin_shoot_range = null
-bullet_cooldown = null
 ammo_scene = ExtResource("2_41typ")
-is_running = null
-is_alive = null
 
 [node name="Sprite2D" type="Node2D" parent="."]
 

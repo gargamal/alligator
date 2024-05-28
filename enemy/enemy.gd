@@ -30,11 +30,14 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @onready var death_smoke = $Smokes/Death_Smoke
 @onready var animation_player = $AnimationPlayer
 
+
+
 signal i_am_ready_enemy(my_self)
 signal i_am_death(my_self)
 
 enum Enemy_State { IDLE, MOVE_UP, MOVE_DOWN, MOVE_SIDE_LEFT, MOVE_SIDE_RIGHT, SHOOT }
 
+var target
 var enemy_state :Enemy_State = Enemy_State.IDLE
 var previous_enemy_state :Enemy_State = Enemy_State.IDLE
 var bullet_time :float = 0.0
@@ -42,7 +45,6 @@ var life :float = life_max
 var margin_can_shoot :float = 400.0
 var rng = RandomNumberGenerator.new()
 var time_estimate_distance_can_shoot :float = 0.0
-var target
 var fire_sparkles
 
 func _ready():

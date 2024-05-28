@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c25takgk0e4pj"]
 
 [ext_resource type="Script" path="res://ammo/bombshell.gd" id="1_53kau"]
-[ext_resource type="Texture2D" uid="uid://bruue5jlx2dha" path="res://ammo/asset/Bullet.png" id="2_10dti"]
-[ext_resource type="Texture2D" uid="uid://dfisp7dy3swy0" path="res://enemy/asset/vortex.png" id="3_il36v"]
+[ext_resource type="Texture2D" uid="uid://d3ok3ijsh3u6i" path="res://ammo/asset/Bullet.png" id="2_10dti"]
+[ext_resource type="Texture2D" uid="uid://cqjcflkgtheav" path="res://enemy/asset/vortex.png" id="3_il36v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydjsr"]
 size = Vector2(17, 16)
@@ -13,7 +13,7 @@ colors = PackedColorArray(0.992004, 0.857897, 0.463893, 1, 1, 0.641748, 0.58665,
 
 [node name="bombshell" type="RigidBody2D"]
 collision_layer = 8
-collision_mask = 31
+collision_mask = 23
 script = ExtResource("1_53kau")
 speed_shoot = 25.0
 smooth = 1.0
