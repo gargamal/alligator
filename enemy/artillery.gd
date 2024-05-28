@@ -16,7 +16,7 @@ func _specific_ready():
 	fire_sparkles = $body_sprite/tower_sprite/fire_sparkles
 
 func fire_anim():
-	animation_player.play("fire_tank")
+	animation_player.play("fire_artillery")
 
 
 func state_machine():

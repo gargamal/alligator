@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dmmikhjr1ovsv" path="res://enemy/asset/artillery.png" id="2_p5uix"]
 [ext_resource type="Texture2D" uid="uid://cn4roax4hkbak" path="res://enemy/asset/canon_artillery.png" id="3_14bam"]
 [ext_resource type="Texture2D" uid="uid://cqjcflkgtheav" path="res://enemy/asset/vortex.png" id="4_5diju"]
-[ext_resource type="Animation" uid="uid://nkjfkttfa207" path="res://ammo/animation/fire_tank.tres" id="5_5t252"]
 [ext_resource type="Texture2D" uid="uid://i4x7qa4bl4c3" path="res://ammo/asset/fire_sparkles.png" id="7_miexj"]
+[ext_resource type="Animation" uid="uid://r7lhafkvamba" path="res://fire_artillery.tres" id="9_djo8o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klok1"]
 size = Vector2(80, 160)
@@ -260,7 +260,7 @@ tracks/14/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1xgdx"]
 _data = {
 "RESET": SubResource("Animation_u2mkv"),
-"fire_tank": ExtResource("5_5t252")
+"fire_artillery": ExtResource("9_djo8o")
 }
 
 [node name="artillery" type="CharacterBody2D"]
