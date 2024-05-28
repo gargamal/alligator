@@ -7,8 +7,15 @@ const COLLISION_DECOR :int = 16
 
 @onready var blocker = $blocker
 @onready var spawn_point = $spawn_point
-@onready var road_2_sprite = $road2_sprite
-@onready var road_1_sprite = $road1_sprite
+@onready var city_1_basic = $Sprites/city_1_basic
+@onready var city_2_basic = $Sprites/city_2_basic
+@onready var city_1_left = $Sprites/city_1_left
+@onready var city_1_right = $Sprites/city_1_right
+@onready var city_1_left_and_right = $Sprites/city_1_left_and_right
+@onready var city_2_left = $Sprites/city_2_left
+@onready var city_2_right = $Sprites/city_2_right
+@onready var city_2_left_and_right = $Sprites/city_2_left_and_right
+
 
 signal spawn_new_level(my_self)
 signal block_last_level(my_self)
@@ -44,14 +51,45 @@ func _ready():
 	if artillery_scene:
 		scene_of_spawn.append(artillery_scene)
 	
-	if rng.randi_range(1, 3) == 1:
-		road_1_sprite.visible = true
-		road_2_sprite.visible = false
-	else:
-		road_1_sprite.visible = false
-		road_2_sprite.visible = true
+	var map:int = rng.randi_range(1, 8)
+	
+	match map:
+		1:
+			clear_city()
+			city_1_basic.visible = true
+		2:
+			clear_city()
+			city_1_left.visible = true
+		3:
+			clear_city()
+			city_1_left_and_right.visible = true
+		4:
+			clear_city()
+			city_1_right.visible = true
+		5:
+			clear_city()
+			city_2_basic.visible = true
+		6:
+			clear_city()
+			city_2_left.visible = true
+		7:
+			clear_city()
+			city_2_left_and_right.visible = true
+		8:
+			clear_city()
+			city_2_right.visible = true
 	
 	emit_signal("i_am_ready_level", self)
+
+func clear_city():
+	city_1_basic.visible = false
+	city_1_left.visible = false
+	city_1_left_and_right.visible = false
+	city_1_right.visible = false
+	city_2_basic.visible = false
+	city_2_left.visible = false
+	city_2_left_and_right.visible = false
+	city_2_right.visible = false
 
 func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D):
 	var work_arr :Array = array_of_spawn.duplicate()
