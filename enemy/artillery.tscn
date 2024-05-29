@@ -1,12 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://mp15xma1rlvc"]
 
-[ext_resource type="Texture2D" uid="uid://cy1w5witwlpfv" path="res://enemy/asset/support_artillery.png" id="1_5m0aj"]
+[ext_resource type="Texture2D" uid="uid://btua382h0vo2m" path="res://enemy/asset/support_artillery.png" id="1_5m0aj"]
 [ext_resource type="Script" path="res://enemy/artillery.gd" id="1_kjnej"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://ammo/bullet.tscn" id="2_hn3br"]
-[ext_resource type="Texture2D" uid="uid://dmmikhjr1ovsv" path="res://enemy/asset/artillery.png" id="2_p5uix"]
-[ext_resource type="Texture2D" uid="uid://cn4roax4hkbak" path="res://enemy/asset/canon_artillery.png" id="3_14bam"]
-[ext_resource type="Texture2D" uid="uid://cqjcflkgtheav" path="res://enemy/asset/vortex.png" id="4_5diju"]
-[ext_resource type="Texture2D" uid="uid://i4x7qa4bl4c3" path="res://ammo/asset/fire_sparkles.png" id="7_miexj"]
+[ext_resource type="Texture2D" uid="uid://bq20cr1bretc5" path="res://enemy/asset/artillery.png" id="2_p5uix"]
+[ext_resource type="Texture2D" uid="uid://dh2akmt4u0p1s" path="res://enemy/asset/canon_artillery.png" id="3_14bam"]
+[ext_resource type="Texture2D" uid="uid://dra2q1pevhsxd" path="res://enemy/asset/vortex.png" id="4_5diju"]
+[ext_resource type="Texture2D" uid="uid://cvkjp7nmxrieb" path="res://ammo/asset/fire_sparkles.png" id="7_miexj"]
 [ext_resource type="Animation" uid="uid://r7lhafkvamba" path="res://fire_artillery.tres" id="9_djo8o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klok1"]

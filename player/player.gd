@@ -5,16 +5,16 @@ enum Movement_State { IDLE, RUN }
 enum Shoot_State { IDLE, SHOOT }
 enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
 
-@onready var main_target = $targets/main_target
-@onready var left_target = $targets/left_target
-@onready var right_target = $targets/right_target
+@onready var main_target = $cockpit_sprite/targets/main_target
+@onready var left_target = $cockpit_sprite/targets/left_target
+@onready var right_target = $cockpit_sprite/targets/right_target
 @onready var cockpit_sprite = $cockpit_sprite
-@onready var weapon_sprite = $weapon_sprite
-@onready var weapon_double_sprite = $weapon_double_sprite
+@onready var weapon_sprite = $cockpit_sprite/weapon_sprite
+@onready var weapon_double_sprite = $cockpit_sprite/weapon_double_sprite
 @onready var life_level = $life_level
-@onready var anim_smoke_fire_basic = $fire_sparkles/anim_smoke_fire_basic
-@onready var anim_smoke_fire_left = $fire_sparkles/anim_smoke_fire_left
-@onready var anim_smoke_fire_right = $fire_sparkles/anim_smoke_fire_right
+@onready var anim_smoke_fire_basic = $cockpit_sprite/fire_sparkles/anim_smoke_fire_basic
+@onready var anim_smoke_fire_left = $cockpit_sprite/fire_sparkles/anim_smoke_fire_left
+@onready var anim_smoke_fire_right = $cockpit_sprite/fire_sparkles/anim_smoke_fire_right
 
 signal i_am_dead(my_self)
 

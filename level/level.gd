@@ -15,6 +15,8 @@ const COLLISION_DECOR :int = 16
 @onready var city_2_left = $Sprites/city_2_left
 @onready var city_2_right = $Sprites/city_2_right
 @onready var city_2_left_and_right = $Sprites/city_2_left_and_right
+@onready var left_smokes = $Left_Smokes
+@onready var right_smokes = $Right_Smokes
 
 
 signal spawn_new_level(my_self)
@@ -60,24 +62,32 @@ func _ready():
 		2:
 			clear_city()
 			city_1_left.visible = true
+			left_smokes.visible = true
 		3:
 			clear_city()
 			city_1_left_and_right.visible = true
+			left_smokes.visible = true
+			right_smokes.visible = true
 		4:
 			clear_city()
 			city_1_right.visible = true
+			right_smokes.visible = true
 		5:
 			clear_city()
 			city_2_basic.visible = true
 		6:
 			clear_city()
 			city_2_left.visible = true
+			left_smokes.visible = true
 		7:
 			clear_city()
 			city_2_left_and_right.visible = true
+			left_smokes.visible = true
+			right_smokes.visible = true
 		8:
 			clear_city()
 			city_2_right.visible = true
+			right_smokes.visible = true
 	
 	emit_signal("i_am_ready_level", self)
 
@@ -90,6 +100,9 @@ func clear_city():
 	city_2_left.visible = false
 	city_2_left_and_right.visible = false
 	city_2_right.visible = false
+	
+	left_smokes.visible = false
+	right_smokes.visible = false
 
 func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D):
 	var work_arr :Array = array_of_spawn.duplicate()

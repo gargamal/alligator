@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c25takgk0e4pj"]
 
 [ext_resource type="Script" path="res://ammo/bombshell.gd" id="1_53kau"]
-[ext_resource type="Texture2D" uid="uid://d3ok3ijsh3u6i" path="res://ammo/asset/Bullet.png" id="2_10dti"]
-[ext_resource type="Texture2D" uid="uid://cqjcflkgtheav" path="res://enemy/asset/vortex.png" id="3_il36v"]
+[ext_resource type="Texture2D" uid="uid://d3fcm3kyhn0uj" path="res://ammo/asset/Bullet.png" id="2_10dti"]
+[ext_resource type="Texture2D" uid="uid://dra2q1pevhsxd" path="res://enemy/asset/vortex.png" id="3_il36v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydjsr"]
 size = Vector2(17, 16)

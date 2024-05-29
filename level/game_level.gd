@@ -114,7 +114,11 @@ func _on_add_point():
 
 func _on_player_dead():
 	game_over.show()
+	get_tree().paused = true
 
 func _on_button_pressed():
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 	player.set_life(player.life_max)
+
+
