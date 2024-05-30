@@ -1,0 +1,145 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp40vwkohdugx"]
+
+[ext_resource type="Script" path="res://Menu/Menu.gd" id="1_k6tvs"]
+[ext_resource type="AudioStream" uid="uid://317chnhhymi3" path="res://Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k6tvs")
+
+[node name="Menu_Principal" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 790.0
+offset_top = 243.0
+offset_right = 1130.0
+offset_bottom = 838.0
+
+[node name="BoxContainer" type="VBoxContainer" parent="Menu_Principal"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="Play_Button" type="Button" parent="Menu_Principal/BoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 100
+text = "Play
+"
+
+[node name="Option_Button" type="Button" parent="Menu_Principal/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Option"
+
+[node name="Quit_Button" type="Button" parent="Menu_Principal/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Quit"
+
+[node name="Menu_Option" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Margin_Container" type="MarginContainer" parent="Menu_Option"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 390.0
+offset_bottom = 195.0
+
+[node name="BoxContainer" type="VBoxContainer" parent="Menu_Option/Margin_Container"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="Return_Button" type="Button" parent="Menu_Option/Margin_Container/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Return"
+
+[node name="Label" type="Label" parent="Menu_Option"]
+layout_mode = 2
+offset_left = 1504.0
+offset_top = 72.0
+offset_right = 1874.0
+offset_bottom = 209.0
+theme_override_font_sizes/font_size = 100
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="Menu_Option"]
+layout_mode = 2
+offset_left = 1492.0
+offset_top = 206.0
+offset_right = 1892.0
+offset_bottom = 254.0
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 0.0
+step = 5.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_awlfh")
+autoplay = true
+
+[node name="Menu_Level" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Margin_Container" type="MarginContainer" parent="Menu_Level"]
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 390.0
+offset_bottom = 195.0
+
+[node name="BoxContainer" type="VBoxContainer" parent="Menu_Level/Margin_Container"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="Return_Button" type="Button" parent="Menu_Level/Margin_Container/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Return"
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu_Level"]
+layout_mode = 0
+offset_left = 757.0
+offset_top = 243.0
+offset_right = 1164.0
+offset_bottom = 838.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu_Level/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="Easy" type="Button" parent="Menu_Level/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Easy"
+
+[node name="Medium" type="Button" parent="Menu_Level/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Medium"
+
+[node name="Hard" type="Button" parent="Menu_Level/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Hard"
+
+[connection signal="pressed" from="Menu_Principal/BoxContainer/Play_Button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Menu_Principal/BoxContainer/Option_Button" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="Menu_Principal/BoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Menu_Option/Margin_Container/BoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="value_changed" from="Menu_Option/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="Menu_Level/Margin_Container/BoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="Menu_Level/MarginContainer/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Menu_Level/MarginContainer/VBoxContainer/Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="Menu_Level/MarginContainer/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
