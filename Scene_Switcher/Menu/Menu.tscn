@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dp40vwkohdugx"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/Menu/Menu.gd" id="1_k6tvs"]
-[ext_resource type="AudioStream" uid="uid://brpar06n80tsm" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
-[ext_resource type="Texture2D" uid="uid://b1b2hln30ufnj" path="res://Scene_Switcher/Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
-[ext_resource type="FontFile" uid="uid://b18tk6i75xl60" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
+[ext_resource type="AudioStream" uid="uid://cwlmklbiynycc" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
+[ext_resource type="Texture2D" uid="uid://b2e6lwgoc3k6v" path="res://Scene_Switcher/Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
+[ext_resource type="FontFile" uid="uid://b3p5oau368eic" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
