@@ -1,4 +1,5 @@
 extends Control
+class_name Menu
 
 @onready var menu_principal = $Menu_Principal
 @onready var menu_option = $Menu_Option
@@ -6,6 +7,8 @@ extends Control
 @onready var menu_pic = $Menu_Pic
 
 var difficulty:int = 1
+
+signal set_difficulty
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +23,7 @@ func clear():
 	menu_level.visible = false
 
 func _on_play_button_pressed():
-	get_tree().change_scene_to_file("res://level/game_level.tscn")
+	get_tree().change_scene_to_file("res://Scene_Switcher/level/game_level.tscn")
 
 
 func _on_option_button_pressed():
@@ -54,3 +57,7 @@ func _on_medium_pressed():
 
 func _on_hard_pressed():
 	difficulty = 3
+
+
+func _on_tree_exited():
+	emit_signal("set_difficulty")

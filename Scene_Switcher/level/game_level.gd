@@ -28,6 +28,7 @@ const max_dist_diedbody :int = 3000
 @export var item_scene : PackedScene
 @export var max_enemy :int = 4
 @export var points_per_kill :int = 1
+@export var Menu_scene :PackedScene
 
 var level_scene_instianble :Array =[]
 var rng = RandomNumberGenerator.new()
@@ -127,7 +128,7 @@ func _on_button_retry_pressed():
 
 func _on_button_menu_pressed():
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Menu/Menu.tscn")
+	get_tree().change_scene_to_file("res://Scene_Switcher/Menu/Menu.tscn")
 
 func _input(event):
 	if Input.is_action_pressed("pause_game"):

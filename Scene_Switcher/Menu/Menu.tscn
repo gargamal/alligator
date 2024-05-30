@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dp40vwkohdugx"]
 
-[ext_resource type="Script" path="res://Menu/Menu.gd" id="1_k6tvs"]
-[ext_resource type="AudioStream" uid="uid://brpar06n80tsm" path="res://Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
-[ext_resource type="Texture2D" uid="uid://b1b2hln30ufnj" path="res://Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
-[ext_resource type="FontFile" uid="uid://b18tk6i75xl60" path="res://Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
+[ext_resource type="Script" path="res://Scene_Switcher/Menu/Menu.gd" id="1_k6tvs"]
+[ext_resource type="AudioStream" uid="uid://brpar06n80tsm" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
+[ext_resource type="Texture2D" uid="uid://b1b2hln30ufnj" path="res://Scene_Switcher/Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
+[ext_resource type="FontFile" uid="uid://b18tk6i75xl60" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -165,6 +165,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Hard"
 
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="pressed" from="Menu_Principal/Margin_Container/BoxContainer/Play_Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Menu_Principal/Margin_Container/BoxContainer/Option_Button" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="Menu_Principal/Margin_Container/BoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
