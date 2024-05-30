@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dp40vwkohdugx"]
+[gd_scene load_steps=6 format=3 uid="uid://dp40vwkohdugx"]
 
 [ext_resource type="Script" path="res://Menu/Menu.gd" id="1_k6tvs"]
 [ext_resource type="AudioStream" uid="uid://317chnhhymi3" path="res://Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
+[ext_resource type="Texture2D" uid="uid://b654alr6u4flj" path="res://Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
+[ext_resource type="FontFile" uid="uid://debohro03n7c6" path="res://Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
+[ext_resource type="Texture2D" uid="uid://npxou45lyacu" path="res://Menu/asset/option menu/OptionPic.jpg" id="3_ujx6h"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -12,34 +15,74 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k6tvs")
 
-[node name="Menu_Principal" type="MarginContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 790.0
-offset_top = 243.0
-offset_right = 1130.0
-offset_bottom = 838.0
+[node name="Main_Menu_Pic" type="TextureRect" parent="."]
+modulate = Color(0.404511, 0.404511, 0.404511, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ku2ul")
+expand_mode = 2
+flip_h = true
 
-[node name="BoxContainer" type="VBoxContainer" parent="Menu_Principal"]
+[node name="Option_Menu_Pic" type="TextureRect" parent="."]
+visible = false
+modulate = Color(0.329158, 0.329158, 0.329158, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ujx6h")
+expand_mode = 2
+
+[node name="Menu_Principal" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Margin_Container" type="MarginContainer" parent="Menu_Principal"]
+layout_mode = 0
+offset_left = 793.0
+offset_top = 441.0
+offset_right = 1133.0
+offset_bottom = 1036.0
+
+[node name="BoxContainer" type="VBoxContainer" parent="Menu_Principal/Margin_Container"]
 layout_mode = 2
 theme_override_constants/separation = 80
 
-[node name="Play_Button" type="Button" parent="Menu_Principal/BoxContainer"]
+[node name="Play_Button" type="Button" parent="Menu_Principal/Margin_Container/BoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 100
 text = "Play
 "
 
-[node name="Option_Button" type="Button" parent="Menu_Principal/BoxContainer"]
+[node name="Option_Button" type="Button" parent="Menu_Principal/Margin_Container/BoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Option"
 
-[node name="Quit_Button" type="Button" parent="Menu_Principal/BoxContainer"]
+[node name="Quit_Button" type="Button" parent="Menu_Principal/Margin_Container/BoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Quit"
+
+[node name="Label" type="Label" parent="Menu_Principal"]
+layout_mode = 0
+offset_left = 661.0
+offset_top = 67.0
+offset_right = 1259.0
+offset_bottom = 331.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_aoiqs")
+theme_override_font_sizes/font_size = 200
+text = "Alligator
+"
 
 [node name="Menu_Option" type="Control" parent="."]
 visible = false
@@ -89,11 +132,13 @@ stream = ExtResource("2_awlfh")
 autoplay = true
 
 [node name="Menu_Level" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Margin_Container" type="MarginContainer" parent="Menu_Level"]
+layout_mode = 0
 offset_left = 50.0
 offset_top = 50.0
 offset_right = 390.0
@@ -134,9 +179,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Hard"
 
-[connection signal="pressed" from="Menu_Principal/BoxContainer/Play_Button" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="Menu_Principal/BoxContainer/Option_Button" to="." method="_on_option_button_pressed"]
-[connection signal="pressed" from="Menu_Principal/BoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Menu_Principal/Margin_Container/BoxContainer/Play_Button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Menu_Principal/Margin_Container/BoxContainer/Option_Button" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="Menu_Principal/Margin_Container/BoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Menu_Option/Margin_Container/BoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="value_changed" from="Menu_Option/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="Menu_Level/Margin_Container/BoxContainer/Return_Button" to="." method="_on_return_button_pressed"]

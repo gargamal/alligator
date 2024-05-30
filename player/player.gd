@@ -5,16 +5,16 @@ enum Movement_State { IDLE, RUN }
 enum Shoot_State { IDLE, SHOOT }
 enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
 
-@onready var main_target = $cockpit_sprite/targets/main_target
-@onready var left_target = $cockpit_sprite/targets/left_target
-@onready var right_target = $cockpit_sprite/targets/right_target
+@onready var main_target = $cockpit_sprite/weapon_sprite/targets/main_target
+@onready var left_target = $cockpit_sprite/weapon_sprite/targets/left_target
+@onready var right_target = $cockpit_sprite/weapon_sprite/targets/right_target
 @onready var cockpit_sprite = $cockpit_sprite
 @onready var weapon_sprite = $cockpit_sprite/weapon_sprite
 @onready var weapon_double_sprite = $cockpit_sprite/weapon_double_sprite
 @onready var life_level = $life_level
-@onready var anim_smoke_fire_basic = $cockpit_sprite/fire_sparkles/anim_smoke_fire_basic
-@onready var anim_smoke_fire_left = $cockpit_sprite/fire_sparkles/anim_smoke_fire_left
-@onready var anim_smoke_fire_right = $cockpit_sprite/fire_sparkles/anim_smoke_fire_right
+@onready var anim_smoke_fire_basic = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_basic
+@onready var anim_smoke_fire_left = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_left
+@onready var anim_smoke_fire_right = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_right
 
 signal i_am_dead(my_self)
 
@@ -91,7 +91,7 @@ func basic_shoot(target_node :Marker2D):
 	world.add_child(bullet)
 	bullet.exclude_body = self 
 	bullet.global_position = target_node.global_position
-	bullet.direction = Vector2(0, -1)
+	bullet.direction = (target_node.global_position - global_position).normalized() 
 	bullet.origin = target_node.global_position
 	bullet_time = 0.0
 

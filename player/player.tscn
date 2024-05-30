@@ -88,36 +88,11 @@ position = Vector2(0, -180.513)
 scale = Vector2(1.00102, 1.00102)
 texture = ExtResource("3_nww2b")
 
-[node name="cockpit_sprite" type="Sprite2D" parent="cockpit_sprite"]
-texture = ExtResource("5_eb245")
+[node name="fire_sparkles" type="Node2D" parent="cockpit_sprite/weapon_sprite"]
+position = Vector2(0, 81.968)
+scale = Vector2(3.27871, 3.27871)
 
-[node name="targets" type="Node2D" parent="cockpit_sprite"]
-position = Vector2(-3.28205, -105.025)
-scale = Vector2(3.28205, 3.28205)
-
-[node name="main_target" type="Marker2D" parent="cockpit_sprite/targets"]
-position = Vector2(0, -94)
-metadata/_edit_group_ = true
-
-[node name="left_target" type="Marker2D" parent="cockpit_sprite/targets"]
-position = Vector2(28, -40)
-metadata/_edit_group_ = true
-
-[node name="right_target" type="Marker2D" parent="cockpit_sprite/targets"]
-position = Vector2(-28, -40)
-metadata/_edit_group_ = true
-
-[node name="rotor_sprite" type="Sprite2D" parent="cockpit_sprite"]
-position = Vector2(-1.112e-20, -65.6409)
-scale = Vector2(1.00102, 1.00102)
-texture = ExtResource("5_thjcd")
-offset = Vector2(0, 29.5082)
-
-[node name="fire_sparkles" type="Node2D" parent="cockpit_sprite"]
-position = Vector2(0, -98.4614)
-scale = Vector2(3.28205, 3.28205)
-
-[node name="fire_sparkles_basic" type="Sprite2D" parent="cockpit_sprite/fire_sparkles"]
+[node name="fire_sparkles_basic" type="Sprite2D" parent="cockpit_sprite/weapon_sprite/fire_sparkles"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-1, -100)
@@ -127,7 +102,7 @@ texture = ExtResource("6_ba3k0")
 flip_v = true
 vframes = 3
 
-[node name="fire_sparkles_left" type="Sprite2D" parent="cockpit_sprite/fire_sparkles"]
+[node name="fire_sparkles_left" type="Sprite2D" parent="cockpit_sprite/weapon_sprite/fire_sparkles"]
 visible = false
 position = Vector2(-29, -47)
 rotation = 3.14159
@@ -137,7 +112,7 @@ flip_v = true
 vframes = 3
 frame = 2
 
-[node name="fire_sparkles_right" type="Sprite2D" parent="cockpit_sprite/fire_sparkles"]
+[node name="fire_sparkles_right" type="Sprite2D" parent="cockpit_sprite/weapon_sprite/fire_sparkles"]
 visible = false
 position = Vector2(28, -49)
 rotation = 3.14159
@@ -147,23 +122,48 @@ flip_v = true
 vframes = 3
 frame = 2
 
-[node name="anim_smoke_fire_basic" type="AnimationPlayer" parent="cockpit_sprite/fire_sparkles"]
-root_node = NodePath("../../..")
+[node name="anim_smoke_fire_basic" type="AnimationPlayer" parent="cockpit_sprite/weapon_sprite/fire_sparkles"]
+root_node = NodePath("../../../..")
 libraries = {
 "": SubResource("AnimationLibrary_jvdsf")
 }
 
-[node name="anim_smoke_fire_left" type="AnimationPlayer" parent="cockpit_sprite/fire_sparkles"]
-root_node = NodePath("../../..")
+[node name="anim_smoke_fire_left" type="AnimationPlayer" parent="cockpit_sprite/weapon_sprite/fire_sparkles"]
+root_node = NodePath("../../../..")
 libraries = {
 "": SubResource("AnimationLibrary_jvdsf")
 }
 
-[node name="anim_smoke_fire_right" type="AnimationPlayer" parent="cockpit_sprite/fire_sparkles"]
-root_node = NodePath("../../..")
+[node name="anim_smoke_fire_right" type="AnimationPlayer" parent="cockpit_sprite/weapon_sprite/fire_sparkles"]
+root_node = NodePath("../../../..")
 libraries = {
 "": SubResource("AnimationLibrary_jvdsf")
 }
+
+[node name="targets" type="Node2D" parent="cockpit_sprite/weapon_sprite"]
+position = Vector2(0, 75.411)
+scale = Vector2(3.27871, 3.27871)
+
+[node name="main_target" type="Marker2D" parent="cockpit_sprite/weapon_sprite/targets"]
+position = Vector2(0, -94)
+metadata/_edit_group_ = true
+
+[node name="left_target" type="Marker2D" parent="cockpit_sprite/weapon_sprite/targets"]
+position = Vector2(28, -49.0001)
+metadata/_edit_group_ = true
+
+[node name="right_target" type="Marker2D" parent="cockpit_sprite/weapon_sprite/targets"]
+position = Vector2(-28, -49.0001)
+metadata/_edit_group_ = true
+
+[node name="cockpit_sprite" type="Sprite2D" parent="cockpit_sprite"]
+texture = ExtResource("5_eb245")
+
+[node name="rotor_sprite" type="Sprite2D" parent="cockpit_sprite"]
+position = Vector2(-1.112e-20, -65.6409)
+scale = Vector2(1.00102, 1.00102)
+texture = ExtResource("5_thjcd")
+offset = Vector2(0, 29.5082)
 
 [node name="col" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -93, -28, -74, -28, -7, -13, 2, -12, 44, -24, 44, -24, 61, -11, 96, 13, 96, 23, 57, 23, 44, 10, 44, 11, 3, 29, -8, 28, -73)
