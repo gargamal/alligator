@@ -14,6 +14,7 @@ const max_dist_diedbody :int = 3000
 @onready var drop_item = $drop_item
 @onready var score_label = $Score/Score/Score_Label
 @onready var game_over = $Game_Over/Game_Over
+@onready var game_over_label = $Game_Over/Game_Over/Game_Over_Label
 
 @export var level_scene_1 :PackedScene
 @export var level_scene_2 :PackedScene
@@ -113,12 +114,28 @@ func _on_add_point():
 	score_label.text = "Score : " + strText
 
 func _on_player_dead():
+	game_over_label.text = "GAME OVER"
 	game_over.show()
 	get_tree().paused = true
 
-func _on_button_pressed():
+
+func _on_button_retry_pressed():
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 	player.set_life(player.life_max)
 
 
+func _on_button_menu_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Menu/Menu.tscn")
+
+func _input(event):
+	if Input.is_action_pressed("pause_game"):
+		game_over_label.text = "Pause"
+		game_over.show()
+		get_tree().paused = true
+
+
+func _on_button_resume_pressed():
+	get_tree().paused = false
+	game_over.hide()

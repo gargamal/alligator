@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp40vwkohdugx"]
+[gd_scene load_steps=5 format=3 uid="uid://dp40vwkohdugx"]
 
 [ext_resource type="Script" path="res://Menu/Menu.gd" id="1_k6tvs"]
-[ext_resource type="AudioStream" uid="uid://317chnhhymi3" path="res://Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
-[ext_resource type="Texture2D" uid="uid://b654alr6u4flj" path="res://Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
-[ext_resource type="FontFile" uid="uid://debohro03n7c6" path="res://Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
-[ext_resource type="Texture2D" uid="uid://npxou45lyacu" path="res://Menu/asset/option menu/OptionPic.jpg" id="3_ujx6h"]
+[ext_resource type="AudioStream" uid="uid://brpar06n80tsm" path="res://Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
+[ext_resource type="Texture2D" uid="uid://b1b2hln30ufnj" path="res://Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
+[ext_resource type="FontFile" uid="uid://b18tk6i75xl60" path="res://Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -15,8 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k6tvs")
 
-[node name="Main_Menu_Pic" type="TextureRect" parent="."]
-modulate = Color(0.404511, 0.404511, 0.404511, 1)
+[node name="Menu_Pic" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,18 +24,6 @@ grow_vertical = 2
 texture = ExtResource("2_ku2ul")
 expand_mode = 2
 flip_h = true
-
-[node name="Option_Menu_Pic" type="TextureRect" parent="."]
-visible = false
-modulate = Color(0.329158, 0.329158, 0.329158, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_ujx6h")
-expand_mode = 2
 
 [node name="Menu_Principal" type="Control" parent="."]
 anchors_preset = 0

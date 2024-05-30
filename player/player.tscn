@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_8wmr0"]
 [ext_resource type="PackedScene" uid="uid://bow40sr71gndy" path="res://ammo/bullet.tscn" id="2_fvypt"]
-[ext_resource type="Texture2D" uid="uid://nk2pm33367b2" path="res://player/asset/Armelvl1.png" id="3_nww2b"]
-[ext_resource type="Texture2D" uid="uid://bwalm5lxekm88" path="res://player/asset/Armeslvl2.png" id="4_7bnte"]
-[ext_resource type="Texture2D" uid="uid://m8xaqbc3jwjw" path="res://player/asset/cockpit.png" id="5_eb245"]
-[ext_resource type="Texture2D" uid="uid://cp13u1llmbw7j" path="res://player/asset/Rotor1.png" id="5_thjcd"]
-[ext_resource type="Texture2D" uid="uid://cvkjp7nmxrieb" path="res://ammo/asset/fire_sparkles.png" id="6_ba3k0"]
+[ext_resource type="Texture2D" uid="uid://bj202j4m241hk" path="res://player/asset/Armelvl1.png" id="3_nww2b"]
+[ext_resource type="Texture2D" uid="uid://c0e2o72iey4cb" path="res://player/asset/Armeslvl2.png" id="4_7bnte"]
+[ext_resource type="Texture2D" uid="uid://3mbt3vpnuv5" path="res://player/asset/cockpit.png" id="5_eb245"]
+[ext_resource type="Texture2D" uid="uid://clgxbea4qt1v0" path="res://player/asset/Rotor1.png" id="5_thjcd"]
+[ext_resource type="Texture2D" uid="uid://b43dvbbq68g03" path="res://ammo/asset/fire_sparkles.png" id="6_ba3k0"]
 [ext_resource type="Animation" uid="uid://biigdmqba2ogp" path="res://ammo/animation/player_fire_basic.tres" id="8_8pnhb"]
 [ext_resource type="Animation" uid="uid://biigdmqba4ogp" path="res://ammo/animation/player_fire_left.tres" id="9_emuoo"]
 [ext_resource type="Animation" uid="uid://biigdmqba3ogp" path="res://ammo/animation/player_fire_right.tres" id="10_dgs86"]
@@ -148,12 +148,12 @@ scale = Vector2(3.27871, 3.27871)
 position = Vector2(0, -94)
 metadata/_edit_group_ = true
 
-[node name="left_target" type="Marker2D" parent="cockpit_sprite/weapon_sprite/targets"]
-position = Vector2(28, -49.0001)
+[node name="right_target" type="Marker2D" parent="cockpit_sprite/weapon_sprite/targets"]
+position = Vector2(28.0001, -64.9999)
 metadata/_edit_group_ = true
 
-[node name="right_target" type="Marker2D" parent="cockpit_sprite/weapon_sprite/targets"]
-position = Vector2(-28, -49.0001)
+[node name="left_target" type="Marker2D" parent="cockpit_sprite/weapon_sprite/targets"]
+position = Vector2(-27.9999, -64.9999)
 metadata/_edit_group_ = true
 
 [node name="cockpit_sprite" type="Sprite2D" parent="cockpit_sprite"]

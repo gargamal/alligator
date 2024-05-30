@@ -73,7 +73,7 @@ func manage_shoot(delta :float):
 	if bullet_time > bullet_cooldown and shoot_state == Shoot_State.SHOOT:
 		match level_weapon:
 			Level_Weapon.BASIC: 
-				basic_shoot(main_target)
+				basic_shoot(main_target,main_target)
 				anim_smoke_fire_basic.play("player_fire_basic")
 			Level_Weapon.DOUBLE:
 				double_shoot()
@@ -86,23 +86,23 @@ func manage_shoot(delta :float):
 				anim_smoke_fire_left.play("player_fire_left")
 				anim_smoke_fire_right.play("player_fire_right")
 
-func basic_shoot(target_node :Marker2D):
+func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 	var bullet :Bullet = bullet_scene.instantiate()
 	world.add_child(bullet)
 	bullet.exclude_body = self 
-	bullet.global_position = target_node.global_position
-	bullet.direction = (target_node.global_position - global_position).normalized() 
-	bullet.origin = target_node.global_position
+	bullet.global_position = target_pos.global_position
+	bullet.direction = (target_dir.global_position - global_position).normalized() 
+	bullet.origin = target_pos.global_position
 	bullet_time = 0.0
 
 func double_shoot():
-	basic_shoot(left_target)
-	basic_shoot(right_target)
+	basic_shoot(main_target,left_target)
+	basic_shoot(main_target,right_target)
 
 func triple_shoot():
-	basic_shoot(main_target)
-	basic_shoot(left_target)
-	basic_shoot(right_target)
+	basic_shoot(main_target,main_target)
+	basic_shoot(main_target,left_target)
+	basic_shoot(main_target,right_target)
 
 func take_hit(power: int):
 	var tween :Tween = get_tree().create_tween()
