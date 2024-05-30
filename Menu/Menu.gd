@@ -3,6 +3,9 @@ extends Control
 @onready var menu_principal = $Menu_Principal
 @onready var menu_option = $Menu_Option
 
+signal easy
+signal medium
+signal hard
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,12 +40,12 @@ func _on_h_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
 
 func _on_easy_pressed():
-	pass # Replace with function body.
+	emit_signal("easy")
 
 
 func _on_medium_pressed():
-	pass # Replace with function body.
+	emit_signal("medium")
 
 
 func _on_hard_pressed():
-	pass # Replace with function body.
+	emit_signal("hard")
