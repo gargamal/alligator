@@ -7,6 +7,7 @@ class_name Artillery
 @onready var insight_shoot = $body_sprite/tower_sprite/insight_shoot
 
 func rotation_animation(delta :float, direction :Vector2):
+	
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
 	collision.rotation = sprite_2d.rotation
 	tower_sprite.rotation = global_position.angle_to_point(player.global_position)*1.0-deg_to_rad(90)-sprite_2d.rotation

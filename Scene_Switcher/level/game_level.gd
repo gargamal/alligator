@@ -79,14 +79,21 @@ func _on_spawn_new_level(actual_level :Level):
 	level_inst.previous.next = level_inst
 	level_inst.world = enemy
 	level_inst.world_drop_item = drop_item
+	level_inst.points = points
 	
 	level_inst.connect("spawn_new_level", _on_spawn_new_level)
 	level_inst.connect("block_last_level", _on_block_last_level)
 	level_inst.connect("i_am_ready_level", _on_level_is_ready)
 	level_inst.connect("add_point", _on_add_point)
-		
+	level_inst.connect("spawn_boss", _on_spawn_boss)
+	
+	
+	
 	level_inst.name = "Level_" + str(id_spawn)
+	
 	id_spawn += 1
+	
+
 
 func _on_level_is_ready(p_level :Level):
 	var number_enemy_spawnable :int = max_enemy - enemy.get_children().filter(func(child): return child is Enemy and child.is_alive).size()
@@ -102,6 +109,7 @@ func _on_block_last_level(actual_level :Level):
 	if actual_level.previous:
 		actual_level.previous.block_player()
 		free_level()
+
 
 func _on_clear_timeout():
 	for enemy_body in enemy.get_children():
@@ -140,3 +148,6 @@ func _input(event):
 func _on_button_resume_pressed():
 	get_tree().paused = false
 	game_over.hide()
+
+func _on_spawn_boss():
+	pass

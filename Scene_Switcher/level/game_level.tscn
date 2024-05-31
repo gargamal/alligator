@@ -12,6 +12,8 @@
 script = ExtResource("1_qdoty")
 level_scene_1 = ExtResource("1_o0yc1")
 item_scene = ExtResource("3_2i3rj")
+max_enemy = 1
+points_per_kill = 4
 
 [node name="level" type="Node2D" parent="."]
 

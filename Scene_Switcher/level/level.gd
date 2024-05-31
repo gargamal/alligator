@@ -17,8 +17,10 @@ const COLLISION_DECOR :int = 16
 @onready var city_2_left_and_right = $Sprites/city_2_left_and_right
 @onready var left_smokes = $Left_Smokes
 @onready var right_smokes = $Right_Smokes
+@onready var boss_blocker = $boss_blocker
+@onready var marker_boss = $spawn_point/Marker2D4
 
-
+signal spawn_boss(my_self)
 signal spawn_new_level(my_self)
 signal block_last_level(my_self)
 signal i_am_ready_level(my_self)
@@ -27,10 +29,12 @@ signal add_point(my_self)
 @export var signal_next_level_has_sent :bool = false
 @export var signal_previous_level_has_sent :bool = false
 @export var block_player_is_done :bool = false
+@export var block_boss_is_done :bool = false
 @export var previous :Level
 @export var next :Level
 @export var world :Node2D
 @export var world_drop_item :Node2D
+@export var boss_scene :PackedScene
 @export var assault_tank_scene :PackedScene
 @export var helicopter_scene :PackedScene
 @export var jeep_scene :PackedScene
@@ -41,6 +45,7 @@ signal add_point(my_self)
 var array_of_spawn :Array = []
 var scene_of_spawn :Array = []
 var rng = RandomNumberGenerator.new()
+@export var points :int = 0
 
 func _ready():
 	array_of_spawn = spawn_point.get_children()
@@ -107,17 +112,30 @@ func clear_city():
 func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D):
 	var work_arr :Array = array_of_spawn.duplicate()
 	
-	for idx in range(number_of_spawn):
-		var index :int = rng.randi_range(0, work_arr.size() - 1)
-		var point_spawn :Marker2D = work_arr[index]
-		var enemy :Enemy = scene_of_spawn[rng.randi_range(0, scene_of_spawn.size() - 1)].instantiate()
-		enemy.world = bullet_world
-		enemy.player = player
-		enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
-		enemy.connect("i_am_death", _on_enemy_is_death)
-		world.add_child(enemy)
-		enemy.global_position = point_spawn.global_position
-		work_arr.remove_at(index)
+	if points >= 10:
+		for idx in range(1):
+			var index :int = rng.randi_range(0, work_arr.size() - 1)
+			var point_spawn :Marker2D = work_arr[index]
+			var enemy :Enemy = boss_scene.instantiate()
+			enemy.world = bullet_world
+			enemy.player = player
+			enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
+			enemy.connect("i_am_death_boss", _on_boss_is_death)
+			world.add_child(enemy)
+			enemy.global_position = point_spawn.global_position
+			work_arr.remove_at(index)
+	else:
+		for idx in range(number_of_spawn):
+			var index :int = rng.randi_range(0, work_arr.size() - 1)
+			var point_spawn :Marker2D = work_arr[index]
+			var enemy :Enemy = scene_of_spawn[rng.randi_range(0, scene_of_spawn.size() - 1)].instantiate()
+			enemy.world = bullet_world
+			enemy.player = player
+			enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
+			enemy.connect("i_am_death", _on_enemy_is_death)
+			world.add_child(enemy)
+			enemy.global_position = point_spawn.global_position
+			work_arr.remove_at(index)
 
 func _on_enemy_is_death(enemy :Enemy):
 	if rng.randf_range(0.0, 1.0) <= drop_chance:
@@ -138,15 +156,25 @@ func _on_block_last_level_body_entered(body):
 	if not signal_previous_level_has_sent and body is Player:
 		signal_previous_level_has_sent = true
 		emit_signal("block_last_level", self)
+		if points>=10:
+			boss_blocker.collision_layer = COLLISION_DECOR
 
 func block_player():
 	if not block_player_is_done:
 		block_player_is_done = true
 		blocker.collision_layer = COLLISION_DECOR
 		blocker.collision_mask = COLLISION_PLAYER
-
-
+	
 
 func _on_static_body_2d_other_body_entered(body):
 	if body is Bullet:
 		body.queue_free()
+
+func block_for_boss():
+	if not block_boss_is_done:
+		block_boss_is_done = true
+		boss_blocker.visible = true
+		boss_blocker.collision_layer = COLLISION_DECOR
+
+func _on_boss_is_death():
+	boss_blocker.collision_layer.queue_free()

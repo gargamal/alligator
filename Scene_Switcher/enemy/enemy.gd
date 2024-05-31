@@ -46,6 +46,7 @@ var margin_can_shoot :float = 400.0
 var rng = RandomNumberGenerator.new()
 var time_estimate_distance_can_shoot :float = 0.0
 var fire_sparkles
+var life_initated = false
 
 func _ready():
 	emit_signal("i_am_ready_enemy", self)
@@ -190,6 +191,9 @@ func fire_anim():
 	animation_player.play("fire_basis")
 
 func take_hit(power: int):
+	if life_initated != true:
+		life = life_max-power
+		life_initated = true
 	life -= power
 	
 	var quotient:float = life/life_max

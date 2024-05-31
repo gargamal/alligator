@@ -14,6 +14,10 @@ TODO
 	occupe le haut du niveau et est immobile (peut changer
 	en fonction des boss) il a beaucoup plus de vie que les
 	ennemis "simples"
-		J'imaginais aussi un sprite où la ville est bloquée
+		J'imaginais ducoup un sprite où la ville est bloquée
 		par le boss et une fois qu'il meurt la ville est
 		débloquée puis on peut continuer
+
+			mitraillette du boss tir droit
+			missille avec une zone au sol pour prévenir d'où il atterira
+			et si on reste dans la zone on prend bcp de dégats

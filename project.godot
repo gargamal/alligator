@@ -50,6 +50,7 @@ pause_game={
 2d_physics/layer_4="bullet"
 2d_physics/layer_5="decor_static"
 2d_physics/layer_6="dead_enemy"
+2d_physics/layer_7="missile_landing"
 
 [rendering]
 

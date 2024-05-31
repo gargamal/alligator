@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://dgdys3ik2womk"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/enemy/enemy.gd" id="1_uctic"]
-[ext_resource type="Texture2D" uid="uid://dgpom8ysvvqfs" path="res://Scene_Switcher/enemy/asset/tank.png" id="2_0psp7"]
-[ext_resource type="Texture2D" uid="uid://bnm4gj0qf0uga" path="res://Scene_Switcher/enemy/asset/tank_canon.png" id="3_cb7eq"]
-[ext_resource type="Texture2D" uid="uid://io7vkh66fot3" path="res://Scene_Switcher/enemy/asset/vortex.png" id="4_vdtxd"]
+[ext_resource type="Texture2D" uid="uid://cj3tcvbr8s22n" path="res://Scene_Switcher/enemy/asset/tank.png" id="2_0psp7"]
+[ext_resource type="Texture2D" uid="uid://djlxi8xhw751d" path="res://Scene_Switcher/enemy/asset/tank_canon.png" id="3_cb7eq"]
+[ext_resource type="Texture2D" uid="uid://c014acly0rr3p" path="res://Scene_Switcher/enemy/asset/vortex.png" id="4_vdtxd"]
 
 [sub_resource type="Gradient" id="Gradient_16nrq"]
 offsets = PackedFloat32Array(0, 0.997006)
