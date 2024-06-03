@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Target
 
 @onready var explosion = $Explosion
 @onready var sprite_2d = $Sprite2D

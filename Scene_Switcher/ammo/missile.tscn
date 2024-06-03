@@ -11,14 +11,19 @@ size = Vector2(32, 48)
 offsets = PackedFloat32Array(0.162577, 0.831288, 0.990798)
 colors = PackedColorArray(0.992004, 0.857897, 0.463893, 1, 1, 0.641748, 0.58665, 0.560784, 1, 1, 1, 0)
 
-[node name="Missile" type="RigidBody2D"]
+[node name="Missile" type="RigidBody2D" node_paths=PackedStringArray("world")]
 collision_layer = 8
 collision_mask = 64
 script = ExtResource("1_va71v")
 speed_shoot = 1.0
+smooth = null
+direction = null
 power = 30
+origin = null
+distance_max = null
+world = NodePath("TargetWorld")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite_Missile" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(1, 1)
 scale = Vector2(1.78125, 0.96875)
@@ -44,3 +49,5 @@ angular_velocity_max = 354.88
 scale_amount_min = 0.33
 scale_amount_max = 0.5
 color_ramp = SubResource("Gradient_o3yqh")
+
+[node name="TargetWorld" type="Node2D" parent="."]
