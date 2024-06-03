@@ -12,7 +12,7 @@ class_name Boss
 @export var missile_scene : PackedScene
 @export var missile_cooldown :float = 5.0
 
-signal i_am_death_boss(my_self)
+signal i_am_dead_boss(my_self)
 
 var tower_rotation_sens_right = false
 var missile_time :float = 0.0
@@ -101,8 +101,12 @@ func choice_side_direction() -> Enemy_State:
 		return Enemy_State.MOVE_SIDE_LEFT
 	elif abs(global_position.y - player.global_position.y) > max_distance_between_player:
 		return Enemy_State.IDLE
-	else:
-		return Enemy_State.MOVE_SIDE_RIGHT if global_position.x < 960 else Enemy_State.MOVE_SIDE_LEFT
+	elif global_position.x < 940 :
+		return Enemy_State.MOVE_SIDE_RIGHT  
+	elif global_position.x > 980 :
+		return Enemy_State.MOVE_SIDE_LEFT
+	else :
+		return Enemy_State.IDLE
 
 func must_move_up() -> bool:
 	return global_position.y > player.global_position.y - margin_can_shoot
@@ -144,4 +148,4 @@ func death():
 		collision_mask = 4
 		collision_layer = 32
 		process_explosion()
-		emit_signal("i_am_death_boss", self)
+		emit_signal("i_am_dead_boss")

@@ -12,7 +12,7 @@ offsets = PackedFloat32Array(0.162577, 0.831288, 0.990798)
 colors = PackedColorArray(0.992004, 0.857897, 0.463893, 1, 1, 0.641748, 0.58665, 0.560784, 1, 1, 1, 0)
 
 [node name="Missile" type="RigidBody2D"]
-collision_layer = 0
+collision_layer = 8
 collision_mask = 64
 script = ExtResource("1_va71v")
 speed_shoot = 1.0

@@ -23,7 +23,6 @@ func _process(_delta):
 		else:
 			var velocity :Vector2 = Vector2.ZERO
 			velocity = direction * speed_shoot
-			look_at(direction.rotated(deg_to_rad(90)))
 			var collider :KinematicCollision2D = move_and_collide(velocity)
 			if collider and not collider in colliders_known:
 				colliders_known.append(collider)

@@ -35,6 +35,7 @@ var rng = RandomNumberGenerator.new()
 var last_postion_level :Vector2
 var id_spawn :int = 1
 var points:int = 0
+var nb_boss_spawned :int = 0
 
 func _ready():
 	for child_level in level.get_children():
@@ -119,7 +120,7 @@ func _on_clear_timeout():
 
 func _on_add_point():
 	points += points_per_kill
-	var strText = str(points)
+	var strText = str(points + 10 * nb_boss_spawned)
 	score_label.text = "Score : " + strText
 
 func _on_player_dead():
@@ -150,4 +151,7 @@ func _on_button_resume_pressed():
 	game_over.hide()
 
 func _on_spawn_boss():
-	pass
+	nb_boss_spawned += 1
+	points = 0
+	var strText = str(points + 10 * nb_boss_spawned)
+	score_label.text = "Score : " + strText

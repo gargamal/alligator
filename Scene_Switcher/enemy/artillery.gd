@@ -2,19 +2,27 @@ extends Enemy
 class_name Artillery
 
 @onready var sprite_2d = $body_sprite
-@onready var tower_sprite = $body_sprite/tower_sprite
+@onready var tower_sprite = $tower_sprite
 @onready var animation_player_body = $AnimationPlayer_body
-@onready var insight_shoot = $body_sprite/tower_sprite/insight_shoot
+@onready var insight_shoot = $tower_sprite/insight_shoot
+@onready var tower_pos = $body_sprite/tower_pos
+
+@export var rotation_speed = 0.01
 
 func rotation_animation(delta :float, direction :Vector2):
 	
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
 	collision.rotation = sprite_2d.rotation
-	tower_sprite.rotation = global_position.angle_to_point(player.global_position)*1.0-deg_to_rad(90)-sprite_2d.rotation
+	tower_rotation(delta)
+
+func tower_rotation(delta):
+	var t_rotation = global_position.angle_to_point(player.global_position)-deg_to_rad(90)
+	tower_sprite.rotation = lerpf(tower_sprite.rotation,t_rotation, rotation_speed)
+	tower_sprite.global_position = tower_pos.global_position
 
 func _specific_ready():
-	target = $body_sprite/tower_sprite/target
-	fire_sparkles = $body_sprite/tower_sprite/fire_sparkles
+	target = $tower_sprite/target
+	fire_sparkles = $tower_sprite/fire_sparkles
 
 func fire_anim():
 	animation_player.play("fire_artillery")
@@ -73,8 +81,12 @@ func choice_side_direction() -> Enemy_State:
 		return Enemy_State.MOVE_SIDE_LEFT
 	elif abs(global_position.y - player.global_position.y) > max_distance_between_player:
 		return Enemy_State.IDLE
-	else:
-		return Enemy_State.MOVE_SIDE_RIGHT if global_position.x < player.global_position.x else Enemy_State.MOVE_SIDE_LEFT
+	elif global_position.x < 940 :
+		return Enemy_State.MOVE_SIDE_RIGHT  
+	elif global_position.x > 980 :
+		return Enemy_State.MOVE_SIDE_LEFT
+	else :
+		return Enemy_State.IDLE
 
 func must_move_up() -> bool:
 	return global_position.y > player.global_position.y - margin_can_shoot

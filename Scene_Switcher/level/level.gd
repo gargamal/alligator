@@ -45,6 +45,7 @@ signal add_point(my_self)
 var array_of_spawn :Array = []
 var scene_of_spawn :Array = []
 var rng = RandomNumberGenerator.new()
+var nb_boss_spawned : int = 0
 @export var points :int = 0
 
 func _ready():
@@ -112,18 +113,18 @@ func clear_city():
 func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D):
 	var work_arr :Array = array_of_spawn.duplicate()
 	
-	if points >= 10:
-		for idx in range(1):
-			var index :int = rng.randi_range(0, work_arr.size() - 1)
-			var point_spawn :Marker2D = work_arr[index]
-			var enemy :Enemy = boss_scene.instantiate()
-			enemy.world = bullet_world
-			enemy.player = player
-			enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
-			enemy.connect("i_am_death_boss", _on_boss_is_death)
-			world.add_child(enemy)
-			enemy.global_position = point_spawn.global_position
-			work_arr.remove_at(index)
+	if points >= 10 - nb_boss_spawned * 10:
+		emit_signal("spawn_boss")
+		var index :int = rng.randi_range(0, work_arr.size() - 1)
+		var point_spawn :Marker2D = work_arr[index]
+		var enemy :Enemy = boss_scene.instantiate()
+		enemy.world = bullet_world
+		enemy.player = player
+		enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
+		enemy.connect("i_am_dead_boss", _on_boss_is_dead)
+		world.add_child(enemy)
+		enemy.global_position = point_spawn.global_position
+		work_arr.remove_at(index)
 	else:
 		for idx in range(number_of_spawn):
 			var index :int = rng.randi_range(0, work_arr.size() - 1)
@@ -176,5 +177,5 @@ func block_for_boss():
 		boss_blocker.visible = true
 		boss_blocker.collision_layer = COLLISION_DECOR
 
-func _on_boss_is_death():
-	boss_blocker.collision_layer.queue_free()
+func _on_boss_is_dead():
+	boss_blocker.collision_layer = 0
