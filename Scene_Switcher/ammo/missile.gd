@@ -2,7 +2,7 @@ extends RigidBody2D
 class_name Missile
 
 @onready var explosion = $Explosion
-@onready var sprite_2d = $Sprite2D
+@onready var sprite_2d = $Sprite_Missile
 @onready var target_world = $TargetWorld
 
 @export var exclude_body :Node2D

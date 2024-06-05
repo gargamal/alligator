@@ -16,11 +16,7 @@ collision_layer = 8
 collision_mask = 64
 script = ExtResource("1_va71v")
 speed_shoot = 1.0
-smooth = null
-direction = null
 power = 30
-origin = null
-distance_max = null
 world = NodePath("TargetWorld")
 
 [node name="Sprite_Missile" type="Sprite2D" parent="."]
