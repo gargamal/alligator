@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Scene_Switcher/enemy/assault_tank.gd" id="1_4tft8"]
 [ext_resource type="PackedScene" uid="uid://c25takgk0e4pj" path="res://Scene_Switcher/ammo/bombshell.tscn" id="2_d5cl6"]
-[ext_resource type="Texture2D" uid="uid://cj3tcvbr8s22n" path="res://Scene_Switcher/enemy/asset/tank.png" id="3_650x3"]
-[ext_resource type="Texture2D" uid="uid://c014acly0rr3p" path="res://Scene_Switcher/enemy/asset/vortex.png" id="4_10bd6"]
-[ext_resource type="Texture2D" uid="uid://djlxi8xhw751d" path="res://Scene_Switcher/enemy/asset/tank_canon.png" id="4_cc358"]
-[ext_resource type="Texture2D" uid="uid://bhccl3a4imefy" path="res://Scene_Switcher/ammo/asset/fire_sparkles.png" id="6_4jwea"]
+[ext_resource type="Texture2D" uid="uid://caqdddrj3o273" path="res://Scene_Switcher/enemy/asset/tank.png" id="3_650x3"]
+[ext_resource type="Texture2D" uid="uid://bgo5bfv0pyby4" path="res://Scene_Switcher/enemy/asset/vortex.png" id="4_10bd6"]
+[ext_resource type="Texture2D" uid="uid://puovnjfvnrm0" path="res://Scene_Switcher/enemy/asset/tank_canon.png" id="4_cc358"]
+[ext_resource type="Texture2D" uid="uid://cqmhyk0f6tb6p" path="res://Scene_Switcher/ammo/asset/fire_sparkles.png" id="6_4jwea"]
 [ext_resource type="Animation" uid="uid://nkjfkttfa207" path="res://Scene_Switcher/ammo/animation/fire_tank.tres" id="7_2ymvu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3yaxg"]
@@ -63,11 +63,11 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_3yaxg")
 
 [node name="left_wall" type="RayCast2D" parent="."]
-target_position = Vector2(-50, 2.08165e-12)
+target_position = Vector2(-104, 0)
 collision_mask = 20
 
 [node name="right_wall" type="RayCast2D" parent="."]
-target_position = Vector2(50, 2.08165e-12)
+target_position = Vector2(104, 0)
 collision_mask = 20
 
 [node name="right_shoot" type="RayCast2D" parent="."]

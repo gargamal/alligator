@@ -101,6 +101,7 @@ func fire(delta :float):
 		for i in range (5):
 			var ammo = ammo_scene.instantiate()
 			world.add_child(ammo)
+			ammo.speed_shoot = 10.0
 			ammo.exclude_body = self 
 			ammo.global_position = target.global_position
 			ammo.origin = target.global_position 

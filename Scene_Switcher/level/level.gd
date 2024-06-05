@@ -15,6 +15,10 @@ const COLLISION_DECOR :int = 16
 @onready var city_2_left = $Sprites/city_2_left
 @onready var city_2_right = $Sprites/city_2_right
 @onready var city_2_left_and_right = $Sprites/city_2_left_and_right
+@onready var city_boss_building = $Sprites/City_boss_building
+@onready var city_boss_fire = $Sprites/City_boss_fire
+@onready var city_boss_hole = $Sprites/City_boss_hole
+@onready var city_boss_hole_2 = $Sprites/City_boss_hole2
 @onready var left_smokes = $Left_Smokes
 @onready var right_smokes = $Right_Smokes
 @onready var boss_blocker = $boss_blocker
@@ -41,12 +45,13 @@ signal add_point(my_self)
 @export var artillery_scene :PackedScene
 @export var item_drop_scene :PackedScene
 @export_range(0.0, 1.0) var drop_chance :float = 0.2
+@export var points :int = 0
 
 var array_of_spawn :Array = []
 var scene_of_spawn :Array = []
 var rng = RandomNumberGenerator.new()
 var nb_boss_spawned : int = 0
-@export var points :int = 0
+var last_map_is_hole = false
 
 func _ready():
 	array_of_spawn = spawn_point.get_children()
@@ -59,41 +64,7 @@ func _ready():
 	if artillery_scene:
 		scene_of_spawn.append(artillery_scene)
 	
-	var map:int = rng.randi_range(1, 8)
-	
-	match map:
-		1:
-			clear_city()
-			city_1_basic.visible = true
-		2:
-			clear_city()
-			city_1_left.visible = true
-			left_smokes.visible = true
-		3:
-			clear_city()
-			city_1_left_and_right.visible = true
-			left_smokes.visible = true
-			right_smokes.visible = true
-		4:
-			clear_city()
-			city_1_right.visible = true
-			right_smokes.visible = true
-		5:
-			clear_city()
-			city_2_basic.visible = true
-		6:
-			clear_city()
-			city_2_left.visible = true
-			left_smokes.visible = true
-		7:
-			clear_city()
-			city_2_left_and_right.visible = true
-			left_smokes.visible = true
-			right_smokes.visible = true
-		8:
-			clear_city()
-			city_2_right.visible = true
-			right_smokes.visible = true
+	process_map()
 	
 	emit_signal("i_am_ready_level", self)
 
@@ -179,3 +150,65 @@ func block_for_boss():
 
 func _on_boss_is_dead():
 	boss_blocker.collision_layer = 0
+
+func process_map():
+	
+	if points >= 10 - nb_boss_spawned * 10:
+		var map:int = rng.randi_range(0, 2)
+		match map:
+			0:
+				clear_city()
+				city_boss_building.visible = true
+				last_map_is_hole = false
+			1:
+				clear_city()
+				city_boss_fire.visible = true
+				last_map_is_hole = false
+			2:
+				clear_city()
+				city_boss_hole.visible = true
+				last_map_is_hole = true
+	
+	else :
+		var map:int = rng.randi_range(1, 8)
+		match map:
+			1:
+				clear_city()
+				city_1_basic.visible = true
+				last_map_is_hole = false
+			2:
+				clear_city()
+				city_1_left.visible = true
+				left_smokes.visible = true
+				last_map_is_hole = false
+			3:
+				clear_city()
+				city_1_left_and_right.visible = true
+				left_smokes.visible = true
+				right_smokes.visible = true
+				last_map_is_hole = false
+			4:
+				clear_city()
+				city_1_right.visible = true
+				right_smokes.visible = true
+				last_map_is_hole = false
+			5:
+				clear_city()
+				city_2_basic.visible = true
+				last_map_is_hole = false
+			6:
+				clear_city()
+				city_2_left.visible = true
+				left_smokes.visible = true
+				last_map_is_hole = false
+			7:
+				clear_city()
+				city_2_left_and_right.visible = true
+				left_smokes.visible = true
+				right_smokes.visible = true
+				last_map_is_hole = false
+			8:
+				clear_city()
+				city_2_right.visible = true
+				right_smokes.visible = true
+				last_map_is_hole = false
