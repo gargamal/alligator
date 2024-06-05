@@ -110,7 +110,7 @@ func clear_city():
 	left_smokes.visible = false
 	right_smokes.visible = false
 
-func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D):
+func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D, difficulty_level :App_Game.Type_Difficulty):
 	var work_arr :Array = array_of_spawn.duplicate()
 	
 	if points >= 10 - nb_boss_spawned * 10:

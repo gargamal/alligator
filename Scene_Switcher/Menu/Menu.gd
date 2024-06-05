@@ -1,18 +1,20 @@
 extends Control
 class_name Menu
 
+const ATTENUATION_DB :float = 40.0
+
 @onready var menu_principal = $Menu_Principal
 @onready var menu_option = $Menu_Option
 @onready var menu_level = $Menu_Level
 @onready var menu_pic = $Menu_Pic
+@onready var h_slider = $Menu_Option/HSlider
 
-var difficulty:int = 1
 
-signal set_difficulty
+var game :Dictionary
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	game = App_Game.load_game()
+	h_slider.value = db_to_linear(game.params.ui_master_sound + ATTENUATION_DB)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,19 +47,19 @@ func _on_return_button_pressed():
 
 
 func _on_h_slider_value_changed(value):
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
+	var volume :float = (linear_to_db(value) if value > 0 else -10.0) - ATTENUATION_DB
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), volume)
+	game.params.ui_master_sound = volume
+	App_Game.save_game(game)
 
 func _on_easy_pressed():
-	difficulty = 1
-
+	game.game_level.difficulty = App_Game.Type_Difficulty.EASY
+	App_Game.save_game(game)
 
 func _on_medium_pressed():
-	difficulty = 2
-
+	game.game_level.difficulty = App_Game.Type_Difficulty.MEDIUM
+	App_Game.save_game(game)
 
 func _on_hard_pressed():
-	difficulty = 3
-
-
-func _on_tree_exited():
-	emit_signal("set_difficulty")
+	game.game_level.difficulty = App_Game.Type_Difficulty.HARD
+	App_Game.save_game(game)

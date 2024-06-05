@@ -36,6 +36,7 @@ var last_postion_level :Vector2
 var id_spawn :int = 1
 var points:int = 0
 var nb_boss_spawned :int = 0
+var game :Dictionary = {}
 
 func _ready():
 	for child_level in level.get_children():
@@ -67,6 +68,8 @@ func _ready():
 	level_a_0.signal_next_level_has_sent = true
 	level_a_0.signal_previous_level_has_sent = true
 	level_a_0.block_player()
+	
+	game = App_Game.load_game()
 
 func _on_spawn_new_level(actual_level :Level):
 	var level_scene :PackedScene = level_scene_instianble[rng.randi_range(0, level_scene_instianble.size() - 1)]
@@ -100,7 +103,7 @@ func _on_level_is_ready(p_level :Level):
 	var number_enemy_spawnable :int = max_enemy - enemy.get_children().filter(func(child): return child is Enemy and child.is_alive).size()
 	
 	if number_enemy_spawnable > 0:
-		p_level.spawn(rng.randi_range(1, number_enemy_spawnable), player, bullet)
+		p_level.spawn(rng.randi_range(1, number_enemy_spawnable), player, bullet, game.game_level.difficulty)
 
 func free_level():
 	if level.get_child_count() > 4:

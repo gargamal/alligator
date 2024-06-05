@@ -1,4 +1,5 @@
 extends Node
+class_name App_Game
 
 
 const SAVE_DIRECTORY = "user://save"
@@ -13,6 +14,7 @@ func _ready():
 	var dir :DirAccess = DirAccess.open("user://")
 	if not dir.dir_exists(SAVE_DIRECTORY):
 		dir.make_dir(SAVE_DIRECTORY)
+	audio_init()
 
 
 static func save_game(game :Dictionary) -> void:
@@ -21,6 +23,13 @@ static func save_game(game :Dictionary) -> void:
 	if file_save:
 		file_save.store_string(JSON.stringify(game))
 		file_save.close()
+
+
+func audio_init() -> void:
+	var game :Dictionary = App_Game.load_game()
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), game.params.ui_master_sound)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), game.params.ui_music_sound)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), game.params.ui_sfx_sound)
 
 
 static func load_game() -> Dictionary:
@@ -42,5 +51,6 @@ static func load_game() -> Dictionary:
 				"difficulty": 1
 			}
 		}
+	print_debug("game=", game)
 	
 	return game
