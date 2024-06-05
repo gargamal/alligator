@@ -51,6 +51,5 @@ static func load_game() -> Dictionary:
 				"difficulty": 1
 			}
 		}
-	print_debug("game=", game)
 	
 	return game

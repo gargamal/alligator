@@ -13,9 +13,9 @@ func rotation_animation(delta :float, direction :Vector2):
 	
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
 	collision.rotation = sprite_2d.rotation
-	tower_rotation(delta)
+	tower_rotation()
 
-func tower_rotation(delta):
+func tower_rotation():
 	var t_rotation = global_position.angle_to_point(player.global_position)-deg_to_rad(90)
 	tower_sprite.rotation = lerpf(tower_sprite.rotation,t_rotation, rotation_speed)
 	tower_sprite.global_position = tower_pos.global_position

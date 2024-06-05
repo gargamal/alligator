@@ -91,6 +91,7 @@ func manage_shoot(delta :float):
 func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 	var bullet :Bullet = bullet_scene.instantiate()
 	world.add_child(bullet)
+	bullet.power = 10
 	bullet.exclude_body = self 
 	bullet.global_position = target_pos.global_position
 	bullet.direction = (target_dir.global_position - global_position).normalized() 

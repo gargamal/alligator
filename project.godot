@@ -23,6 +23,7 @@ buses/channel_disable_threshold_db=-40.0
 [autoload]
 
 AppGame="*res://Scene_Switcher/auto_load/app_game.gd"
+AppMainLevelA="*res://Scene_Switcher/level/app_main_level_a.gd"
 
 [display]
 
