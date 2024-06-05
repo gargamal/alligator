@@ -33,6 +33,8 @@ var movement_state :Movement_State = Movement_State.IDLE
 var shoot_state :Shoot_State = Shoot_State.IDLE
 var bullet_time :float = 0.0
 var level_weapon :Level_Weapon = Level_Weapon.BASIC
+var bullet_idx :int = 0
+var rng = RandomNumberGenerator.new()
 
 func _ready():
 	life = life_max
@@ -42,14 +44,14 @@ func _ready():
 func _physics_process(delta :float):
 	velocity = lerp(velocity, input_dir * get_speed(), smooth * delta)
 	
-	cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/15.0, 0.1)
-	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/15.0, 0.1)
+	cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
+	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
 	
 	move_and_slide()
 	manage_shoot(delta)
 
 func get_speed() -> float:
-	return speed * (0.75 if input_dir.y > 0 else 1.0)
+	return speed * (0.85 if input_dir.y > 0 else 1.0)
 
 func _input(_event):
 	if Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
@@ -94,6 +96,7 @@ func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 	bullet.direction = (target_dir.global_position - global_position).normalized() 
 	bullet.origin = target_pos.global_position
 	bullet_time = 0.0
+	next_shoot()
 
 func double_shoot():
 	basic_shoot(main_target,left_target)
@@ -145,3 +148,8 @@ func animation_weapon():
 			weapon_sprite.visible = true
 			weapon_double_sprite.visible = true
 
+func next_shoot():
+	bullet_idx += 1
+	bullet_idx = bullet_idx if bullet_idx < 4 else 0
+	get_tree().create_timer(rng.randf_range(0.1, 0.2))
+	get_node("sound/shoot_gun_" + str(bullet_idx)).play()
