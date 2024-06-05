@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scene_Switcher/Menu/Menu.gd" id="1_k6tvs"]
 [ext_resource type="Theme" uid="uid://bae841tqt1b6d" path="res://Scene_Switcher/alligator_theme.tres" id="1_sdio0"]
-[ext_resource type="AudioStream" uid="uid://dqw5x4g412tto" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
-[ext_resource type="Texture2D" uid="uid://cloapn1cu0f17" path="res://Scene_Switcher/Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
-[ext_resource type="FontFile" uid="uid://b2ydheafudu5p" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
+[ext_resource type="AudioStream" uid="uid://drwj3b4m27tgw" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
+[ext_resource type="Texture2D" uid="uid://ohlnqfwcfckc" path="res://Scene_Switcher/Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_ku2ul"]
+[ext_resource type="FontFile" uid="uid://ddghf1ebrhw7u" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="3_aoiqs"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
