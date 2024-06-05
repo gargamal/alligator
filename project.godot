@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 
+[autoload]
+
+AppGame="*res://Scene_Switcher/auto_load/app_game.gd"
+
 [display]
 
 window/size/viewport_width=1920
