@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bapw7sr4haclc" path="res://Scene_Switcher/player/player.tscn" id="2_idgyi"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="3_2i3rj"]
 [ext_resource type="PackedScene" uid="uid://cuj3f472e368v" path="res://Scene_Switcher/camera/camera.tscn" id="4_6heqf"]
-[ext_resource type="AudioStream" uid="uid://cwlmklbiynycc" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="6_4wxsg"]
-[ext_resource type="FontFile" uid="uid://b3p5oau368eic" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="6_ta40m"]
+[ext_resource type="AudioStream" uid="uid://dqw5x4g412tto" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="6_4wxsg"]
+[ext_resource type="FontFile" uid="uid://b2ydheafudu5p" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="6_ta40m"]
 
 [node name="game_level" type="Node2D"]
 script = ExtResource("1_qdoty")
@@ -133,6 +133,7 @@ text = "Resume"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("6_4wxsg")
+volume_db = -20.0
 autoplay = true
 
 [connection signal="i_am_dead" from="player/player" to="." method="_on_player_dead"]

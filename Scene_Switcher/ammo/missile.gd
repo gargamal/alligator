@@ -49,11 +49,3 @@ func free_bullet():
 func set_fire(new_direction :Vector2):
 	direction = new_direction
 	is_firing = true
-
-func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
-	var target :Target = target_scene.instantiate()
-	world.add_child(target)
-	target.exclude_body = self 
-	target.global_position = player.global_position
-	target.direction = (target_dir.global_position - global_position).normalized() 
-	target.origin = target_pos.global_position
