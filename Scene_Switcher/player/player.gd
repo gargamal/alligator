@@ -97,6 +97,7 @@ func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 	bullet.direction = (target_dir.global_position - global_position).normalized() 
 	bullet.origin = target_pos.global_position
 	bullet_time = 0.0
+	bullet.flip_v = true
 	next_shoot()
 
 func double_shoot():

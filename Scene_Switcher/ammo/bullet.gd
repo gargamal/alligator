@@ -11,9 +11,14 @@ class_name Bullet
 @export var power :int = 1
 @export var origin :Vector2
 @export var distance_max :float = 400.0
+@export var flip_v :bool = false :set = set_flip_v
 
 var is_firing :bool = false
 var colliders_known :Array = []
+
+func set_flip_v(new_flip_v :bool):
+	flip_v = new_flip_v
+	sprite_2d.flip_v = flip_v
 
 func _process(_delta):
 	if is_firing and explosion and not explosion.emitting:
