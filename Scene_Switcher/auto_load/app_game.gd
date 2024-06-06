@@ -15,6 +15,7 @@ func _ready():
 	if not dir.dir_exists(SAVE_DIRECTORY):
 		dir.make_dir(SAVE_DIRECTORY)
 	audio_init()
+	cursor_init()
 
 
 static func save_game(game :Dictionary) -> void:
@@ -30,6 +31,11 @@ func audio_init() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), game.params.ui_master_sound)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), game.params.ui_music_sound)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), game.params.ui_sfx_sound)
+
+
+func cursor_init() -> void:
+	var cursor_arrow :Texture = load("res://Scene_Switcher/Menu/asset/mouse/mouse_arrow.png")
+	Input.set_custom_mouse_cursor(cursor_arrow, Input.CURSOR_ARROW, Vector2(8, 14))
 
 
 static func load_game() -> Dictionary:

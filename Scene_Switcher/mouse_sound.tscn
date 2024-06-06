@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxxbhcjgkxilc"]
+
+[ext_resource type="Script" path="res://Scene_Switcher/mouse_sound.gd" id="1_8y44w"]
+[ext_resource type="AudioStream" uid="uid://dsd31enlrq0sc" path="res://Scene_Switcher/Menu/sound/click_down.mp3" id="2_u4n20"]
+[ext_resource type="AudioStream" uid="uid://6ehmkajqbyfd" path="res://Scene_Switcher/Menu/sound/click_up.mp3" id="3_vn5lj"]
+
+[node name="mouse_sound" type="Node"]
+script = ExtResource("1_8y44w")
+
+[node name="click_down" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_u4n20")
+bus = &"SFX"
+
+[node name="click_up" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vn5lj")
+bus = &"SFX"

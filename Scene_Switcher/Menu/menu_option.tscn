@@ -1,0 +1,129 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfmlye4wts18l"]
+
+[ext_resource type="Script" path="res://Scene_Switcher/Menu/menu_option.gd" id="1_rew0a"]
+[ext_resource type="Texture2D" uid="uid://cloapn1cu0f17" path="res://Scene_Switcher/Menu/asset/main menu/fotor-ai-2024053094316.jpg" id="2_5ca70"]
+[ext_resource type="Theme" uid="uid://bae841tqt1b6d" path="res://Scene_Switcher/alligator_theme.tres" id="4_v2w1f"]
+
+[node name="Menu_Option" type="CanvasLayer"]
+script = ExtResource("1_rew0a")
+
+[node name="Menu_Pic" type="TextureRect" parent="."]
+modulate = Color(0.392157, 0.392157, 0.392157, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5ca70")
+expand_mode = 2
+flip_h = true
+
+[node name="main_cont" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_v2w1f")
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="columns" type="HBoxContainer" parent="main_cont"]
+layout_mode = 2
+theme_override_constants/separation = 192
+
+[node name="column_return" type="VBoxContainer" parent="main_cont/columns"]
+layout_mode = 2
+
+[node name="line" type="HBoxContainer" parent="main_cont/columns/column_return"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Return_Button" type="Button" parent="main_cont/columns/column_return/line"]
+layout_mode = 2
+text = "Return"
+
+[node name="space" type="MarginContainer" parent="main_cont/columns/column_return"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="column_game_level" type="VBoxContainer" parent="main_cont/columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 64
+
+[node name="Easy" type="Button" parent="main_cont/columns/column_game_level"]
+layout_mode = 2
+text = "Easy"
+
+[node name="Medium" type="Button" parent="main_cont/columns/column_game_level"]
+layout_mode = 2
+text = "Medium"
+
+[node name="Hard" type="Button" parent="main_cont/columns/column_game_level"]
+layout_mode = 2
+text = "Hard"
+
+[node name="column_volume" type="VBoxContainer" parent="main_cont/columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 64
+
+[node name="lb_master_volume" type="Label" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+text = "Master volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="master_volume" type="HSlider" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="separator" type="MarginContainer" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="lb_music_volume" type="Label" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+text = "Music volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="music_volume" type="HSlider" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="separator2" type="MarginContainer" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="lb_sfx_volume" type="Label" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+text = "SFX Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="sfx_volume" type="HSlider" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="separator3" type="MarginContainer" parent="main_cont/columns/column_volume"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[connection signal="pressed" from="main_cont/columns/column_return/line/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="main_cont/columns/column_game_level/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="main_cont/columns/column_game_level/Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="main_cont/columns/column_game_level/Hard" to="." method="_on_hard_pressed"]
+[connection signal="value_changed" from="main_cont/columns/column_volume/master_volume" to="." method="_on_master_volume_value_changed"]
+[connection signal="value_changed" from="main_cont/columns/column_volume/music_volume" to="." method="_on_music_volume_value_changed"]
+[connection signal="value_changed" from="main_cont/columns/column_volume/sfx_volume" to="." method="_on_sfx_volume_value_changed"]
