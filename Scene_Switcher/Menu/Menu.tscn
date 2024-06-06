@@ -27,7 +27,13 @@ texture = ExtResource("2_ku2ul")
 expand_mode = 2
 flip_h = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_awlfh")
+volume_db = -20.0
+autoplay = true
+
 [node name="Menu_Principal" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -73,7 +79,6 @@ text = "Alligator
 "
 
 [node name="Menu_Option" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -112,55 +117,28 @@ offset_right = 1892.0
 offset_bottom = 254.0
 size_flags_vertical = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_awlfh")
-volume_db = -20.0
-autoplay = true
-
-[node name="Menu_Level" type="Control" parent="."]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Margin_Container" type="MarginContainer" parent="Menu_Level"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 50.0
-offset_right = 390.0
-offset_bottom = 195.0
-
-[node name="BoxContainer" type="VBoxContainer" parent="Menu_Level/Margin_Container"]
-layout_mode = 2
-theme_override_constants/separation = 80
-
-[node name="Return_Button" type="Button" parent="Menu_Level/Margin_Container/BoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "Return"
-
-[node name="MarginContainer" type="MarginContainer" parent="Menu_Level"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu_Option"]
 layout_mode = 0
 offset_left = 757.0
 offset_top = 243.0
 offset_right = 1164.0
 offset_bottom = 838.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu_Level/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu_Option/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 80
 
-[node name="Easy" type="Button" parent="Menu_Level/MarginContainer/VBoxContainer"]
+[node name="Easy" type="Button" parent="Menu_Option/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Easy"
 
-[node name="Medium" type="Button" parent="Menu_Level/MarginContainer/VBoxContainer"]
+[node name="Medium" type="Button" parent="Menu_Option/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Medium"
 
-[node name="Hard" type="Button" parent="Menu_Level/MarginContainer/VBoxContainer"]
+[node name="Hard" type="Button" parent="Menu_Option/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Hard"
@@ -170,7 +148,6 @@ text = "Hard"
 [connection signal="pressed" from="Menu_Principal/Margin_Container/BoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Menu_Option/Margin_Container/BoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="value_changed" from="Menu_Option/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="pressed" from="Menu_Level/Margin_Container/BoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="Menu_Level/MarginContainer/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
-[connection signal="pressed" from="Menu_Level/MarginContainer/VBoxContainer/Medium" to="." method="_on_medium_pressed"]
-[connection signal="pressed" from="Menu_Level/MarginContainer/VBoxContainer/Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="Menu_Option/MarginContainer/VBoxContainer/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Menu_Option/MarginContainer/VBoxContainer/Medium" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="Menu_Option/MarginContainer/VBoxContainer/Hard" to="." method="_on_hard_pressed"]

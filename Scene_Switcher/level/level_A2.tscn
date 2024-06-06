@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://Scene_Switcher/enemy/jeep.tscn" id="4_gaa7g"]
 [ext_resource type="PackedScene" uid="uid://mp15xma1rlvc" path="res://Scene_Switcher/enemy/artillery.tscn" id="5_xjutt"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="6_4he2q"]
-[ext_resource type="Texture2D" uid="uid://btc0y4v68l28s" path="res://Scene_Switcher/level/asset/special_city/city_3_boss_hole2.jpg" id="15_lmch5"]
+[ext_resource type="Texture2D" uid="uid://vv8h7uamw1r6" path="res://Scene_Switcher/level/asset/special_city/city_3_boss_hole2.jpg" id="15_lmch5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
 size = Vector2(424.5, 1106)

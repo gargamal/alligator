@@ -5,7 +5,6 @@ const ATTENUATION_DB :float = 40.0
 
 @onready var menu_principal = $Menu_Principal
 @onready var menu_option = $Menu_Option
-@onready var menu_level = $Menu_Level
 @onready var menu_pic = $Menu_Pic
 @onready var h_slider = $Menu_Option/HSlider
 
@@ -22,7 +21,6 @@ func clear():
 	menu_pic.modulate = "ffffff"
 	menu_option.visible = false
 	menu_principal.visible = false
-	menu_level.visible = false
 
 func _on_play_button_pressed():
 	get_tree().change_scene_to_file("res://Scene_Switcher/level/game_level.tscn")
@@ -32,7 +30,6 @@ func _on_option_button_pressed():
 	clear()
 	menu_pic.modulate = "646464"
 	menu_option.visible = true
-	menu_level.visible = true
 
 
 func _on_quit_button_pressed():
@@ -41,7 +38,6 @@ func _on_quit_button_pressed():
 
 func _on_return_button_pressed():
 	clear()
-	menu_pic.visible = true
 	menu_principal.visible = true
 
 
