@@ -11,7 +11,7 @@ signal spawn_new_level(my_self)
 signal next_level_is_boss(my_self)
 signal block_last_level(my_self)
 signal i_am_ready_level(my_self)
-signal add_point(my_self)
+signal add_point(point_value)
 
 @export var signal_next_level_has_sent :bool = false
 @export var signal_previous_level_has_sent :bool = false
@@ -27,7 +27,7 @@ signal add_point(my_self)
 @export var artillery_scene :PackedScene
 @export var item_drop_scene :PackedScene
 @export_range(0.0, 1.0) var drop_chance :float = 0.2
-@export var points :int = 0
+@export var point_per_kill :int = 1
 
 var blocker :StaticBody2D
 var spawn_point :Node2D
@@ -58,7 +58,7 @@ func _on_enemy_is_death(enemy :Enemy):
 		var item_drop :ItemBox = item_drop_scene.instantiate()
 		world_drop_item.add_child(item_drop)
 		item_drop.global_position = enemy.global_position
-	emit_signal("add_point")
+	emit_signal("add_point", point_per_kill)
 
 func _on_enemy_is_ready(enemy :Enemy):
 	enemy.is_running = true

@@ -75,7 +75,7 @@ height = 8
 
 [node name="player" type="CharacterBody2D"]
 z_index = 2
-collision_mask = 18
+collision_mask = 402
 script = ExtResource("1_8wmr0")
 bullet_scene = ExtResource("2_fvypt")
 

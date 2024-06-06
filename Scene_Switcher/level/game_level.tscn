@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://gnh2y3rvcs5f" path="res://Scene_Switcher/level/level_boss.tscn" id="3_3ci3x"]
 [ext_resource type="PackedScene" uid="uid://b3xdhj1rkw75f" path="res://Scene_Switcher/level/level_A2.tscn" id="3_yqq5o"]
 [ext_resource type="PackedScene" uid="uid://cuj3f472e368v" path="res://Scene_Switcher/camera/camera.tscn" id="4_6heqf"]
-[ext_resource type="AudioStream" uid="uid://drwj3b4m27tgw" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="6_4wxsg"]
-[ext_resource type="FontFile" uid="uid://ddghf1ebrhw7u" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="6_ta40m"]
+[ext_resource type="AudioStream" uid="uid://dqw5x4g412tto" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="6_4wxsg"]
+[ext_resource type="FontFile" uid="uid://b2ydheafudu5p" path="res://Scene_Switcher/Menu/asset/Font/Jaini/Jaini-Regular.ttf" id="6_ta40m"]
 
 [node name="game_level" type="Node2D"]
 script = ExtResource("1_qdoty")

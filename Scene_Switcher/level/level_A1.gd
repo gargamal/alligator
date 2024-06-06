@@ -63,7 +63,7 @@ func process_map():
 		Type_City.CITY_1_LEFT, Type_City.CITY_2_LEFT:
 			left_smokes.visible = true
 		
-		Type_City.CITY_1_RIGHT, Type_City.CITY_2_LEFT:
+		Type_City.CITY_1_RIGHT, Type_City.CITY_2_RIGHT:
 			right_smokes.visible = true
 		
 		Type_City.CITY_1_LEFT_AND_RIGHT, Type_City.CITY_2_LEFT_AND_RIGHT:

@@ -60,6 +60,8 @@ pause_game={
 2d_physics/layer_5="decor_static"
 2d_physics/layer_6="dead_enemy"
 2d_physics/layer_7="missile_landing"
+2d_physics/layer_8="blocker_player"
+2d_physics/layer_9="boss"
 
 [rendering]
 
