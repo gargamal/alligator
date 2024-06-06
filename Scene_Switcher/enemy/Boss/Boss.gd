@@ -35,7 +35,7 @@ func _physics_process(delta :float):
 			
 			previous_enemy_state = enemy_state
 
-func rotation_animation(delta :float, direction :Vector2):
+func rotation_animation(_delta :float, _direction :Vector2):
 	if insight_shoot.is_colliding() and insight_shoot.get_collider() is Player:
 		pass
 	else :

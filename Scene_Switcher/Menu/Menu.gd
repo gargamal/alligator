@@ -6,6 +6,7 @@ class_name Menu
 
 
 func _ready():
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 	$Menu_Main.visible = true
 	$Menu_Option.visible = false
 

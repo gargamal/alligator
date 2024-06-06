@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scene_Switcher/Menu/Menu.gd" id="1_k6tvs"]
 [ext_resource type="PackedScene" uid="uid://dp40vwkohdugx" path="res://Scene_Switcher/Menu/Menu_main.tscn" id="2_37hr6"]
-[ext_resource type="AudioStream" uid="uid://dqw5x4g412tto" path="res://Scene_Switcher/Music/Bass Buzzer Royalty Free Music.mp3" id="2_awlfh"]
+[ext_resource type="AudioStream" uid="uid://dqw5x4g412tto" path="res://Scene_Switcher/Music/Bass Buzzer Menu.mp3" id="2_awlfh"]
 [ext_resource type="PackedScene" uid="uid://bfmlye4wts18l" path="res://Scene_Switcher/Menu/menu_option.tscn" id="3_tmrx5"]
 [ext_resource type="PackedScene" uid="uid://dxxbhcjgkxilc" path="res://Scene_Switcher/mouse_sound.tscn" id="5_3figy"]
 

@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://djag0ihwlgjgf"]
+
+[ext_resource type="Script" path="res://Scene_Switcher/Menu/menu_in_game.gd" id="1_jwc8d"]
+[ext_resource type="Theme" uid="uid://bae841tqt1b6d" path="res://Scene_Switcher/alligator_theme.tres" id="1_w6nq3"]
+[ext_resource type="PackedScene" uid="uid://dxxbhcjgkxilc" path="res://Scene_Switcher/mouse_sound.tscn" id="3_ma6md"]
+
+[node name="Game_Over" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_jwc8d")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29219, 0.29219, 0.29219, 0.392157)
+
+[node name="Game_Over" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_w6nq3")
+theme_override_constants/margin_left = 512
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 512
+theme_override_constants/margin_bottom = 128
+
+[node name="line" type="VBoxContainer" parent="Game_Over"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Game_Over_Label" type="Label" parent="Game_Over/line"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btn_marg" type="MarginContainer" parent="Game_Over/line"]
+layout_mode = 2
+theme_override_constants/margin_left = 192
+theme_override_constants/margin_right = 192
+
+[node name="btns" type="VBoxContainer" parent="Game_Over/line/btn_marg"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Button_Resume" type="Button" parent="Game_Over/line/btn_marg/btns"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Button_Retry" type="Button" parent="Game_Over/line/btn_marg/btns"]
+layout_mode = 2
+text = "Try again
+"
+icon_alignment = 1
+
+[node name="Button_Menu" type="Button" parent="Game_Over/line/btn_marg/btns"]
+layout_mode = 2
+text = "Menu"
+
+[node name="mouse_sound" parent="." instance=ExtResource("3_ma6md")]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Game_Over/line/btn_marg/btns/Button_Resume" to="." method="_on_button_resume_pressed"]
+[connection signal="pressed" from="Game_Over/line/btn_marg/btns/Button_Retry" to="." method="_on_button_retry_pressed"]
+[connection signal="pressed" from="Game_Over/line/btn_marg/btns/Button_Menu" to="." method="_on_button_menu_pressed"]

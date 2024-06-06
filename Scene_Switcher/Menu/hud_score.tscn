@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://b152stqnpng2k"]
+
+[ext_resource type="Script" path="res://Scene_Switcher/Menu/hud_score.gd" id="1_xntjc"]
+
+[node name="hud_score" type="CanvasLayer"]
+script = ExtResource("1_xntjc")
+
+[node name="Score" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score_Label" type="Label" parent="Score"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 224.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 46
+text = "Score : "

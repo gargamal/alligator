@@ -3,7 +3,7 @@ class_name Game_Level
 
 const HEIGHT :int = 1080
 const max_dist_diedbody :int = 3000
-const KILL_LIMIT_TO_CALL_BOSS :int = 5
+const KILL_LIMIT_TO_CALL_BOSS :int = 15
 
 @onready var level :Node2D = $level
 @onready var player = $player/player
@@ -14,8 +14,8 @@ const KILL_LIMIT_TO_CALL_BOSS :int = 5
 @onready var bullet = $bullet
 @onready var drop_item = $drop_item
 @onready var score_label = $Score/Score/Score_Label
-@onready var game_over = $Game_Over/Game_Over
-@onready var game_over_label = $Game_Over/Game_Over/Game_Over_Label
+@onready var game_over = $Game_Over
+
 
 @export var level_scene_1 :PackedScene
 @export var level_scene_2 :PackedScene
@@ -42,6 +42,7 @@ var game :Dictionary = {}
 var nb_kill :int = 0
 
 func _ready():
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
 	for child_level in level.get_children():
 		child_level.connect("spawn_new_level", _on_spawn_new_level)
 		child_level.connect("block_last_level", _on_block_last_level)
@@ -74,6 +75,9 @@ func _ready():
 	
 	game = App_Game.load_game()
 	_on_add_point(0)
+	game_over.visible = false
+	player.set_life(player.life_max)
+	
 
 func _on_spawn_new_level(actual_level :Node2D):
 	var level_scene :PackedScene = level_scene_instianble[rng.randi_range(0, level_scene_instianble.size() - 1)]
@@ -150,31 +154,15 @@ func _on_add_point(point_value :int):
 					child_level.boss_can_spawn = true
 
 func _on_player_dead():
-	game_over_label.text = "GAME OVER"
-	game_over.show()
-	get_tree().paused = true
+	game_over.title_name = "GAME OVER"
+	game_over.visible = true
 
-
-func _on_button_retry_pressed():
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-	player.set_life(player.life_max)
-
-
-func _on_button_menu_pressed():
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Scene_Switcher/Menu/Menu.tscn")
 
 func _input(_event):
 	if Input.is_action_pressed("pause_game"):
-		game_over_label.text = "Pause"
-		game_over.show()
-		get_tree().paused = true
+		game_over.title_name = "Pause"
+		game_over.visible = true
 
-
-func _on_button_resume_pressed():
-	get_tree().paused = false
-	game_over.hide()
 
 func _on_spawn_boss_level(actual_level :Node2D):
 	if actual_level.next is Level_Boss or actual_level is Level_Boss:
