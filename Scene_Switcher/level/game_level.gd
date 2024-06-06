@@ -100,6 +100,8 @@ func spawn_new_level(actual_level :Node2D, level_inst :App_Main_Level_A):
 	
 	level_inst.name = "Level_" + str(id_spawn)
 	
+	print_debug("level_inst=",level_inst.name)
+	
 	id_spawn += 1
 
 func _on_level_is_ready(p_level :App_Main_Level_A):
