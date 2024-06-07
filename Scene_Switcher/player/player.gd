@@ -36,6 +36,7 @@ var level_weapon :Level_Weapon = Level_Weapon.BASIC
 var bullet_idx :int = 0
 var rng = RandomNumberGenerator.new()
 var weapon_heat :int = 0
+var overheat :bool = false
 
 func _ready():
 	life = life_max
@@ -90,7 +91,7 @@ func manage_shoot(delta :float):
 				anim_smoke_fire_right.play("player_fire_right")
 
 func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
-	if weapon_heat_process() :
+	if weapon_heat_process(weapon_heat) and not overheat:
 		var bullet :Bullet = bullet_scene.instantiate()
 		world.add_child(bullet)
 		bullet.exclude_body = self 
@@ -99,9 +100,13 @@ func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 		bullet.origin = target_pos.global_position
 		bullet_time = 0.0
 		bullet.flip_v = true
-		weapon_heat += 1
+		weapon_heat += 10
 		print("weapon_heat=",weapon_heat)
 		next_shoot()
+	else :
+		weapon_heat -= 1
+		if weapon_heat <5:
+			overheat = false
 
 func double_shoot():
 	basic_shoot(main_target,left_target)
@@ -158,8 +163,8 @@ func next_shoot():
 	get_tree().create_timer(rng.randf_range(0.1, 0.2))
 	get_node("sound/shoot_gun_" + str(bullet_idx)).play()
 
-func weapon_heat_process():
-	if weapon_heat > 10:
-		get_tree().create_timer(1.0)
-		weapon_heat = 0
+func weapon_heat_process(heat):
+	if heat > 90:
+		overheat = true
+		return false
 	return true
