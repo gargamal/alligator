@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://4i6exoro7kiu"]
+
+[ext_resource type="AudioStream" uid="uid://3vx4fjdofpec" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (1).mp3" id="1_bsbhc"]
+[ext_resource type="Script" path="res://Scene_Switcher/ammo/sound/bullet_impacts.gd" id="1_m5p0h"]
+[ext_resource type="AudioStream" uid="uid://vmbd2s1syjkx" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (2).mp3" id="2_dr6tm"]
+[ext_resource type="AudioStream" uid="uid://dlw33gv60tuec" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (3).mp3" id="3_d0enk"]
+[ext_resource type="AudioStream" uid="uid://cg5upgl13on0g" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (4).mp3" id="4_7bp4f"]
+[ext_resource type="AudioStream" uid="uid://clyha0m3manj0" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net).mp3" id="5_66uap"]
+
+[node name="Bullet_Impacts" type="Node"]
+script = ExtResource("1_m5p0h")
+
+[node name="Bullet_Impact_1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_bsbhc")
+
+[node name="Bullet_Impact_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dr6tm")
+
+[node name="Bullet_Impact_3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_d0enk")
+
+[node name="Bullet_Impact_4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7bp4f")
+
+[node name="Bullet_Impact_5" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_66uap")

@@ -35,6 +35,7 @@ var bullet_time :float = 0.0
 var level_weapon :Level_Weapon = Level_Weapon.BASIC
 var bullet_idx :int = 0
 var rng = RandomNumberGenerator.new()
+var weapon_heat :int = 0
 
 func _ready():
 	life = life_max
@@ -89,16 +90,18 @@ func manage_shoot(delta :float):
 				anim_smoke_fire_right.play("player_fire_right")
 
 func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
-	var bullet :Bullet = bullet_scene.instantiate()
-	world.add_child(bullet)
-	bullet.power = 10
-	bullet.exclude_body = self 
-	bullet.global_position = target_pos.global_position
-	bullet.direction = (target_dir.global_position - global_position).normalized() 
-	bullet.origin = target_pos.global_position
-	bullet_time = 0.0
-	bullet.flip_v = true
-	next_shoot()
+	if weapon_heat_process() :
+		var bullet :Bullet = bullet_scene.instantiate()
+		world.add_child(bullet)
+		bullet.exclude_body = self 
+		bullet.global_position = target_pos.global_position
+		bullet.direction = (target_dir.global_position - global_position).normalized() 
+		bullet.origin = target_pos.global_position
+		bullet_time = 0.0
+		bullet.flip_v = true
+		weapon_heat += 1
+		print("weapon_heat=",weapon_heat)
+		next_shoot()
 
 func double_shoot():
 	basic_shoot(main_target,left_target)
@@ -151,7 +154,12 @@ func animation_weapon():
 			weapon_double_sprite.visible = true
 
 func next_shoot():
-	bullet_idx += 1
-	bullet_idx = bullet_idx if bullet_idx < 4 else 0
+	bullet_idx = rng.randi_range(0,3)
 	get_tree().create_timer(rng.randf_range(0.1, 0.2))
 	get_node("sound/shoot_gun_" + str(bullet_idx)).play()
+
+func weapon_heat_process():
+	if weapon_heat > 10:
+		get_tree().create_timer(1.0)
+		weapon_heat = 0
+	return true

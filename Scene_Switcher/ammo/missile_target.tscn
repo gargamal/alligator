@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl512olnif8al"]
+
+[ext_resource type="Texture2D" uid="uid://bfip626b8r1fs" path="res://Scene_Switcher/ammo/asset/Target.png" id="1_e5mkq"]
+[ext_resource type="Script" path="res://Scene_Switcher/ammo/missile_target.gd" id="1_lgpmp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f278g"]
+radius = 40.0
+
+[node name="MissileTarget" type="Area2D"]
+collision_layer = 64
+collision_mask = 512
+script = ExtResource("1_lgpmp")
+power = 10
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.3125, 0.3125)
+texture = ExtResource("1_e5mkq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_f278g")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

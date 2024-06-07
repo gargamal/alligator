@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c25takgk0e4pj"]
+[gd_scene load_steps=7 format=3 uid="uid://c25takgk0e4pj"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/ammo/bombshell.gd" id="1_53kau"]
-[ext_resource type="Texture2D" uid="uid://btvwuljn6eolg" path="res://Scene_Switcher/ammo/asset/Bullet.png" id="2_10dti"]
-[ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="3_il36v"]
+[ext_resource type="Texture2D" uid="uid://c2tkuyoj44lov" path="res://Scene_Switcher/ammo/asset/Bullet.png" id="2_10dti"]
+[ext_resource type="Texture2D" uid="uid://bgo5bfv0pyby4" path="res://Scene_Switcher/enemy/asset/vortex.png" id="3_il36v"]
+[ext_resource type="PackedScene" uid="uid://4i6exoro7kiu" path="res://Scene_Switcher/ammo/sound/bullet_impacts.tscn" id="4_c7uvf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydjsr"]
 size = Vector2(17, 16)
@@ -47,3 +48,5 @@ angular_velocity_max = 354.88
 scale_amount_min = 0.33
 scale_amount_max = 0.5
 color_ramp = SubResource("Gradient_2ncfa")
+
+[node name="Bullet_Impacts" parent="." instance=ExtResource("4_c7uvf")]

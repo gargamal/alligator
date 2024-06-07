@@ -11,6 +11,7 @@ class_name Boss
 
 @export var missile_scene : PackedScene
 @export var missile_cooldown :float = 5.0
+@export var missile_target_scene : PackedScene
 
 signal i_am_dead_boss(my_self)
 
@@ -129,12 +130,18 @@ func fire(delta :float):
 func fire_missile(delta :float):
 	missile_time += delta
 	if missile_time > missile_cooldown :
+		
+		var missile_target = missile_target_scene.instantiate()
+		world.add_child(missile_target)
+		missile_target.global_position = player.global_position
+		
 		var missile = missile_scene.instantiate()
 		world.add_child(missile)
 		missile.exclude_body = self 
 		missile.global_position = target_2.global_position
 		missile.origin = target_2.global_position 
-		missile.direction = (player.global_position - target_2.global_position).normalized()
+		missile.set_fire((player.global_position - target_2.global_position).normalized(), player)
+		
 		missile_time = 0.0
 		animation_player.play("fire_right")
 

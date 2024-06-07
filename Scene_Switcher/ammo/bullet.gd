@@ -3,6 +3,7 @@ class_name Bullet
 
 @onready var explosion = $Explosion
 @onready var sprite_2d = $Sprite2D
+@onready var bullet_impacts = $Bullet_Impacts
 
 @export var exclude_body :Node2D
 @export var speed_shoot :float = 50.0
@@ -45,6 +46,7 @@ func _process(_delta):
 func free_bullet():
 	sprite_2d.visible = false
 	explosion.emitting = true
+	bullet_impacts._on_impact()
 	await get_tree().create_timer(0.1).timeout
 	queue_free()
 
