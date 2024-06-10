@@ -46,10 +46,15 @@ func _process(_delta):
 func free_bullet():
 	sprite_2d.visible = false
 	explosion.emitting = true
+	collision_layer = 0
+	collision_mask = 0
 	bullet_impacts._on_impact()
-	await get_tree().create_timer(0.1).timeout
-	queue_free()
+
 
 func set_fire(new_direction :Vector2):
 	direction = new_direction
 	is_firing = true
+
+
+func _on_bullet_impacts_finished():
+	queue_free()

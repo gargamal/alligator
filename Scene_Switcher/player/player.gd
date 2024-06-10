@@ -5,6 +5,11 @@ enum Movement_State { IDLE, RUN }
 enum Shoot_State { IDLE, SHOOT }
 enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
 
+const DURATION_OVERHEAT_WAIT :float = 1.0
+const WEAPON_COLDOWN :float = 1.0
+const WEAPON_HEATDOWN :float = 0.5
+const WEAPON_OVERHEAT_LIMIT :float = 100.0
+
 @onready var main_target = $cockpit_sprite/weapon_sprite/targets/main_target
 @onready var left_target = $cockpit_sprite/weapon_sprite/targets/left_target
 @onready var right_target = $cockpit_sprite/weapon_sprite/targets/right_target
@@ -15,6 +20,10 @@ enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
 @onready var anim_smoke_fire_basic = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_basic
 @onready var anim_smoke_fire_left = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_left
 @onready var anim_smoke_fire_right = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_right
+@onready var overheat_gun = $sound/overheat_gun
+@onready var heat_level = $heat_level
+@onready var anim_weapon = $anim_weapon
+
 
 signal i_am_dead(my_self)
 
@@ -24,6 +33,7 @@ signal i_am_dead(my_self)
 @export var smooth :float = 1.0
 @export var bullet_cooldown :float = 0.2
 @export var percent_healing :float = 0.25
+@export var minimun_healing :float = 20.0
 @export var world :Node2D
 @export var bullet_scene :PackedScene
 
@@ -35,7 +45,9 @@ var bullet_time :float = 0.0
 var level_weapon :Level_Weapon = Level_Weapon.BASIC
 var bullet_idx :int = 0
 var rng = RandomNumberGenerator.new()
-var weapon_heat :int = 0
+var weapon_heat :float = 0.0
+var weapon_coldown :float = 0.01 
+var time_overheat_duration :float = 0.0
 var overheat :bool = false
 
 func _ready():
@@ -50,7 +62,11 @@ func _physics_process(delta :float):
 	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
 	
 	move_and_slide()
-	manage_shoot(delta)
+
+func _process(delta):
+	time_overheat_duration += delta
+	bullet_time += delta
+	manage_shoot()
 
 func get_speed() -> float:
 	return speed * (0.85 if input_dir.y > 0 else 1.0)
@@ -66,19 +82,21 @@ func _input(_event):
 		input_dir = Vector2.ZERO
 		movement_state = Movement_State.IDLE
 	
-	if Input.is_action_pressed("ui_shoot"):
+	if not overheat and Input.is_action_pressed("ui_shoot"):
 		shoot_state = Shoot_State.SHOOT
 	
-	elif Input.is_action_just_released("ui_shoot"):
+	elif shoot_state != Shoot_State.IDLE and Input.is_action_just_released("ui_shoot"):
 		shoot_state = Shoot_State.IDLE
 
-func manage_shoot(delta :float):
-	bullet_time += delta
-	if bullet_time > bullet_cooldown and shoot_state == Shoot_State.SHOOT:
+func manage_shoot():
+	weapon_heat_process()
+	
+	if not overheat and bullet_time > bullet_cooldown and shoot_state == Shoot_State.SHOOT:
 		match level_weapon:
 			Level_Weapon.BASIC: 
 				basic_shoot(main_target,main_target)
 				anim_smoke_fire_basic.play("player_fire_basic")
+				
 			Level_Weapon.DOUBLE:
 				double_shoot()
 				anim_smoke_fire_left.play("player_fire_left")
@@ -91,7 +109,7 @@ func manage_shoot(delta :float):
 				anim_smoke_fire_right.play("player_fire_right")
 
 func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
-	if weapon_heat_process(weapon_heat) and not overheat:
+	if not overheat:
 		var bullet :Bullet = bullet_scene.instantiate()
 		world.add_child(bullet)
 		bullet.exclude_body = self 
@@ -100,13 +118,7 @@ func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 		bullet.origin = target_pos.global_position
 		bullet_time = 0.0
 		bullet.flip_v = true
-		weapon_heat += 10
-		print("weapon_heat=",weapon_heat)
 		next_shoot()
-	else :
-		weapon_heat -= 1
-		if weapon_heat <5:
-			overheat = false
 
 func double_shoot():
 	basic_shoot(main_target,left_target)
@@ -130,13 +142,21 @@ func take_itembox(itembox :ItemBox.Type_ItemBox):
 	match itembox:
 		ItemBox.Type_ItemBox.HEAL:
 			var tween :Tween = get_tree().create_tween()
-			tween.tween_method(set_life, life, life + (life_max - life) * percent_healing, 1.0).set_trans(Tween.TRANS_SINE)
+			tween.tween_method(set_life, life, life + calculate_added_life(), 1.0).set_trans(Tween.TRANS_SINE)
 			
 		ItemBox.Type_ItemBox.WEAPON:
 			if level_weapon != Level_Weapon.TRIPLE:
 				@warning_ignore("int_as_enum_without_cast")
 				level_weapon += 1
 				animation_weapon()
+
+func calculate_added_life() -> float:
+	var life_added :float = (life_max - life) * percent_healing
+	life_added = minimun_healing if life_added < minimun_healing else life_added
+	if life + life_added > life_max:
+		life_added = life_max - life
+	return life_added
+
 
 func set_life(new_life :float):
 	life = new_life
@@ -163,8 +183,26 @@ func next_shoot():
 	get_tree().create_timer(rng.randf_range(0.1, 0.2))
 	get_node("sound/shoot_gun_" + str(bullet_idx)).play()
 
-func weapon_heat_process(heat):
-	if heat > 90:
-		overheat = true
-		return false
-	return true
+func weapon_heat_process():
+	if overheat and time_overheat_duration > DURATION_OVERHEAT_WAIT:
+		overheat = false
+		weapon_heat = 0.0
+	
+	elif not overheat:
+		if weapon_heat > WEAPON_OVERHEAT_LIMIT:
+			time_overheat_duration = 0.0
+			overheat = true
+			overheat_gun.play()
+			anim_weapon.play("overheat_weapon")
+		
+		elif shoot_state == Shoot_State.SHOOT:
+			weapon_heat += WEAPON_HEATDOWN
+		
+		elif weapon_heat > 0.0:
+			weapon_heat -= WEAPON_COLDOWN
+			weapon_heat = weapon_heat if weapon_heat > 0.0 else 0.0
+	
+	heat_level.value = int(weapon_heat + .5)
+	var overheat_color :Color = Color(1.0, 1.0 - weapon_heat / 100.0, 1.0 - weapon_heat / 100.0)
+	weapon_sprite.self_modulate = overheat_color
+	weapon_double_sprite.self_modulate = overheat_color
