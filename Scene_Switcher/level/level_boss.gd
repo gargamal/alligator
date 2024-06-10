@@ -17,6 +17,7 @@ enum Map_Choice { BOSS_BUILDING, BOSS_FIRE, BOSS_HOLE }
 @onready var point_spawn = $point_spawn
 @onready var city_boss_death = $Sprites/City_boss_death
 @onready var blocker = $blocker
+@onready var fire_particles = $fire_particles
 
 @export var boss_scene :PackedScene
 @export var world :Node2D
@@ -50,6 +51,11 @@ func choice_map():
 	array_map_choice[map_choice].visible = true
 	if map_choice == Map_Choice.BOSS_HOLE:
 		emit_signal("next_map_with_hole", self)
+	elif map_choice == Map_Choice.BOSS_FIRE:
+		top_limit.scale.y = 0.8
+		player_border.scale.y = 0.8
+		fire_particles.visible = true
+		emit_signal("next_map", self)
 	else:
 		emit_signal("next_map", self)
 
@@ -79,6 +85,7 @@ func _on_boss_is_dead():
 	top_limit.collision_mask = 0
 	player_border.collision_layer = 0
 	player_border.collision_mask = 0
+	fire_particles.visible = false
 	if map_choice != Map_Choice.BOSS_HOLE:
 		for map in array_map_choice:
 			map.visible = false

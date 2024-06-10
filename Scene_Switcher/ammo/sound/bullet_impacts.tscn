@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://4i6exoro7kiu"]
 
-[ext_resource type="AudioStream" uid="uid://b25to76fjue0i" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (1).mp3" id="1_bsbhc"]
+[ext_resource type="AudioStream" uid="uid://3vx4fjdofpec" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (1).mp3" id="1_bsbhc"]
 [ext_resource type="Script" path="res://Scene_Switcher/ammo/sound/bullet_impacts.gd" id="1_m5p0h"]
-[ext_resource type="AudioStream" uid="uid://0fwlpvwkgtvl" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (2).mp3" id="2_dr6tm"]
-[ext_resource type="AudioStream" uid="uid://bjkulo0nbukcp" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (3).mp3" id="3_d0enk"]
-[ext_resource type="AudioStream" uid="uid://buno7osauluf8" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (4).mp3" id="4_7bp4f"]
-[ext_resource type="AudioStream" uid="uid://njx2au8twfn1" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net).mp3" id="5_66uap"]
+[ext_resource type="AudioStream" uid="uid://vmbd2s1syjkx" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (2).mp3" id="2_dr6tm"]
+[ext_resource type="AudioStream" uid="uid://dlw33gv60tuec" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (3).mp3" id="3_d0enk"]
+[ext_resource type="AudioStream" uid="uid://cg5upgl13on0g" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net) (4).mp3" id="4_7bp4f"]
+[ext_resource type="AudioStream" uid="uid://clyha0m3manj0" path="res://Scene_Switcher/ammo/sound/080886_bullet-39738 (mp3cut.net).mp3" id="5_66uap"]
 
 [node name="Bullet_Impacts" type="Node2D"]
 script = ExtResource("1_m5p0h")
