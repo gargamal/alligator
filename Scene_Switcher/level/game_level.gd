@@ -13,7 +13,7 @@ const KILL_LIMIT_TO_CALL_BOSS :int = 15
 @onready var enemy = $enemy
 @onready var bullet = $bullet
 @onready var drop_item = $drop_item
-@onready var score_label = $Score/Score/Score_Label
+@onready var score = $Score
 @onready var game_over = $Game_Over
 
 
@@ -76,8 +76,9 @@ func _ready():
 	game = App_Game.load_game()
 	_on_add_point(0)
 	game_over.visible = false
-	player.set_life(player.life_max)
-	
+	player.set_life_max(Player.get_life_max_with_difficulty(player.life_max, game.game_level.difficulty))
+	player.minimun_healing = Player.get_minimun_healing_with_difficulty(player.minimun_healing, game.game_level.difficulty)
+	score.init_hud(int(game.game_level.difficulty) as App_Game.Type_Difficulty)
 
 func _on_spawn_new_level(actual_level :Node2D):
 	var level_scene :PackedScene = level_scene_instianble[rng.randi_range(0, level_scene_instianble.size() - 1)]
@@ -145,7 +146,7 @@ func _on_clear_timeout():
 
 func _on_add_point(point_value :int):
 	points += point_value
-	score_label.text = "Score : " + str("%05d" % points)
+	score.score = points
 	if point_value > 0:
 		nb_kill += 1
 		if nb_kill % KILL_LIMIT_TO_CALL_BOSS == 0:

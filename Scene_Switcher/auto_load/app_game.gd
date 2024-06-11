@@ -5,7 +5,9 @@ class_name App_Game
 const SAVE_DIRECTORY = "user://save"
 const GAME_NAME = "alligator.save"
 const ENCRYPT_PASSWD :String = "2024.@llig@tor!€"
-
+const EASY_COLOR :Color = Color("5cd29a")
+const MEDIUM_COLOR :Color = Color("f0a46e")
+const HARD_COLOR :Color = Color("f55f52")
 
 enum Type_Difficulty { EASY, MEDIUM, HARD }
 

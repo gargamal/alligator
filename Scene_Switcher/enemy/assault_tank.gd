@@ -23,6 +23,7 @@ func fire_anim():
 func fire(delta :float):
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
+		fire_weapon.fire()
 		var ammo = ammo_scene.instantiate()
 		world.add_child(ammo)
 		ammo.exclude_body = self 

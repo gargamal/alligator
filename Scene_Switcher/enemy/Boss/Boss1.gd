@@ -58,6 +58,7 @@ func state_machine():
 				enemy_state = Enemy_State.MOVE_DOWN
 			elif insight_shoot.is_colliding():
 				enemy_state = Enemy_State.SHOOT
+				bullet_time = 0.0
 			else:
 				enemy_state = choice_side_direction()
 		
@@ -68,6 +69,7 @@ func state_machine():
 					enemy_state = Enemy_State.MOVE_DOWN
 			elif insight_shoot.is_colliding():
 				enemy_state = Enemy_State.SHOOT
+				bullet_time = 0.0
 			else:
 				enemy_state = choice_side_direction()
 		
@@ -86,6 +88,7 @@ func state_machine():
 				enemy_state = Enemy_State.MOVE_DOWN
 			elif insight_shoot.is_colliding():
 				enemy_state = Enemy_State.SHOOT
+				bullet_time = 0.0
 		
 		Enemy_State.MOVE_DOWN:
 			if not must_move_down():
@@ -94,6 +97,7 @@ func state_machine():
 				enemy_state = Enemy_State.MOVE_UP
 			elif insight_shoot.is_colliding():
 				enemy_state = Enemy_State.SHOOT
+				bullet_time = 0.0
 
 func choice_side_direction() -> Enemy_State:
 	if left_wall.is_colliding():
@@ -118,6 +122,7 @@ func must_move_down() -> bool:
 func fire(delta :float):
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
+		fire_weapon.fire()
 		var ammo = ammo_scene.instantiate()
 		world.add_child(ammo)
 		ammo.exclude_body = self 
@@ -131,6 +136,7 @@ func fire_missile(delta :float):
 	missile_time += delta
 	if missile_time > missile_cooldown :
 		
+		fire_weapon.fire()
 		var missile_target = missile_target_scene.instantiate()
 		world.add_child(missile_target)
 		missile_target.global_position = player.global_position
@@ -156,3 +162,4 @@ func death():
 		collision_layer = 32
 		process_explosion()
 		emit_signal("i_am_dead_boss")
+		target_follow.visible = false

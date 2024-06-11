@@ -5,12 +5,12 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 
 @export var speed :float = 200.0
 @export var speed_up :float = 800.0
-@export var life_max :float = 10.0
+@export var life_max :float = 10.0 : set = set_life_max
 @export var smooth :float = 5.0
 @export var player :Player
 @export var max_distance_between_player :float = 900.0
 @export var margin_shoot_range :float = 500.0
-@export var bullet_cooldown :float = 0.75
+@export var bullet_cooldown :float = 0.5
 @export var world :Node2D
 @export var ammo_scene :PackedScene
 @export var is_running :bool = false
@@ -29,7 +29,9 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @onready var smoke_80 = $Smokes/Smoke80
 @onready var death_smoke = $Smokes/Death_Smoke
 @onready var animation_player = $AnimationPlayer
-
+@onready var target_follow = $target_follow
+@onready var anim_target_follow = $anim_target_follow
+@onready var fire_weapon = $fire_weapon
 
 
 signal i_am_ready_enemy(my_self)
@@ -46,7 +48,6 @@ var margin_can_shoot :float = 400.0
 var rng = RandomNumberGenerator.new()
 var time_estimate_distance_can_shoot :float = 0.0
 var fire_sparkles
-var life_initated = false
 
 func _ready():
 	emit_signal("i_am_ready_enemy", self)
@@ -55,22 +56,29 @@ func _ready():
 	_specific_ready()
 	fire_sparkles.visible = false
 
+func set_life_max(new_life_max :int):
+	life_max = new_life_max
+	life = life_max
+
 func _specific_ready():
 	target = $target
 	fire_sparkles = $fire_sparkles
 
 func _physics_process(delta :float):
-	if is_running:
-		if is_alive:
-			process_distance_can_shoot(delta)
-			state_machine()
-			var direction :Vector2 = process_direction()
-			velocity = lerp(velocity, process_velocity(direction), smooth * delta)
-			rotation_animation(delta, direction)
-			fire(delta)
-			move_and_slide()
-			
-			previous_enemy_state = enemy_state
+	if is_running and is_alive:
+		var direction :Vector2 = process_direction()
+		velocity = lerp(velocity, process_velocity(direction), smooth * delta)
+		rotation_animation(delta, direction)
+		move_and_slide()
+		
+		previous_enemy_state = enemy_state
+
+func _process(delta :float):
+	if is_running and is_alive:
+		process_distance_can_shoot(delta)
+		state_machine()
+		fire(delta)
+		process_target_follow()
 
 func process_distance_can_shoot(delta :float):
 	time_estimate_distance_can_shoot += delta
@@ -178,6 +186,7 @@ func fire(delta :float):
 	#
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
+		fire_weapon.fire()
 		var ammo = ammo_scene.instantiate()
 		world.add_child(ammo)
 		ammo.exclude_body = self 
@@ -191,9 +200,6 @@ func fire_anim():
 	animation_player.play("fire_basis")
 
 func take_hit(power: int):
-	if life_initated != true:
-		life = life_max-power
-		life_initated = true
 	life -= power
 	
 	var quotient:float = life/life_max
@@ -227,9 +233,17 @@ func death():
 		is_alive = false
 		collision_mask = 4
 		collision_layer = 32
+		target_follow.visible = false
 		process_explosion()
 		emit_signal("i_am_death", self)
 
 func process_explosion():
 	explosion.emitting = true
 
+func process_target_follow():
+	target_follow.visible = enemy_state == Enemy_State.SHOOT
+	if player and target_follow.visible:
+		target_follow.global_position = player.target_follow.global_position
+		anim_target_follow.play("target_on_player")
+	elif anim_target_follow.is_playing() and not target_follow.visible:
+		anim_target_follow.stop()

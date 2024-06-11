@@ -47,11 +47,18 @@ func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D, difficult
 		var enemy :Enemy = scene_of_spawn[rng.randi_range(0, scene_of_spawn.size() - 1)].instantiate()
 		enemy.world = bullet_world
 		enemy.player = player
+		enemy.life_max = get_life_enemy(enemy.life_max, difficulty_level)
 		enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
 		enemy.connect("i_am_death", _on_enemy_is_death)
 		world.add_child(enemy)
 		enemy.global_position = point_spawn.global_position
 		work_arr.remove_at(index)
+
+func get_life_enemy(life_max :int, difficulty_level :App_Game.Type_Difficulty) -> int:
+	match difficulty_level:
+		App_Game.Type_Difficulty.EASY: return int(life_max / 2.0 + 0.5)
+		App_Game.Type_Difficulty.HARD: return int(float(life_max) * 1.5 + 0.5)
+		_: return life_max
 
 func _on_enemy_is_death(enemy :Enemy):
 	if rng.randf_range(0.0, 1.0) <= drop_chance:

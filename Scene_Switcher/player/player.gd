@@ -23,13 +23,13 @@ const WEAPON_OVERHEAT_LIMIT :float = 100.0
 @onready var overheat_gun = $sound/overheat_gun
 @onready var heat_level = $heat_level
 @onready var anim_weapon = $anim_weapon
-
+@onready var target_follow = $target_follow
 
 signal i_am_dead(my_self)
 
 @export var speed :float = 500.0
 @export var life :float = 50.0
-@export var life_max :float = 50.0
+@export var life_max :float = 50.0 :set = set_life_max
 @export var smooth :float = 1.0
 @export var bullet_cooldown :float = 0.2
 @export var percent_healing :float = 0.25
@@ -50,8 +50,12 @@ var weapon_coldown :float = 0.01
 var time_overheat_duration :float = 0.0
 var overheat :bool = false
 
-func _ready():
+func set_life_max(new_life_max :int):
+	life_max = new_life_max
 	life = life_max
+
+func _ready():
+	set_life_max(life_max)
 	life_level.visible = true
 	animation_weapon()
 
@@ -207,3 +211,15 @@ func weapon_heat_process():
 	var overheat_color :Color = Color(1.0, 1.0 - weapon_heat / 100.0, 1.0 - weapon_heat / 100.0)
 	weapon_sprite.self_modulate = overheat_color
 	weapon_double_sprite.self_modulate = overheat_color
+
+static func get_life_max_with_difficulty(life_max :int, difficulty_level :App_Game.Type_Difficulty) -> int:
+	match difficulty_level:
+		App_Game.Type_Difficulty.EASY: return int(life_max * 2.0 + 0.5)
+		App_Game.Type_Difficulty.HARD: return int(float(life_max) * 0.75 + 0.5)
+		_: return life_max
+
+static func get_minimun_healing_with_difficulty(minimun_healing :int, difficulty_level :App_Game.Type_Difficulty) -> int:
+	match difficulty_level:
+		App_Game.Type_Difficulty.EASY: return int(minimun_healing * 1.5 + 0.5)
+		App_Game.Type_Difficulty.HARD: return int(float(minimun_healing) * 0.5 + 0.5)
+		_: return minimun_healing

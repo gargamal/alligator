@@ -7,10 +7,10 @@ class_name Artillery
 @onready var insight_shoot = $tower_sprite/insight_shoot
 @onready var tower_pos = $body_sprite/tower_pos
 
-@export var rotation_speed = 0.01
+@export var rotation_speed :float = 0.01
+
 
 func rotation_animation(delta :float, direction :Vector2):
-	
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
 	collision.rotation = sprite_2d.rotation
 	tower_rotation()
@@ -26,7 +26,6 @@ func _specific_ready():
 
 func fire_anim():
 	animation_player.play("fire_artillery")
-
 
 func state_machine():
 	match enemy_state:
@@ -74,6 +73,7 @@ func state_machine():
 			elif insight_shoot.is_colliding():
 				enemy_state = Enemy_State.SHOOT
 
+
 func choice_side_direction() -> Enemy_State:
 	if left_wall.is_colliding():
 		return Enemy_State.MOVE_SIDE_RIGHT
@@ -99,6 +99,7 @@ func fire(delta :float):
 	bullet_time += delta
 	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
 		for i in range (5):
+			fire_weapon.fire()
 			var ammo = ammo_scene.instantiate()
 			world.add_child(ammo)
 			ammo.speed_shoot = 10.0

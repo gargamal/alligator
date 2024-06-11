@@ -1,13 +1,54 @@
-[gd_scene load_steps=4 format=3 uid="uid://df08n2msscecr"]
+[gd_scene load_steps=4 format=3 uid="uid://bk6slp1xsh7bq"]
 
-[ext_resource type="Script" path="res://Scene_Switcher/enemy/target.gd" id="1_dlys7"]
-[ext_resource type="Texture2D" uid="uid://druuxjp7ex66w" path="res://Scene_Switcher/enemy/asset/Target.png" id="2_cwdg5"]
+[ext_resource type="Texture2D" uid="uid://ds82cuflmciub" path="res://Scene_Switcher/enemy/asset/target_follow.png" id="2_cwdg5"]
+
+[sub_resource type="GDScript" id="GDScript_8k14s"]
+script/source = "extends RigidBody2D
+class_name Target
+
+@onready var explosion = $Explosion
+@onready var sprite_2d = $Sprite2D
+
+@export var exclude_body :Node2D
+@export var speed_shoot :float = 5.0
+@export var smooth :float = 2.0
+@export var player_pos :Vector2 :set = set_target
+@export var power :int = 1
+@export var origin :Vector2
+@export var distance_max :float = 400.0
+@export var direction = Vector2.ZERO
+
+var player_touched :bool = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var velocity :Vector2 = Vector2.ZERO
+	velocity = direction * speed_shoot
+
+
+func process_direction():
+	direction = Vector2(0,1)
+
+func set_target(new_player_pos):
+	player_pos = new_player_pos
+
+
+func _on_body_entered(body):
+	if body is Player:
+		player_touched = true
+	pass
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n3nsu"]
 radius = 24.0
 
 [node name="Target" type="RigidBody2D"]
-script = ExtResource("1_dlys7")
+script = SubResource("GDScript_8k14s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.423529, 0.266667, 0.705882)
