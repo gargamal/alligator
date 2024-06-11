@@ -9,6 +9,7 @@ const DURATION_OVERHEAT_WAIT :float = 1.0
 const WEAPON_COLDOWN :float = 1.0
 const WEAPON_HEATDOWN :float = 0.5
 const WEAPON_OVERHEAT_LIMIT :float = 100.0
+const WEAPON_COLOR :Color = Color("4b4b4b")
 
 @onready var main_target = $cockpit_sprite/weapon_sprite/targets/main_target
 @onready var left_target = $cockpit_sprite/weapon_sprite/targets/left_target
@@ -208,7 +209,9 @@ func weapon_heat_process():
 			weapon_heat = weapon_heat if weapon_heat > 0.0 else 0.0
 	
 	heat_level.value = int(weapon_heat + .5)
-	var overheat_color :Color = Color(1.0, 1.0 - weapon_heat / 100.0, 1.0 - weapon_heat / 100.0)
+	var overheat_color :Color = Color(WEAPON_COLOR.r + weapon_heat * .25 / 100.0, 
+										WEAPON_COLOR.g - weapon_heat * .25 / 100.0, 
+										WEAPON_COLOR.b - weapon_heat * .25 / 100.0)
 	weapon_sprite.self_modulate = overheat_color
 	weapon_double_sprite.self_modulate = overheat_color
 

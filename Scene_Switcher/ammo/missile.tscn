@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtmxucs7fce2b"]
+[gd_scene load_steps=8 format=3 uid="uid://dtmxucs7fce2b"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/ammo/missile.gd" id="1_va71v"]
-[ext_resource type="Texture2D" uid="uid://c2tkuyoj44lov" path="res://Scene_Switcher/ammo/asset/Bullet.png" id="2_un5no"]
-[ext_resource type="Texture2D" uid="uid://bgo5bfv0pyby4" path="res://Scene_Switcher/enemy/asset/vortex.png" id="3_ll52f"]
+[ext_resource type="Texture2D" uid="uid://btvwuljn6eolg" path="res://Scene_Switcher/ammo/asset/Bullet.png" id="2_un5no"]
+[ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="3_ll52f"]
+[ext_resource type="Texture2D" uid="uid://b22v6afadbopw" path="res://Scene_Switcher/ammo/asset/Bullet_shadow.png" id="3_rgagg"]
 [ext_resource type="PackedScene" uid="uid://4i6exoro7kiu" path="res://Scene_Switcher/ammo/sound/bullet_impacts.tscn" id="4_jmol1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2xs64"]
@@ -10,7 +11,7 @@ size = Vector2(32, 48)
 
 [sub_resource type="Gradient" id="Gradient_nk3ov"]
 offsets = PackedFloat32Array(0.162577, 0.831288, 0.990798)
-colors = PackedColorArray(1, 0.607843, 0, 1, 0.526793, 5.72633e-07, 1.06417e-07, 0.560784, 1, 1, 1, 0)
+colors = PackedColorArray(0.073609, 0.0133919, 0.000395881, 1, 0.362372, 0.232982, 0.200371, 0.560784, 1, 1, 1, 0)
 
 [node name="Missile" type="Area2D" node_paths=PackedStringArray("world")]
 collision_layer = 512
@@ -26,6 +27,12 @@ position = Vector2(1, 1)
 scale = Vector2(1.78125, 0.96875)
 texture = ExtResource("2_un5no")
 
+[node name="shadow" type="Sprite2D" parent="Sprite_Missile"]
+modulate = Color(1, 1, 1, 0.580392)
+z_index = -1
+texture = ExtResource("3_rgagg")
+offset = Vector2(-35, 20)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2xs64")
 
@@ -40,12 +47,14 @@ speed_scale = 3.0
 explosiveness = 1.0
 texture = ExtResource("3_ll52f")
 emission_shape = 1
-emission_sphere_radius = 14.47
+emission_sphere_radius = 20.0
 spread = 180.0
 gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_min = 18.96
 initial_velocity_max = 142.18
 angular_velocity_max = 354.88
+scale_amount_min = 5.0
+scale_amount_max = 7.0
 color_ramp = SubResource("Gradient_nk3ov")
 
 [node name="Bullet_Impacts" parent="." instance=ExtResource("4_jmol1")]

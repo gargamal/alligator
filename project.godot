@@ -29,6 +29,7 @@ AppMainLevelA="*res://Scene_Switcher/level/app_main_level_a.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/borderless=true
 window/stretch/mode="viewport"
 
 [filesystem]
@@ -99,6 +100,7 @@ ui_click_left={
 2d_physics/layer_7="missile_landing"
 2d_physics/layer_8="blocker_player"
 2d_physics/layer_9="boss"
+2d_physics/layer_10="missille_impact"
 
 [rendering]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bfh8txg0uot2h"]
+[gd_scene load_steps=23 format=3 uid="uid://bfh8txg0uot2h"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/enemy/Boss/Boss1.gd" id="1_t6j00"]
 [ext_resource type="Texture2D" uid="uid://tuxc8wfamlkw" path="res://Scene_Switcher/enemy/Boss/asset/robot_boss_body.png" id="1_v8dj8"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://do07g4xp73tlo" path="res://Scene_Switcher/enemy/Boss/asset/robot_boss_dead.png" id="9_rteuv"]
 [ext_resource type="Texture2D" uid="uid://ds82cuflmciub" path="res://Scene_Switcher/enemy/asset/target_follow.png" id="11_p1lqx"]
 [ext_resource type="PackedScene" uid="uid://ch4qvgnjamob2" path="res://Scene_Switcher/enemy/fire_weapon.tscn" id="12_wo0a6"]
+[ext_resource type="AudioStream" uid="uid://tnta4wntf1pt" path="res://Scene_Switcher/sound/explosion.mp3" id="13_60lnk"]
 
 [sub_resource type="Gradient" id="Gradient_avksq"]
 offsets = PackedFloat32Array(0, 0.705521, 1)
@@ -41,7 +42,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -65,7 +66,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_li4dr"]
@@ -196,6 +197,7 @@ position = Vector2(-106.668, -7.7931)
 texture = ExtResource("2_52qsb")
 
 [node name="fire_sparkles" type="Sprite2D" parent="Body_Sprite/Weapon_Sprite"]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(-1.19209e-07, 159.759)
 texture = ExtResource("4_um5v4")
 flip_v = true
@@ -215,6 +217,7 @@ position = Vector2(118.889, -4.25078)
 texture = ExtResource("3_61r5x")
 
 [node name="fire_sparkles" type="Sprite2D" parent="Body_Sprite/Missile_Sprite"]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(4.82642, 136.734)
 texture = ExtResource("4_um5v4")
 flip_v = true
@@ -362,3 +365,7 @@ libraries = {
 }
 
 [node name="fire_weapon" parent="." instance=ExtResource("12_wo0a6")]
+
+[node name="explosion_death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_60lnk")
+bus = &"SFX"

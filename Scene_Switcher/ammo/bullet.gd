@@ -4,6 +4,8 @@ class_name Bullet
 @onready var explosion = $Explosion
 @onready var sprite_2d = $Sprite2D
 @onready var bullet_impacts = $Bullet_Impacts
+@onready var shadow = $Sprite2D/shadow
+
 
 @export var exclude_body :Node2D
 @export var speed_shoot :float = 50.0
@@ -20,6 +22,7 @@ var colliders_known :Array = []
 func set_flip_v(new_flip_v :bool):
 	flip_v = new_flip_v
 	sprite_2d.flip_v = flip_v
+	shadow.flip_v = flip_v
 
 func _process(_delta):
 	if is_firing and explosion and not explosion.emitting:

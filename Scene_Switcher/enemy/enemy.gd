@@ -32,6 +32,7 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @onready var target_follow = $target_follow
 @onready var anim_target_follow = $anim_target_follow
 @onready var fire_weapon = $fire_weapon
+@onready var explosion_death = $explosion_death
 
 
 signal i_am_ready_enemy(my_self)
@@ -230,6 +231,7 @@ func take_hit(power: int):
 
 func death():
 	if is_alive:
+		explosion_death.play()
 		is_alive = false
 		collision_mask = 4
 		collision_layer = 32

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5j1ql6oqb6os"]
+
+[ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="1_c6mgn"]
+
+[sub_resource type="Gradient" id="Gradient_i6bd4"]
+offsets = PackedFloat32Array(0.162577, 0.831288, 0.990798)
+colors = PackedColorArray(0.352941, 0.239216, 0.180392, 0.572549, 0.64629, 0.466857, 0.376948, 0.25098, 0.393086, 0.393086, 0.393085, 0)
+
+[node name="Explosion" type="CPUParticles2D"]
+emitting = false
+amount = 500
+lifetime = 1.3
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_c6mgn")
+emission_shape = 1
+emission_sphere_radius = 14.47
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 18.96
+initial_velocity_max = 142.18
+angular_velocity_max = 354.88
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color = Color(1, 1, 1, 0.376471)
+color_ramp = SubResource("Gradient_i6bd4")
