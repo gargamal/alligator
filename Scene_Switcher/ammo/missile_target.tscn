@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl512olnif8al"]
+[gd_scene load_steps=8 format=3 uid="uid://dl512olnif8al"]
 
 [ext_resource type="Texture2D" uid="uid://brl4368ugxcoc" path="res://Scene_Switcher/ammo/asset/Target.png" id="1_e5mkq"]
 [ext_resource type="Script" path="res://Scene_Switcher/ammo/missile_target.gd" id="1_lgpmp"]
+[ext_resource type="AudioStream" uid="uid://tnta4wntf1pt" path="res://Scene_Switcher/sound/explosion.mp3" id="3_5jvid"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f278g"]
 radius = 40.0
@@ -68,7 +69,7 @@ _data = {
 "target_anim": SubResource("Animation_j5btu")
 }
 
-[node name="MissileTarget" type="Area2D"]
+[node name="Missile_Target" type="Area2D"]
 collision_layer = 64
 collision_mask = 512
 script = ExtResource("1_lgpmp")
@@ -88,5 +89,10 @@ libraries = {
 }
 autoplay = "target_anim"
 
+[node name="explosion_death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_5jvid")
+bus = &"SFX"
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="explosion_death" to="." method="_on_explosion_death_finished"]

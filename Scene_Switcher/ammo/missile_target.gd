@@ -1,22 +1,12 @@
 extends Area2D
+class_name Missile_Target
 
 @onready var collision_shape_2d = $CollisionShape2D
+@onready var explosion_death = $explosion_death
 
 @export var power = 30
 
 var missile_exploded :bool = false
-var rng = RandomNumberGenerator.new()
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if missile_exploded:
-		await get_tree().create_timer(0.1).timeout
-		queue_free()
 
 
 func _on_area_entered(area):
@@ -26,16 +16,18 @@ func _on_area_entered(area):
 		check_if_player()
 
 
-
 func check_if_player():
+	missile_exploded = true
 	collision_mask = 1
 	collision_shape_2d.scale.x = 2
 	collision_shape_2d.scale.y = 2
-	missile_exploded = true
+	explosion_death.play()
 
 
 func _on_body_entered(body):
-	if missile_exploded:
-		if body is Player :
-			body.take_hit(power)
-			queue_free()
+	if missile_exploded and body is Player :
+		body.take_hit(power)
+
+
+func _on_explosion_death_finished():
+	queue_free()

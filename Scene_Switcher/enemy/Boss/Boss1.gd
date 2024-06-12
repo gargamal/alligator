@@ -2,12 +2,13 @@ extends Enemy
 class_name Boss
 
 @onready var sprite_2d = $Body_Sprite
-@onready var tower_sprite = $Body_Sprite/Weapon_Sprite
-@onready var insight_shoot = $Body_Sprite/Weapon_Sprite/RayCast2D
-@onready var fire_sparkles_2 = $Body_Sprite/Missile_Sprite/fire_sparkles
-@onready var target_2 = $Body_Sprite/Missile_Sprite/target
-@onready var missile_sprite = $Body_Sprite/Missile_Sprite
-@onready var dead_sprite = $Dead_Sprite
+@onready var tower_sprite = $mesh/weapon/Weapon_Sprite
+@onready var insight_shoot = $mesh/weapon/Weapon_Sprite/RayCast2D
+@onready var fire_sparkles_2 = $mesh/weapon/Missile_Sprite/fire_sparkles
+@onready var target_2 = $mesh/weapon/Missile_Sprite/target
+@onready var missile_sprite = $mesh/weapon/Missile_Sprite
+@onready var animation_tree = $AnimationTree
+
 
 @export var missile_scene : PackedScene
 @export var missile_cooldown :float = 5.0
@@ -19,35 +20,52 @@ var tower_rotation_sens_right = false
 var missile_time :float = 0.0
 
 func _specific_ready():
-	target = $Body_Sprite/Weapon_Sprite/target
-	fire_sparkles = $Body_Sprite/Weapon_Sprite/fire_sparkles
+	target = $mesh/weapon/Weapon_Sprite/target
+	fire_sparkles = $mesh/weapon/Weapon_Sprite/fire_sparkles
 
 func _physics_process(delta :float):
+	if is_running and is_alive:
+		process_distance_can_shoot(delta)
+		state_machine()
+		var direction :Vector2 = process_direction()
+		velocity = lerp(velocity, process_velocity(direction), smooth * delta)
+		rotation_animation(delta, direction)
+		fire(delta)
+		fire_missile(delta)
+		move_and_slide()
+		
+		previous_enemy_state = enemy_state
+
+func _process(delta):
+	super(delta)
 	if is_running:
-		if is_alive:
-			process_distance_can_shoot(delta)
-			state_machine()
-			var direction :Vector2 = process_direction()
-			velocity = lerp(velocity, process_velocity(direction), smooth * delta)
-			rotation_animation(delta, direction)
-			fire(delta)
-			fire_missile(delta)
-			move_and_slide()
-			
-			previous_enemy_state = enemy_state
+		animation_tree_player()
 
 func rotation_animation(_delta :float, _direction :Vector2):
 	if insight_shoot.is_colliding() and insight_shoot.get_collider() is Player:
 		pass
 	else :
+		print("(1) tower_sprite.rotation=", tower_sprite.rotation)
 		if tower_rotation_sens_right:
-			tower_sprite.rotation -= deg_to_rad(0.5)
+			tower_sprite.rotation -= deg_to_rad(10.5)
 			if tower_sprite.rotation < deg_to_rad(-45):
 				tower_rotation_sens_right = false
 		else:
-			tower_sprite.rotation += deg_to_rad(0.5)
+			tower_sprite.rotation += deg_to_rad(10.5)
 			if tower_sprite.rotation > deg_to_rad(45):
 				tower_rotation_sens_right = true
+		print("==> (2) tower_sprite.rotation=", tower_sprite.rotation)
+
+func animation_tree_player():
+	animation_tree.set("parameters/conditions/death", not is_alive)
+	
+	if is_alive:
+		var last_walk_factor :Vector2 = animation_tree.get("parameters/idle_walk/blend_position")
+		var direction :Vector2 = process_direction()
+		var new_walk_factor :Vector2 = direction * velocity.length()
+		animation_tree.set("parameters/idle_walk/blend_position", lerp(last_walk_factor, new_walk_factor, .2))
+	else:
+		animation_tree.set("parameters/idle_walk/blend_position", Vector2.ZERO)
 
 func state_machine():
 	match enemy_state:
@@ -154,9 +172,6 @@ func fire_missile(delta :float):
 
 func death():
 	if is_alive:
-		sprite_2d.texture = dead_sprite.texture
-		tower_sprite.visible = false
-		missile_sprite.visible = false
 		is_alive = false
 		collision_mask = 4
 		collision_layer = 32

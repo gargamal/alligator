@@ -328,7 +328,6 @@ texture = ExtResource("2_p5uix")
 modulate = Color(1, 1, 1, 0.580392)
 z_index = -1
 position = Vector2(-10, 10)
-scale = Vector2(1, 1)
 texture = ExtResource("5_seet4")
 
 [node name="tower_pos" type="Marker2D" parent="body_sprite"]
@@ -344,7 +343,6 @@ texture = ExtResource("3_14bam")
 modulate = Color(1, 1, 1, 0.580392)
 z_index = -1
 position = Vector2(-5, 5)
-scale = Vector2(1, 1)
 texture = ExtResource("7_x8xvc")
 
 [node name="target" type="Marker2D" parent="tower_sprite"]
