@@ -10,6 +10,8 @@ const ENCRYPT_PASSWD :String = "2024.@llig@tor!€"
 const EASY_COLOR :Color = Color("5cd29a")
 const MEDIUM_COLOR :Color = Color("f0a46e")
 const HARD_COLOR :Color = Color("f55f52")
+const SCORE_SIZE_PERSITED :int = 50
+
 
 enum Type_Difficulty { EASY, MEDIUM, HARD }
 
@@ -82,6 +84,9 @@ static func persist_score_player(player_name :String, score :int, difficulty :Ty
 	score_game.append(new_line)
 	
 	score_game.sort_custom(sort_score_game)
+	
+	while score_game.size() > SCORE_SIZE_PERSITED:
+		score_game.remove_at(score_game.size() - 1)
 	
 	var file_save :FileAccess = FileAccess.open_encrypted_with_pass(path_name, FileAccess.WRITE, ENCRYPT_PASSWD)
 	if file_save:
