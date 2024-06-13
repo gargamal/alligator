@@ -116,7 +116,7 @@ _data = {
 }
 
 [node name="player" type="CharacterBody2D"]
-z_index = 2
+z_index = 4
 collision_mask = 402
 script = ExtResource("1_8wmr0")
 bullet_scene = ExtResource("2_fvypt")

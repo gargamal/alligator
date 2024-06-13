@@ -13,7 +13,7 @@ func _ready():
 	var all_score :Array = App_Game.get_all_score()
 	
 	var idx :int = 0
-	for one_score in all_score:
+	for one_score in all_score:	
 		var new_line :HBoxContainer = one_line.duplicate()
 		lines.add_child(new_line)
 		new_line.visible = true

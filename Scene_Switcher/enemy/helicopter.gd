@@ -14,6 +14,10 @@ func death():
 	var tween :Tween = get_tree().create_tween()
 	tween.tween_method(set_shadow_postion, shadow.position, Vector2(-5.0, 5.0), 0.5).set_trans(Tween.TRANS_SINE)
 
+func _specific_ready():
+	target = $target
+	fire_sparkles = $fire_sparkles
+
 func set_shadow_postion(shadow_position :Vector2):
 	shadow.position = shadow_position
 

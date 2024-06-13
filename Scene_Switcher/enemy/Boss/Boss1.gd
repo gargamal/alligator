@@ -171,6 +171,7 @@ func death():
 		is_alive = false
 		collision_mask = 4
 		collision_layer = 32
+		z_index = 0
 		process_explosion()
 		emit_signal("i_am_dead_boss", self)
 		target_follow.visible = false

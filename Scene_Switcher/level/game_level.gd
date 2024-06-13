@@ -3,7 +3,7 @@ class_name Game_Level
 
 const HEIGHT :int = 1080
 const max_dist_diedbody :int = 3000
-const KILL_LIMIT_TO_CALL_BOSS :int = 5
+const KILL_LIMIT_TO_CALL_BOSS :int = 20
 
 @onready var level :Node2D = $level
 @onready var player = $player/player

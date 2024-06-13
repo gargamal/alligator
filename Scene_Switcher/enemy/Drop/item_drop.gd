@@ -8,6 +8,9 @@ enum Type_ItemBox { NONE, WEAPON, HEAL }
 @onready var animation_player = $AnimationPlayer
 @onready var heal_sound = $sound/Heal_Sound
 @onready var weapon_sound = $sound/Weapon_Sound
+@onready var circle_sprite = $Circle_Sprite
+@onready var heal_sprite = $Heal_Sprite
+@onready var weapon_sprite = $Weapon_Sprite
 
 
 @export_range(0.0, 1.0) var drop_weapon :float = 0.2
@@ -28,6 +31,13 @@ func _ready():
 
 func _on_body_entered(body):
 	if body is Player:
+		collision_layer = 0
+		collision_mask = 0
+		animation_player.stop()
+		circle_sprite.visible = false
+		heal_sprite.visible = false
+		weapon_sprite.visible = false
+		
 		body.take_itembox(type_itemBox)
 		if type_itemBox == Type_ItemBox.WEAPON:
 			weapon_sound.play()

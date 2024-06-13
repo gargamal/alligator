@@ -1,15 +1,18 @@
 extends CharacterBody2D
 class_name Player
 
+
 enum Movement_State { IDLE, RUN }
 enum Shoot_State { IDLE, SHOOT }
 enum Level_Weapon { BASIC, DOUBLE, TRIPLE }
+
 
 const DURATION_OVERHEAT_WAIT :float = 1.0
 const WEAPON_COLDOWN :float = 1.0
 const WEAPON_HEATDOWN :float = 0.5
 const WEAPON_OVERHEAT_LIMIT :float = 100.0
 const WEAPON_COLOR :Color = Color("4b4b4b")
+
 
 @onready var main_target = $cockpit_sprite/weapon_sprite/targets/main_target
 @onready var left_target = $cockpit_sprite/weapon_sprite/targets/left_target
@@ -30,6 +33,7 @@ const WEAPON_COLOR :Color = Color("4b4b4b")
 
 signal i_am_dead(my_self)
 
+
 @export var speed :float = 500.0
 @export var life :float = 50.0
 @export var life_max :float = 50.0 :set = set_life_max
@@ -39,6 +43,8 @@ signal i_am_dead(my_self)
 @export var minimun_healing :float = 20.0
 @export var world :Node2D
 @export var bullet_scene :PackedScene
+@export var power :float = 1.0
+
 
 var skew_grain = 10.0
 var input_dir :Vector2
@@ -53,15 +59,18 @@ var weapon_coldown :float = 0.01
 var time_overheat_duration :float = 0.0
 var overheat :bool = false
 
+
 func set_life_max(new_life_max :float):
 	life_max = new_life_max
 	life = life_max
+
 
 func _ready():
 	set_life_max(life_max)
 	life_level.visible = true
 	set_life(life)
 	animation_weapon()
+
 
 func _physics_process(delta :float):
 	velocity = lerp(velocity, input_dir * get_speed(), smooth * delta)
@@ -71,13 +80,16 @@ func _physics_process(delta :float):
 	
 	move_and_slide()
 
+
 func _process(delta):
 	time_overheat_duration += delta
 	bullet_time += delta
 	manage_shoot()
 
+
 func get_speed() -> float:
 	return speed * (0.85 if input_dir.y > 0 else 1.0)
+
 
 func _input(_event):
 	if Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
@@ -95,6 +107,7 @@ func _input(_event):
 	
 	elif shoot_state != Shoot_State.IDLE and Input.is_action_just_released("ui_shoot"):
 		shoot_state = Shoot_State.IDLE
+
 
 func manage_shoot():
 	weapon_heat_process()
@@ -116,6 +129,7 @@ func manage_shoot():
 				anim_smoke_fire_left.play("player_fire_left")
 				anim_smoke_fire_right.play("player_fire_right")
 
+
 func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 	if not overheat:
 		var bullet :Bullet = bullet_scene.instantiate()
@@ -124,28 +138,32 @@ func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 		bullet.global_position = target_pos.global_position
 		bullet.direction = (target_dir.global_position - global_position).normalized() 
 		bullet.origin = target_pos.global_position
-		bullet.power = 10
+		bullet.power = power
 		bullet_time = 0.0
 		bullet.flip_v = true
 		next_shoot()
 
+
 func double_shoot():
 	basic_shoot(main_target,left_target)
 	basic_shoot(main_target,right_target)
+
 
 func triple_shoot():
 	basic_shoot(main_target,main_target)
 	basic_shoot(main_target,left_target)
 	basic_shoot(main_target,right_target)
 
+
 func take_hit(power: int):
 	var tween :Tween = get_tree().create_tween()
-	tween.tween_method(set_life, life, life- power, 1.0).set_trans(Tween.TRANS_SINE)
+	tween.tween_method(set_life, life, life - power, 1.0).set_trans(Tween.TRANS_SINE)
 	
 	if level_weapon != Level_Weapon.BASIC:
 		@warning_ignore("int_as_enum_without_cast")
 		level_weapon -= 1
 		animation_weapon()
+
 
 func take_itembox(itembox :ItemBox.Type_ItemBox):
 	match itembox:
@@ -190,10 +208,12 @@ func animation_weapon():
 			weapon_double_sprite.visible = true
 			shadow.frame = 2
 
+
 func next_shoot():
 	bullet_idx = rng.randi_range(0,3)
 	get_tree().create_timer(rng.randf_range(0.1, 0.2))
 	get_node("sound/shoot_gun_" + str(bullet_idx)).play()
+
 
 func weapon_heat_process():
 	if overheat and time_overheat_duration > DURATION_OVERHEAT_WAIT:
@@ -221,11 +241,13 @@ func weapon_heat_process():
 	weapon_sprite.self_modulate = overheat_color
 	weapon_double_sprite.self_modulate = overheat_color
 
+
 static func get_life_max_with_difficulty(p_life_max :float, difficulty_level :App_Game.Type_Difficulty) -> float:
 	match difficulty_level:
 		App_Game.Type_Difficulty.EASY: return int(p_life_max * 2.0 + 0.5)
 		App_Game.Type_Difficulty.HARD: return int(float(p_life_max) * 0.75 + 0.5)
 		_: return p_life_max
+
 
 static func get_minimun_healing_with_difficulty(p_minimun_healing :int, difficulty_level :App_Game.Type_Difficulty) -> int:
 	match difficulty_level:

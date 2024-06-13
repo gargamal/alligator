@@ -52,12 +52,12 @@ _data = {
 "rotor": SubResource("Animation_2qpwm")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2pqs"]
-size = Vector2(64, 128)
-
 [sub_resource type="Gradient" id="Gradient_gb1ns"]
 offsets = PackedFloat32Array(0, 0.705521, 1)
 colors = PackedColorArray(0.219501, 0.219501, 0.219501, 1, 0.490196, 0.490196, 0.490196, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2pqs"]
+size = Vector2(64, 128)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pv8mj"]
 _data = {
@@ -104,7 +104,7 @@ _data = {
 }
 
 [node name="helicopter" type="CharacterBody2D"]
-z_index = 2
+z_index = 4
 collision_layer = 2
 collision_mask = 11
 motion_mode = 1
@@ -129,6 +129,7 @@ texture = ExtResource("3_anmkq")
 
 [node name="shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(1, 1, 1, 0.580392)
+z_index = -1
 position = Vector2(-35, 20)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_8lukf")
@@ -143,33 +144,11 @@ texture = ExtResource("4_on4u8")
 offset = Vector2(0, 29.5082)
 
 [node name="rotor_sprite" type="Sprite2D" parent="Sprite2D"]
+z_index = 1
 position = Vector2(0.384537, 8.29899)
 scale = Vector2(0.305, 0.305)
 texture = ExtResource("5_83xji")
 offset = Vector2(1.26078, 27.2098)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_m2pqs")
-
-[node name="target" type="Marker2D" parent="."]
-position = Vector2(0, 72)
-
-[node name="left_wall" type="RayCast2D" parent="."]
-target_position = Vector2(-50, 2.08165e-12)
-collision_mask = 16
-
-[node name="right_wall" type="RayCast2D" parent="."]
-target_position = Vector2(50, 2.08165e-12)
-collision_mask = 16
-
-[node name="right_shoot" type="RayCast2D" parent="."]
-position = Vector2(-16, 64)
-target_position = Vector2(0, 600)
-
-[node name="left_shoot" type="RayCast2D" parent="."]
-position = Vector2(16, 64)
-target_position = Vector2(0, 600)
 
 [node name="Explosion" parent="." instance=ExtResource("7_5dhhy")]
 
@@ -256,12 +235,36 @@ radial_accel_max = 1.0
 color_ramp = SubResource("Gradient_gb1ns")
 
 [node name="fire_sparkles" type="Sprite2D" parent="."]
-position = Vector2(1, 74)
+visible = false
+position = Vector2(1, 84)
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("7_6ptmc")
 flip_v = true
 vframes = 3
 frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_m2pqs")
+
+[node name="target" type="Marker2D" parent="."]
+position = Vector2(0, 72)
+
+[node name="left_wall" type="RayCast2D" parent="."]
+target_position = Vector2(-50, 2.08165e-12)
+collision_mask = 16
+
+[node name="right_wall" type="RayCast2D" parent="."]
+target_position = Vector2(50, 2.08165e-12)
+collision_mask = 16
+
+[node name="right_shoot" type="RayCast2D" parent="."]
+position = Vector2(-16, 64)
+target_position = Vector2(0, 600)
+
+[node name="left_shoot" type="RayCast2D" parent="."]
+position = Vector2(16, 64)
+target_position = Vector2(0, 600)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

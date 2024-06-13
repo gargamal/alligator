@@ -66,6 +66,7 @@ _data = {
 }
 
 [node name="assault_tank" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 4
 collision_mask = 13
 script = ExtResource("1_4tft8")
@@ -111,6 +112,33 @@ frame = 2
 position = Vector2(0, -412.903)
 rotation = 3.14159
 scale = Vector2(3.22581, 3.22581)
+
+[node name="move_smoke" type="Node2D" parent="body_sprite"]
+scale = Vector2(3.22581, 3.22581)
+
+[node name="smoke_r" parent="body_sprite/move_smoke" instance=ExtResource("8_ijiqd")]
+z_index = 3
+position = Vector2(-24, -78)
+emitting = true
+amount = 5
+one_shot = false
+explosiveness = 0.0
+emission_sphere_radius = 8.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+color = Color(1, 1, 1, 0.25098)
+
+[node name="smoke_l" parent="body_sprite/move_smoke" instance=ExtResource("8_ijiqd")]
+z_index = 3
+position = Vector2(23, -78)
+emitting = true
+amount = 5
+one_shot = false
+explosiveness = 0.0
+emission_sphere_radius = 8.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+color = Color(1, 1, 1, 0.25098)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

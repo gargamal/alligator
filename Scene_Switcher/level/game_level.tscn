@@ -20,6 +20,7 @@ level_scene_boss = ExtResource("3_3ci3x")
 item_scene = ExtResource("3_2i3rj")
 
 [node name="level" type="Node2D" parent="."]
+z_index = -2
 
 [node name="level_a0" parent="level" node_paths=PackedStringArray("next", "world_drop_item") instance=ExtResource("1_o0yc1")]
 position = Vector2(0, 1080)

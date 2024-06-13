@@ -15,12 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://ch4qvgnjamob2" path="res://Scene_Switcher/enemy/fire_weapon.tscn" id="10_y0ouj"]
 [ext_resource type="AudioStream" uid="uid://tnta4wntf1pt" path="res://Scene_Switcher/sound/explosion.mp3" id="14_yw07s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_klok1"]
-size = Vector2(80, 160)
-
 [sub_resource type="Gradient" id="Gradient_s8hml"]
 offsets = PackedFloat32Array(0, 0.705521, 1)
 colors = PackedColorArray(0.219501, 0.219501, 0.219501, 1, 0.490196, 0.490196, 0.490196, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klok1"]
+size = Vector2(80, 160)
 
 [sub_resource type="Animation" id="Animation_mrm2l"]
 length = 0.001
@@ -305,6 +305,7 @@ _data = {
 }
 
 [node name="artillery" type="CharacterBody2D"]
+z_index = 1
 script = ExtResource("1_kjnej")
 bullet_cooldown = 1.5
 ammo_scene = ExtResource("2_hn3br")
@@ -333,89 +334,32 @@ texture = ExtResource("5_seet4")
 [node name="tower_pos" type="Marker2D" parent="body_sprite"]
 position = Vector2(0, -130)
 
-[node name="tower_sprite" type="Sprite2D" parent="."]
-self_modulate = Color(0.59078, 0.568767, 0.389984, 1)
-position = Vector2(0, -40.3)
-scale = Vector2(0.31, 0.31)
-texture = ExtResource("3_14bam")
+[node name="move_smoke" type="Node2D" parent="body_sprite"]
+scale = Vector2(3.22581, 3.22581)
 
-[node name="shadow" type="Sprite2D" parent="tower_sprite"]
-modulate = Color(1, 1, 1, 0.580392)
-z_index = -1
-position = Vector2(-5, 5)
-texture = ExtResource("7_x8xvc")
+[node name="smoke_r" parent="body_sprite/move_smoke" instance=ExtResource("9_jrcr4")]
+z_index = 3
+position = Vector2(-24, -82)
+emitting = true
+amount = 5
+one_shot = false
+explosiveness = 0.0
+emission_sphere_radius = 8.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+color = Color(1, 1, 1, 0.25098)
 
-[node name="target" type="Marker2D" parent="tower_sprite"]
-position = Vector2(0, 470)
-
-[node name="fire_sparkles" type="Sprite2D" parent="tower_sprite"]
-visible = false
-position = Vector2(-64.5161, 45.1613)
-scale = Vector2(1.06452, 1.06452)
-texture = ExtResource("7_miexj")
-flip_v = true
-vframes = 3
-frame = 2
-
-[node name="fire_sparkles2" type="Sprite2D" parent="tower_sprite"]
-visible = false
-position = Vector2(-8.20295e-06, 45.1613)
-scale = Vector2(1.06452, 1.06452)
-texture = ExtResource("7_miexj")
-flip_v = true
-vframes = 3
-frame = 2
-
-[node name="fire_sparkles3" type="Sprite2D" parent="tower_sprite"]
-visible = false
-position = Vector2(64.5161, 45.1613)
-scale = Vector2(1.06452, 1.06452)
-texture = ExtResource("7_miexj")
-flip_v = true
-vframes = 3
-frame = 2
-
-[node name="fire_sparkles4" type="Sprite2D" parent="tower_sprite"]
-visible = false
-position = Vector2(32.258, 106.452)
-scale = Vector2(1.06452, 1.06452)
-texture = ExtResource("7_miexj")
-flip_v = true
-vframes = 3
-frame = 2
-
-[node name="fire_sparkles5" type="Sprite2D" parent="tower_sprite"]
-visible = false
-position = Vector2(-32.2581, 106.452)
-scale = Vector2(1.06452, 1.06452)
-texture = ExtResource("7_miexj")
-flip_v = true
-vframes = 3
-frame = 2
-
-[node name="insight_shoot" type="RayCast2D" parent="tower_sprite"]
-target_position = Vector2(0, 2270)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 4.76837e-07)
-shape = SubResource("RectangleShape2D_klok1")
-
-[node name="left_wall" type="RayCast2D" parent="."]
-target_position = Vector2(-80, 0)
-collision_mask = 20
-
-[node name="right_wall" type="RayCast2D" parent="."]
-target_position = Vector2(80, 0)
-collision_mask = 20
-
-[node name="right_shoot" type="RayCast2D" parent="."]
-position = Vector2(-16, 64)
-target_position = Vector2(0, 600)
-
-[node name="left_shoot" type="RayCast2D" parent="."]
-position = Vector2(16, 64)
-target_position = Vector2(0, 600)
+[node name="smoke_l" parent="body_sprite/move_smoke" instance=ExtResource("9_jrcr4")]
+z_index = 3
+position = Vector2(23, -82)
+emitting = true
+amount = 5
+one_shot = false
+explosiveness = 0.0
+emission_sphere_radius = 8.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+color = Color(1, 1, 1, 0.25098)
 
 [node name="Explosion" parent="." instance=ExtResource("9_jrcr4")]
 
@@ -500,6 +444,90 @@ linear_accel_max = 10.0
 radial_accel_min = 1.0
 radial_accel_max = 1.0
 color_ramp = SubResource("Gradient_s8hml")
+
+[node name="tower_sprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.59078, 0.568767, 0.389984, 1)
+position = Vector2(0, -40.3)
+scale = Vector2(0.31, 0.31)
+texture = ExtResource("3_14bam")
+
+[node name="shadow" type="Sprite2D" parent="tower_sprite"]
+modulate = Color(1, 1, 1, 0.580392)
+z_index = -1
+position = Vector2(-5, 5)
+texture = ExtResource("7_x8xvc")
+
+[node name="target" type="Marker2D" parent="tower_sprite"]
+position = Vector2(0, 470)
+
+[node name="fire_sparkles" type="Sprite2D" parent="tower_sprite"]
+visible = false
+position = Vector2(-64.5161, 45.1613)
+scale = Vector2(1.06452, 1.06452)
+texture = ExtResource("7_miexj")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="fire_sparkles2" type="Sprite2D" parent="tower_sprite"]
+visible = false
+position = Vector2(-8.20295e-06, 45.1613)
+scale = Vector2(1.06452, 1.06452)
+texture = ExtResource("7_miexj")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="fire_sparkles3" type="Sprite2D" parent="tower_sprite"]
+visible = false
+position = Vector2(64.5161, 45.1613)
+scale = Vector2(1.06452, 1.06452)
+texture = ExtResource("7_miexj")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="fire_sparkles4" type="Sprite2D" parent="tower_sprite"]
+visible = false
+position = Vector2(32.258, 106.452)
+scale = Vector2(1.06452, 1.06452)
+texture = ExtResource("7_miexj")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="fire_sparkles5" type="Sprite2D" parent="tower_sprite"]
+visible = false
+position = Vector2(-32.2581, 106.452)
+scale = Vector2(1.06452, 1.06452)
+texture = ExtResource("7_miexj")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="insight_shoot" type="RayCast2D" parent="tower_sprite"]
+target_position = Vector2(0, 2270)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 4.76837e-07)
+shape = SubResource("RectangleShape2D_klok1")
+
+[node name="left_wall" type="RayCast2D" parent="."]
+target_position = Vector2(-80, 0)
+collision_mask = 20
+
+[node name="right_wall" type="RayCast2D" parent="."]
+target_position = Vector2(80, 0)
+collision_mask = 20
+
+[node name="right_shoot" type="RayCast2D" parent="."]
+position = Vector2(-16, 64)
+target_position = Vector2(0, 600)
+
+[node name="left_shoot" type="RayCast2D" parent="."]
+position = Vector2(16, 64)
+target_position = Vector2(0, 600)
 
 [node name="AnimationPlayer_body" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationPlayer")

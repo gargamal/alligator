@@ -49,6 +49,8 @@ var margin_can_shoot :float = 400.0
 var rng = RandomNumberGenerator.new()
 var time_estimate_distance_can_shoot :float = 0.0
 var fire_sparkles
+var smoke_r
+var smoke_l
 
 func _ready():
 	margin_can_shoot = rng.randf_range(100.0 , 500.0)
@@ -64,6 +66,8 @@ func set_life_max(new_life_max :float):
 func _specific_ready():
 	target = $target
 	fire_sparkles = $fire_sparkles
+	smoke_r = $body_sprite/move_smoke/smoke_r
+	smoke_l = $body_sprite/move_smoke/smoke_l
 
 func _physics_process(delta :float):
 	if is_running and is_alive:
@@ -235,8 +239,13 @@ func death():
 		is_alive = false
 		collision_mask = 4
 		collision_layer = 32
+		z_index = 0
 		target_follow.visible = false
 		process_explosion()
+		if smoke_r and smoke_l:
+			smoke_r.emitting = false
+			smoke_l.emitting = false
+		
 		emit_signal("i_am_death", self)
 
 func process_explosion():
