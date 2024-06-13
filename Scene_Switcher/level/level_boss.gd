@@ -21,10 +21,12 @@ enum Map_Choice { BOSS_BUILDING, BOSS_FIRE, BOSS_HOLE }
 
 @export var boss_scene :PackedScene
 @export var world :Node2D
+@export var world_drop_item :Node2D
 @export var previous :Node2D
 @export var next :Node2D
 @export var player :Player
 @export var bullet_world :Node2D
+@export var item_drop_scene :PackedScene
 @export var difficulty_level :App_Game.Type_Difficulty
 @export var point_per_kill :int = 10
 
@@ -82,7 +84,7 @@ func _on_enemy_is_ready(enemy :Enemy):
 	enemy.is_running = true
 
 
-func _on_boss_is_dead():
+func _on_boss_is_dead(enemy_boss :Boss):
 	top_limit.collision_layer = 0
 	top_limit.collision_mask = 0
 	player_border.collision_layer = 0
@@ -92,6 +94,11 @@ func _on_boss_is_dead():
 		for map in array_map_choice:
 			map.visible = false
 		city_boss_death.visible = true
+	
+	var item_drop :ItemBox = item_drop_scene.instantiate()
+	world_drop_item.add_child(item_drop)
+	item_drop.global_position = enemy_boss.global_position
+	
 	emit_signal("add_point", point_per_kill)
 
 

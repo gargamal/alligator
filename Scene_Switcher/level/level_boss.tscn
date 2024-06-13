@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://gnh2y3rvcs5f"]
+[gd_scene load_steps=17 format=3 uid="uid://gnh2y3rvcs5f"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/level/level_boss.gd" id="1_jntny"]
 [ext_resource type="Texture2D" uid="uid://c78rripahjn0t" path="res://Scene_Switcher/level/asset/special_city/city_boss_1.jpg" id="2_r4lxk"]
 [ext_resource type="PackedScene" uid="uid://bfh8txg0uot2h" path="res://Scene_Switcher/enemy/Boss/Boss1.tscn" id="2_tu0c0"]
+[ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="3_cnt1t"]
 [ext_resource type="Texture2D" uid="uid://bvbgoux0rwbva" path="res://Scene_Switcher/level/asset/special_city/city_boss_2.jpg" id="3_ypgqa"]
 [ext_resource type="Texture2D" uid="uid://xje47kbk3cgy" path="res://Scene_Switcher/level/asset/normal_city/city_1.png" id="4_kcx1n"]
 [ext_resource type="Texture2D" uid="uid://cmef2iurt8tw7" path="res://Scene_Switcher/level/asset/special_city/city_3_boss_hole.jpg" id="4_uwxq5"]
@@ -36,6 +37,7 @@ colors = PackedColorArray(0.834999, 0.891277, 0, 1, 0.67451, 0.321569, 0, 1, 0.6
 [node name="level_boss" type="Node2D"]
 script = ExtResource("1_jntny")
 boss_scene = ExtResource("2_tu0c0")
+item_drop_scene = ExtResource("3_cnt1t")
 
 [node name="point_spawn" type="Marker2D" parent="."]
 position = Vector2(960, 832)

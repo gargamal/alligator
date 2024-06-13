@@ -182,6 +182,7 @@ func _on_spawn_boss_level(actual_level :Node2D):
 	level_boss.previous.next = level_boss
 	
 	level_boss.world = enemy
+	level_boss.world_drop_item = drop_item
 	level_boss.player = player
 	level_boss.bullet_world = bullet
 	level_boss.difficulty_level = game.game_level.difficulty
