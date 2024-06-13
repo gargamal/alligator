@@ -132,6 +132,7 @@ texture = ExtResource("5_eb245")
 modulate = Color(1, 1, 1, 0.580392)
 position = Vector2(-39.3846, 22.9743)
 texture = ExtResource("11_jcunq")
+hframes = 3
 
 [node name="weapon_double_sprite" type="Sprite2D" parent="cockpit_sprite"]
 self_modulate = Color(0.294118, 0.294118, 0.294118, 1)

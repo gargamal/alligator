@@ -25,6 +25,8 @@ const WEAPON_COLOR :Color = Color("4b4b4b")
 @onready var heat_level = $heat_level
 @onready var anim_weapon = $anim_weapon
 @onready var target_follow = $target_follow
+@onready var shadow = $cockpit_sprite/shadow
+
 
 signal i_am_dead(my_self)
 
@@ -178,12 +180,15 @@ func animation_weapon():
 		Level_Weapon.BASIC:
 			weapon_sprite.visible = true
 			weapon_double_sprite.visible = false
+			shadow.frame = 0
 		Level_Weapon.DOUBLE:
 			weapon_sprite.visible = false
 			weapon_double_sprite.visible = true
+			shadow.frame = 1
 		Level_Weapon.TRIPLE:
 			weapon_sprite.visible = true
 			weapon_double_sprite.visible = true
+			shadow.frame = 2
 
 func next_shoot():
 	bullet_idx = rng.randi_range(0,3)
