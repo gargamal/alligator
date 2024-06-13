@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bwtr4ed7eju1b"]
+[gd_scene load_steps=12 format=3 uid="uid://bwtr4ed7eju1b"]
 
 [ext_resource type="PackedScene" uid="uid://b4c1q3jiadym1" path="res://Scene_Switcher/level/level_A1.tscn" id="1_o0yc1"]
 [ext_resource type="Script" path="res://Scene_Switcher/level/game_level.gd" id="1_qdoty"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://djag0ihwlgjgf" path="res://Scene_Switcher/Menu/menu_in_game.tscn" id="8_80n6j"]
 [ext_resource type="PackedScene" uid="uid://b152stqnpng2k" path="res://Scene_Switcher/Menu/hud_score.tscn" id="8_qq12p"]
 [ext_resource type="PackedScene" uid="uid://b3we2oloqwtt0" path="res://Scene_Switcher/level/music_in_game.tscn" id="9_0okr8"]
+[ext_resource type="PackedScene" uid="uid://g7c5iqp4xy6m" path="res://Scene_Switcher/Menu/save_score_player.tscn" id="10_1tjh5"]
 
 [node name="game_level" type="Node2D"]
 script = ExtResource("1_qdoty")
@@ -57,6 +58,11 @@ autostart = true
 [node name="Score" parent="." instance=ExtResource("8_qq12p")]
 
 [node name="Game_Over" parent="." instance=ExtResource("8_80n6j")]
+layer = 2
+visible = false
+
+[node name="save_score_player" parent="." instance=ExtResource("10_1tjh5")]
+layer = 2
 visible = false
 
 [node name="music_in_game" parent="." instance=ExtResource("9_0okr8")]
@@ -64,3 +70,4 @@ process_mode = 3
 
 [connection signal="i_am_dead" from="player/player" to="." method="_on_player_dead"]
 [connection signal="timeout" from="clear" to="." method="_on_clear_timeout"]
+[connection signal="player_persisted" from="save_score_player" to="." method="_on_save_score_player_player_persisted"]

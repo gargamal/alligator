@@ -76,3 +76,5 @@ Button/styles/normal = SubResource("StyleBoxFlat_jwwjy")
 Button/styles/pressed = SubResource("StyleBoxFlat_qno3i")
 Label/font_sizes/font_size = 70
 Label/fonts/font = ExtResource("1_jj8bi")
+LineEdit/font_sizes/font_size = 70
+LineEdit/fonts/font = ExtResource("1_jj8bi")

@@ -58,6 +58,7 @@ func set_life_max(new_life_max :float):
 func _ready():
 	set_life_max(life_max)
 	life_level.visible = true
+	set_life(life)
 	animation_weapon()
 
 func _physics_process(delta :float):
@@ -168,7 +169,7 @@ func set_life(new_life :float):
 	life = new_life
 	if life > 1.0:
 		life_level.texture.width = int(life / life_max * 100.0 + .5)
-	else:
+	elif life_level.visible:
 		life_level.visible = false
 		emit_signal("i_am_dead")
 

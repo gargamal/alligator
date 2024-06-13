@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1uw4kbggct3j"]
+[gd_scene load_steps=7 format=3 uid="uid://c1uw4kbggct3j"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/Menu/Menu.gd" id="1_k6tvs"]
 [ext_resource type="PackedScene" uid="uid://dp40vwkohdugx" path="res://Scene_Switcher/Menu/Menu_main.tscn" id="2_37hr6"]
 [ext_resource type="AudioStream" uid="uid://dqw5x4g412tto" path="res://Scene_Switcher/Music/Bass Buzzer Menu.mp3" id="2_awlfh"]
 [ext_resource type="PackedScene" uid="uid://bfmlye4wts18l" path="res://Scene_Switcher/Menu/menu_option.tscn" id="3_tmrx5"]
 [ext_resource type="PackedScene" uid="uid://dxxbhcjgkxilc" path="res://Scene_Switcher/mouse_sound.tscn" id="5_3figy"]
+[ext_resource type="PackedScene" uid="uid://bf4b84etj0eqp" path="res://Scene_Switcher/Menu/menu_see_score.tscn" id="5_y6myv"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_k6tvs")
@@ -20,7 +21,12 @@ bus = &"Music"
 [node name="Menu_Option" parent="." instance=ExtResource("3_tmrx5")]
 visible = false
 
+[node name="menu_see_score" parent="." instance=ExtResource("5_y6myv")]
+visible = false
+
 [node name="mouse_sound" parent="." instance=ExtResource("5_3figy")]
 
 [connection signal="menu_option_became_visible" from="Menu_Main" to="." method="_on_menu_main_menu_option_became_visible"]
+[connection signal="menu_see_score_became_visible" from="Menu_Main" to="." method="_on_menu_main_menu_see_score_became_visible"]
 [connection signal="menu_main_became_visible" from="Menu_Option" to="." method="_on_menu_option_menu_main_became_visible"]
+[connection signal="menu_main_became_visible" from="menu_see_score" to="." method="_on_menu_see_score_menu_main_became_visible"]

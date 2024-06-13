@@ -13,8 +13,9 @@ const KILL_LIMIT_TO_CALL_BOSS :int = 5
 @onready var enemy = $enemy
 @onready var bullet = $bullet
 @onready var drop_item = $drop_item
-@onready var score = $Score
+@onready var hud_score = $Score
 @onready var game_over = $Game_Over
+@onready var save_score_player = $save_score_player
 
 
 @export var level_scene_1 :PackedScene
@@ -76,9 +77,10 @@ func _ready():
 	game = App_Game.load_game()
 	_on_add_point(0)
 	game_over.visible = false
+	save_score_player.visible = false
 	player.set_life_max(Player.get_life_max_with_difficulty(player.life_max, game.game_level.difficulty))
 	player.minimun_healing = Player.get_minimun_healing_with_difficulty(player.minimun_healing, game.game_level.difficulty)
-	score.init_hud(int(game.game_level.difficulty) as App_Game.Type_Difficulty)
+	hud_score.init_hud(int(game.game_level.difficulty) as App_Game.Type_Difficulty)
 
 func _on_spawn_new_level(actual_level :Node2D):
 	var level_scene :PackedScene = level_scene_instianble[rng.randi_range(0, level_scene_instianble.size() - 1)]
@@ -146,7 +148,7 @@ func _on_clear_timeout():
 
 func _on_add_point(point_value :int):
 	points += point_value
-	score.score = points
+	hud_score.score = points
 	if point_value > 0:
 		nb_kill += 1
 		if nb_kill % KILL_LIMIT_TO_CALL_BOSS == 0:
@@ -154,9 +156,11 @@ func _on_add_point(point_value :int):
 				if "boss_can_spawn" in child_level:
 					child_level.boss_can_spawn = true
 
+
 func _on_player_dead():
-	game_over.title_name = "GAME OVER"
-	game_over.visible = true
+	save_score_player.score = hud_score.score
+	save_score_player.difficulty = int(game.game_level.difficulty) as App_Game.Type_Difficulty
+	save_score_player.visible = true
 
 
 func _input(_event):
@@ -201,3 +205,8 @@ func _on_next_map(level_boss :Level_Boss):
 	
 	var level_scene :PackedScene = level_scene_instianble[rng.randi_range(0, level_scene_instianble.size() - 1)]
 	spawn_new_level(level_boss, level_scene.instantiate())
+
+
+func _on_save_score_player_player_persisted():
+	game_over.title_name = "GAME OVER"
+	game_over.visible = true
