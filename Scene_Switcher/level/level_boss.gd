@@ -77,8 +77,10 @@ func spawn():
 	world.add_child(enemy_boss)
 	enemy_boss.global_position = point_spawn.global_position
 
+
 func _on_enemy_is_ready(enemy :Enemy):
 	enemy.is_running = true
+
 
 func _on_boss_is_dead():
 	top_limit.collision_layer = 0

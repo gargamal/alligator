@@ -51,13 +51,13 @@ var time_estimate_distance_can_shoot :float = 0.0
 var fire_sparkles
 
 func _ready():
-	emit_signal("i_am_ready_enemy", self)
 	margin_can_shoot = rng.randf_range(100.0 , 500.0)
 	time_estimate_distance_can_shoot = rng.randf_range(0.0, TIME_ESTIMATE_DISTANCE_CAN_SHOOT)
 	_specific_ready()
 	fire_sparkles.visible = false
+	emit_signal("i_am_ready_enemy", self)
 
-func set_life_max(new_life_max :int):
+func set_life_max(new_life_max :float):
 	life_max = new_life_max
 	life = life_max
 

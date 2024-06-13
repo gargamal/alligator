@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3we2oloqwtt0"]
 
-[ext_resource type="AudioStream" uid="uid://b2c4nstc5r4gg" path="res://Scene_Switcher/Music/Amygdala Hijack_130 BPM_Loop.mp3" id="1_eepsh"]
+[ext_resource type="AudioStream" uid="uid://giy78ru6f4hn" path="res://Scene_Switcher/Music/Amygdala Hijack_130 BPM_Loop.mp3" id="1_eepsh"]
 [ext_resource type="Script" path="res://Scene_Switcher/level/music_in_game.gd" id="1_xkblt"]
-[ext_resource type="AudioStream" uid="uid://d3w0ykxr80ehy" path="res://Scene_Switcher/Music/Dead End_172 BPM_Loop.mp3" id="2_3mmtn"]
-[ext_resource type="AudioStream" uid="uid://repnrl4tnvc4" path="res://Scene_Switcher/Music/The Psychic 2_141 BPM_Loop.mp3" id="3_choh4"]
+[ext_resource type="AudioStream" uid="uid://co03t8hjo7coo" path="res://Scene_Switcher/Music/Dead End_172 BPM_Loop.mp3" id="2_3mmtn"]
+[ext_resource type="AudioStream" uid="uid://bdo1cfgq7vm30" path="res://Scene_Switcher/Music/The Psychic 2_141 BPM_Loop.mp3" id="3_choh4"]
 
 [node name="music_in_game" type="Node"]
 script = ExtResource("1_xkblt")

@@ -51,7 +51,7 @@ var weapon_coldown :float = 0.01
 var time_overheat_duration :float = 0.0
 var overheat :bool = false
 
-func set_life_max(new_life_max :int):
+func set_life_max(new_life_max :float):
 	life_max = new_life_max
 	life = life_max
 
@@ -215,14 +215,14 @@ func weapon_heat_process():
 	weapon_sprite.self_modulate = overheat_color
 	weapon_double_sprite.self_modulate = overheat_color
 
-static func get_life_max_with_difficulty(life_max :int, difficulty_level :App_Game.Type_Difficulty) -> int:
+static func get_life_max_with_difficulty(p_life_max :float, difficulty_level :App_Game.Type_Difficulty) -> float:
 	match difficulty_level:
-		App_Game.Type_Difficulty.EASY: return int(life_max * 2.0 + 0.5)
-		App_Game.Type_Difficulty.HARD: return int(float(life_max) * 0.75 + 0.5)
-		_: return life_max
+		App_Game.Type_Difficulty.EASY: return int(p_life_max * 2.0 + 0.5)
+		App_Game.Type_Difficulty.HARD: return int(float(p_life_max) * 0.75 + 0.5)
+		_: return p_life_max
 
-static func get_minimun_healing_with_difficulty(minimun_healing :int, difficulty_level :App_Game.Type_Difficulty) -> int:
+static func get_minimun_healing_with_difficulty(p_minimun_healing :int, difficulty_level :App_Game.Type_Difficulty) -> int:
 	match difficulty_level:
-		App_Game.Type_Difficulty.EASY: return int(minimun_healing * 1.5 + 0.5)
-		App_Game.Type_Difficulty.HARD: return int(float(minimun_healing) * 0.5 + 0.5)
-		_: return minimun_healing
+		App_Game.Type_Difficulty.EASY: return int(p_minimun_healing * 1.5 + 0.5)
+		App_Game.Type_Difficulty.HARD: return int(float(p_minimun_healing) * 0.5 + 0.5)
+		_: return p_minimun_healing

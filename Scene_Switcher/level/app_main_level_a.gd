@@ -54,10 +54,10 @@ func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D, difficult
 		enemy.global_position = point_spawn.global_position
 		work_arr.remove_at(index)
 
-func get_life_enemy(life_max :int, difficulty_level :App_Game.Type_Difficulty) -> int:
+func get_life_enemy(life_max :float, difficulty_level :App_Game.Type_Difficulty) -> float:
 	match difficulty_level:
-		App_Game.Type_Difficulty.EASY: return int(life_max / 2.0 + 0.5)
-		App_Game.Type_Difficulty.HARD: return int(float(life_max) * 1.5 + 0.5)
+		App_Game.Type_Difficulty.EASY: return life_max / 2.0 + 0.5
+		App_Game.Type_Difficulty.HARD: return life_max * 1.5 + 0.5
 		_: return life_max
 
 func _on_enemy_is_death(enemy :Enemy):

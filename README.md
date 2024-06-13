@@ -8,5 +8,6 @@ TODO
 => pouvoir visualier les 10 meilleurs score (reset des scores) et en garder que 100
 => mettre de la fumée sur les véhicule térrestre
 => artillerie : gérer la pause de l'artellerie quand elle tire avec le déploiement des barres
-=> pour le boss faire une animation de marche et faire une aniamtion de mort
 => voir pour naviguer dans la carte en horizontal et en vertical
+=> emmettre un son quand on ramasse les items
+

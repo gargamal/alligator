@@ -1,10 +1,8 @@
 extends Enemy
 class_name Boss
 
-@onready var sprite_2d = $Body_Sprite
 @onready var tower_sprite = $mesh/weapon/Weapon_Sprite
 @onready var insight_shoot = $mesh/weapon/Weapon_Sprite/RayCast2D
-@onready var fire_sparkles_2 = $mesh/weapon/Missile_Sprite/fire_sparkles
 @onready var target_2 = $mesh/weapon/Missile_Sprite/target
 @onready var missile_sprite = $mesh/weapon/Missile_Sprite
 @onready var animation_tree = $AnimationTree
@@ -22,6 +20,7 @@ var missile_time :float = 0.0
 func _specific_ready():
 	target = $mesh/weapon/Weapon_Sprite/target
 	fire_sparkles = $mesh/weapon/Weapon_Sprite/fire_sparkles
+	animation_tree.active = true
 
 func _physics_process(delta :float):
 	if is_running and is_alive:
@@ -29,7 +28,6 @@ func _physics_process(delta :float):
 		state_machine()
 		var direction :Vector2 = process_direction()
 		velocity = lerp(velocity, process_velocity(direction), smooth * delta)
-		rotation_animation(delta, direction)
 		fire(delta)
 		fire_missile(delta)
 		move_and_slide()
@@ -40,21 +38,18 @@ func _process(delta):
 	super(delta)
 	if is_running:
 		animation_tree_player()
+		weapon_animation()
 
-func rotation_animation(_delta :float, _direction :Vector2):
-	if insight_shoot.is_colliding() and insight_shoot.get_collider() is Player:
-		pass
-	else :
-		print("(1) tower_sprite.rotation=", tower_sprite.rotation)
+func weapon_animation():
+	if not insight_shoot.is_colliding():
 		if tower_rotation_sens_right:
-			tower_sprite.rotation -= deg_to_rad(10.5)
-			if tower_sprite.rotation < deg_to_rad(-45):
+			tower_sprite.rotation -= deg_to_rad(0.5)
+			if tower_sprite.rotation < deg_to_rad(-45.0):
 				tower_rotation_sens_right = false
 		else:
-			tower_sprite.rotation += deg_to_rad(10.5)
-			if tower_sprite.rotation > deg_to_rad(45):
+			tower_sprite.rotation += deg_to_rad(0.5)
+			if tower_sprite.rotation > deg_to_rad(45.0):
 				tower_rotation_sens_right = true
-		print("==> (2) tower_sprite.rotation=", tower_sprite.rotation)
 
 func animation_tree_player():
 	animation_tree.set("parameters/conditions/death", not is_alive)
@@ -64,6 +59,7 @@ func animation_tree_player():
 		var direction :Vector2 = process_direction()
 		var new_walk_factor :Vector2 = direction * velocity.length()
 		animation_tree.set("parameters/idle_walk/blend_position", lerp(last_walk_factor, new_walk_factor, .2))
+		
 	else:
 		animation_tree.set("parameters/idle_walk/blend_position", Vector2.ZERO)
 
