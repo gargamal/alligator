@@ -1,3 +1,188 @@
-[gd_scene format=3 uid="uid://ufvjppq851hh"]
+[gd_scene load_steps=12 format=3 uid="uid://ufvjppq851hh"]
 
-[node name="Boss2" type="Node2D"]
+[ext_resource type="Script" path="res://Scene_Switcher/enemy/Boss/Boss2.gd" id="1_ghhc2"]
+[ext_resource type="Texture2D" uid="uid://ejqfff3ys2lg" path="res://Scene_Switcher/enemy/Boss/asset/truck_boss_body.png" id="2_me5a7"]
+[ext_resource type="Texture2D" uid="uid://s1lvapnhfd1e" path="res://Scene_Switcher/enemy/Boss/asset/truck_boss_tripod.png" id="3_d1klx"]
+[ext_resource type="Texture2D" uid="uid://c045os85ea7o" path="res://Scene_Switcher/enemy/Boss/asset/truck_boss_weapon.png" id="4_b1gtb"]
+[ext_resource type="Texture2D" uid="uid://cqmhyk0f6tb6p" path="res://Scene_Switcher/ammo/asset/fire_sparkles.png" id="5_fnl1l"]
+[ext_resource type="Texture2D" uid="uid://bgo5bfv0pyby4" path="res://Scene_Switcher/enemy/asset/vortex.png" id="5_w4rsp"]
+[ext_resource type="PackedScene" uid="uid://ch4qvgnjamob2" path="res://Scene_Switcher/enemy/fire_weapon.tscn" id="6_ngt0y"]
+[ext_resource type="AudioStream" uid="uid://nd1b73dpuuhq" path="res://Scene_Switcher/sound/explosion.mp3" id="7_1etlw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8nc6"]
+size = Vector2(133, 429)
+
+[sub_resource type="Gradient" id="Gradient_2f5cv"]
+offsets = PackedFloat32Array(0, 0.705521, 1)
+colors = PackedColorArray(0.219501, 0.219501, 0.219501, 1, 0.490196, 0.490196, 0.490196, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_pbc4c"]
+offsets = PackedFloat32Array(0.162577, 0.831288, 0.990798)
+colors = PackedColorArray(0.909676, 0.760255, 0.638456, 0.768627, 0.764706, 0.580392, 0.580392, 0.501961, 1, 1, 1, 0)
+
+[node name="Boss2" type="CharacterBody2D"]
+script = ExtResource("1_ghhc2")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -4.5)
+shape = SubResource("RectangleShape2D_y8nc6")
+
+[node name="mesh" type="Node2D" parent="."]
+
+[node name="body_sprite" type="Sprite2D" parent="mesh"]
+modulate = Color(0.412059, 0.378503, 0.163762, 1)
+texture = ExtResource("2_me5a7")
+offset = Vector2(-4, 0)
+flip_v = true
+
+[node name="Kamikaze_spawn" type="Marker2D" parent="mesh/body_sprite"]
+position = Vector2(0, -260)
+
+[node name="tripod_sprite" type="Sprite2D" parent="mesh"]
+modulate = Color(0.619608, 0.231373, 0.117647, 1)
+position = Vector2(0, 110)
+scale = Vector2(0.178711, 0.178711)
+texture = ExtResource("3_d1klx")
+
+[node name="turret_sprite" type="Sprite2D" parent="mesh/tripod_sprite"]
+scale = Vector2(2, 2)
+texture = ExtResource("4_b1gtb")
+
+[node name="fire_sparkles" type="Sprite2D" parent="mesh/tripod_sprite/turret_sprite"]
+position = Vector2(7.10543e-15, 243.41)
+texture = ExtResource("5_fnl1l")
+flip_v = true
+vframes = 3
+frame = 2
+
+[node name="target" type="Marker2D" parent="mesh/tripod_sprite/turret_sprite"]
+position = Vector2(0, 732.51)
+
+[node name="RayCast2D" type="RayCast2D" parent="mesh/tripod_sprite/turret_sprite"]
+position = Vector2(0, 248)
+target_position = Vector2(0, 600)
+
+[node name="left_wall" type="RayCast2D" parent="."]
+target_position = Vector2(-50, 2.08165e-12)
+collision_mask = 20
+
+[node name="right_wall" type="RayCast2D" parent="."]
+target_position = Vector2(50, 2.08165e-12)
+collision_mask = 20
+
+[node name="right_shoot" type="RayCast2D" parent="."]
+position = Vector2(-16, 64)
+target_position = Vector2(0, 1)
+
+[node name="left_shoot" type="RayCast2D" parent="."]
+position = Vector2(16, 64)
+target_position = Vector2(0, 1)
+
+[node name="Smokes" type="Node2D" parent="."]
+z_index = 2
+
+[node name="Smoke20" type="CPUParticles2D" parent="Smokes"]
+position = Vector2(-152, -48)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("5_w4rsp")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+color_ramp = SubResource("Gradient_2f5cv")
+
+[node name="Smoke40" type="CPUParticles2D" parent="Smokes"]
+position = Vector2(160, -48)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("5_w4rsp")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+color_ramp = SubResource("Gradient_2f5cv")
+
+[node name="Smoke60" type="CPUParticles2D" parent="Smokes"]
+position = Vector2(-88, 48)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("5_w4rsp")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+color_ramp = SubResource("Gradient_2f5cv")
+
+[node name="Smoke80" type="CPUParticles2D" parent="Smokes"]
+position = Vector2(80, 40)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("5_w4rsp")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+color_ramp = SubResource("Gradient_2f5cv")
+
+[node name="Death_Smoke" type="CPUParticles2D" parent="Smokes"]
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("5_w4rsp")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+color_ramp = SubResource("Gradient_2f5cv")
+
+[node name="Explosion" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+z_index = 1
+emitting = false
+amount = 500
+lifetime = 1.5
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+texture = ExtResource("5_w4rsp")
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 18.96
+initial_velocity_max = 142.18
+angular_velocity_max = 354.88
+scale_amount_min = 4.0
+scale_amount_max = 7.0
+color_ramp = SubResource("Gradient_pbc4c")
+
+[node name="fire_weapon" parent="." instance=ExtResource("6_ngt0y")]
+
+[node name="explosion_death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_1etlw")
+bus = &"SFX"

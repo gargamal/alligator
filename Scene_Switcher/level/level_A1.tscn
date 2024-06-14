@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b4c1q3jiadym1"]
+[gd_scene load_steps=26 format=3 uid="uid://b4c1q3jiadym1"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/level/level_A1.gd" id="1_pduli"]
 [ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://Scene_Switcher/enemy/assault_tank.tscn" id="2_jukn7"]
@@ -6,15 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://Scene_Switcher/enemy/jeep.tscn" id="4_52cte"]
 [ext_resource type="PackedScene" uid="uid://mp15xma1rlvc" path="res://Scene_Switcher/enemy/artillery.tscn" id="5_7yxxl"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="5_80beb"]
-[ext_resource type="Texture2D" uid="uid://xje47kbk3cgy" path="res://Scene_Switcher/level/asset/normal_city/city_1.png" id="7_5atto"]
-[ext_resource type="Texture2D" uid="uid://d3upm06mg1umg" path="res://Scene_Switcher/level/asset/normal_city/city_1_left.png" id="8_ih4a1"]
-[ext_resource type="Texture2D" uid="uid://klx3p0tamssd" path="res://Scene_Switcher/level/asset/normal_city/city_1_right.png" id="9_pfdlv"]
-[ext_resource type="Texture2D" uid="uid://dpf1nfx7tfwvt" path="res://Scene_Switcher/level/asset/normal_city/city_1_left_and_right.png" id="10_xnink"]
-[ext_resource type="Texture2D" uid="uid://qiax430o8d2s" path="res://Scene_Switcher/level/asset/normal_city/city_2.png" id="11_jjvpf"]
-[ext_resource type="Texture2D" uid="uid://chpvv3tu85en8" path="res://Scene_Switcher/level/asset/normal_city/city_2_left.png" id="12_8pkqi"]
-[ext_resource type="Texture2D" uid="uid://by680wrymfkj2" path="res://Scene_Switcher/level/asset/normal_city/city_2_right.png" id="13_edftn"]
-[ext_resource type="Texture2D" uid="uid://81oltnvpan3j" path="res://Scene_Switcher/level/asset/normal_city/city_2_left_and_right.png" id="14_ycnyp"]
-[ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="15_sfnqj"]
+[ext_resource type="PackedScene" uid="uid://dgg148mcr147s" path="res://Scene_Switcher/enemy/Kamikaze.tscn" id="6_bsn0v"]
+[ext_resource type="Texture2D" uid="uid://df382teo6xrso" path="res://Scene_Switcher/level/asset/normal_city/city_1.png" id="7_5atto"]
+[ext_resource type="Texture2D" uid="uid://cwr6n42ja7aa8" path="res://Scene_Switcher/level/asset/normal_city/city_1_left.png" id="8_ih4a1"]
+[ext_resource type="Texture2D" uid="uid://2vlbluno5ahs" path="res://Scene_Switcher/level/asset/normal_city/city_1_right.png" id="9_pfdlv"]
+[ext_resource type="Texture2D" uid="uid://cgxevxbyvu1io" path="res://Scene_Switcher/level/asset/normal_city/city_1_left_and_right.png" id="10_xnink"]
+[ext_resource type="Texture2D" uid="uid://cflfvicmntw0g" path="res://Scene_Switcher/level/asset/normal_city/city_2.png" id="11_jjvpf"]
+[ext_resource type="Texture2D" uid="uid://bqk55k5v473cb" path="res://Scene_Switcher/level/asset/normal_city/city_2_left.png" id="12_8pkqi"]
+[ext_resource type="Texture2D" uid="uid://di2ttehyfhwms" path="res://Scene_Switcher/level/asset/normal_city/city_2_right.png" id="13_edftn"]
+[ext_resource type="Texture2D" uid="uid://d004bdwav1ini" path="res://Scene_Switcher/level/asset/normal_city/city_2_left_and_right.png" id="14_ycnyp"]
+[ext_resource type="Texture2D" uid="uid://bgo5bfv0pyby4" path="res://Scene_Switcher/enemy/asset/vortex.png" id="15_sfnqj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
 size = Vector2(424.5, 1106)
@@ -51,6 +52,7 @@ assault_tank_scene = ExtResource("2_jukn7")
 helicopter_scene = ExtResource("3_82vre")
 jeep_scene = ExtResource("4_52cte")
 artillery_scene = ExtResource("5_7yxxl")
+kamikaze_scene = ExtResource("6_bsn0v")
 item_drop_scene = ExtResource("5_80beb")
 
 [node name="Sprites" type="Node2D" parent="."]

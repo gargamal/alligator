@@ -6,7 +6,6 @@ class_name Helicopter
 @onready var weapon_sprite = $Sprite2D/weapon_sprite
 @onready var shadow = $Sprite2D/shadow
 
-
 func death():
 	super()
 	animation_player_rotor.stop()

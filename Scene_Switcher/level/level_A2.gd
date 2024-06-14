@@ -14,5 +14,7 @@ func _ready():
 			scene_of_spawn.append(jeep_scene)
 		if artillery_scene:
 			scene_of_spawn.append(artillery_scene)
-		
+		if kamikaze_scene:
+			scene_of_spawn.append(kamikaze_scene)
+			
 		emit_signal("i_am_ready_level", self)

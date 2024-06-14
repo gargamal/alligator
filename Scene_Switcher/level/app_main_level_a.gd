@@ -25,6 +25,7 @@ signal add_point(point_value)
 @export var helicopter_scene :PackedScene
 @export var jeep_scene :PackedScene
 @export var artillery_scene :PackedScene
+@export var kamikaze_scene :PackedScene
 @export var item_drop_scene :PackedScene
 @export_range(0.0, 1.0) var drop_chance :float = 0.2
 @export var point_per_kill :int = 1
