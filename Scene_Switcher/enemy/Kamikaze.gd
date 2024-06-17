@@ -42,7 +42,7 @@ func process_direction():
 	estimate_direction = (player.global_position - global_position).normalized()
 	return estimate_direction
 
-func rotation_animation(delta :float, direction :Vector2):
+func rotation_animation(_delta :float, direction :Vector2):
 	cockpit_sprite.skew = lerp(cockpit_sprite.skew, -direction.x * PI/15.0, 0.1)
 	weapon_sprite.skew = lerp(cockpit_sprite.skew, -direction.x * PI/15.0, 0.1)
 	shadow.skew = lerp(shadow.skew, -direction.x * PI/15.0, 0.1)
