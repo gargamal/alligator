@@ -114,7 +114,7 @@ func process_direction():
 		Enemy_State.MOVE_SIDE_RIGHT: estimate_direction = Vector2(1, 0)
 		Enemy_State.MOVE_UP: estimate_direction = Vector2(0, -1)
 		Enemy_State.MOVE_DOWN: estimate_direction = Vector2(0, 1)
-	return estimate_direction
+	return estimate_direction.rotated(rotation)
 
 func process_velocity(direction :Vector2) -> Vector2:
 	var estimate_velocity :Vector2 = Vector2.ZERO

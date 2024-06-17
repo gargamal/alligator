@@ -105,6 +105,7 @@ func _input(_event):
 	if Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
 			or Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
 		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+		input_dir = input_dir.rotated(rotation)
 		movement_state = Movement_State.RUN
 
 	elif Input.is_action_just_released("ui_down") or Input.is_action_just_released("ui_up") \
