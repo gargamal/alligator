@@ -1,13 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://gnh2y3rvcs5f"]
+[gd_scene load_steps=19 format=3 uid="uid://gnh2y3rvcs5f"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/level/level_boss.gd" id="1_jntny"]
-[ext_resource type="Texture2D" uid="uid://dc3b7mlvegkil" path="res://Scene_Switcher/level/asset/special_city/city_boss_1.jpg" id="2_r4lxk"]
+[ext_resource type="Texture2D" uid="uid://c78rripahjn0t" path="res://Scene_Switcher/level/asset/special_city/city_boss_1.jpg" id="2_r4lxk"]
 [ext_resource type="PackedScene" uid="uid://bfh8txg0uot2h" path="res://Scene_Switcher/enemy/Boss/Boss1.tscn" id="2_tu0c0"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="3_cnt1t"]
-[ext_resource type="Texture2D" uid="uid://bvs85capc8req" path="res://Scene_Switcher/level/asset/special_city/city_boss_2.jpg" id="3_ypgqa"]
-[ext_resource type="Texture2D" uid="uid://df382teo6xrso" path="res://Scene_Switcher/level/asset/normal_city/city_1.png" id="4_kcx1n"]
-[ext_resource type="Texture2D" uid="uid://blxptfym4pndh" path="res://Scene_Switcher/level/asset/special_city/city_3_boss_hole.jpg" id="4_uwxq5"]
-[ext_resource type="Texture2D" uid="uid://bgo5bfv0pyby4" path="res://Scene_Switcher/enemy/asset/vortex.png" id="7_4du6a"]
+[ext_resource type="PackedScene" uid="uid://ufvjppq851hh" path="res://Scene_Switcher/enemy/Boss/Boss2.tscn" id="3_r8txf"]
+[ext_resource type="Texture2D" uid="uid://bvbgoux0rwbva" path="res://Scene_Switcher/level/asset/special_city/city_boss_2.jpg" id="3_ypgqa"]
+[ext_resource type="Texture2D" uid="uid://xje47kbk3cgy" path="res://Scene_Switcher/level/asset/normal_city/city_1.png" id="4_kcx1n"]
+[ext_resource type="Texture2D" uid="uid://cmef2iurt8tw7" path="res://Scene_Switcher/level/asset/special_city/city_3_boss_hole.jpg" id="4_uwxq5"]
+[ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="7_4du6a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_862xo"]
 size = Vector2(424.5, 1106)
@@ -30,13 +31,20 @@ size = Vector2(1930, 266)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bprwd"]
 size = Vector2(1930, 266)
 
-[sub_resource type="Gradient" id="Gradient_nl6rm"]
+[sub_resource type="Curve" id="Curve_8c7q7"]
+min_value = 0.5
+max_value = 1.5
+_data = [Vector2(0, 1.48901), 0.0, 0.0, 0, 0, Vector2(0.55618, 1.23626), -1.00957, -1.00957, 0, 0, Vector2(0.988764, 0.494505), -2.59388, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_svksa"]
 offsets = PackedFloat32Array(0, 0.335878, 0.705521, 0.778626, 0.977099, 1)
 colors = PackedColorArray(0.834999, 0.891277, 0, 1, 0.67451, 0.321569, 0, 1, 0.658911, 1.22733e-06, 9.62615e-08, 1, 0, 0, 0, 1, 0, 0, 0, 0.103448, 1, 1, 1, 0)
 
 [node name="level_boss" type="Node2D"]
 script = ExtResource("1_jntny")
-boss_scene = ExtResource("2_tu0c0")
+boss_1_scene = ExtResource("2_tu0c0")
+boss_2_scene = ExtResource("3_r8txf")
 item_drop_scene = ExtResource("3_cnt1t")
 
 [node name="point_spawn" type="Marker2D" parent="."]
@@ -152,82 +160,86 @@ shape = SubResource("RectangleShape2D_bprwd")
 debug_color = Color(0.954705, 0.109504, 0.462659, 0.42)
 
 [node name="fire_particles" type="Node2D" parent="."]
-visible = false
 position = Vector2(964, 110)
 
 [node name="Smoke_Wood" type="CPUParticles2D" parent="fire_particles"]
-position = Vector2(-364, -5)
-amount = 400
+position = Vector2(-330, -39)
+amount = 300
 lifetime = 5.0
 texture = ExtResource("7_4du6a")
 emission_shape = 1
-emission_sphere_radius = 80.0
+emission_sphere_radius = 30.0
 spread = 180.0
 gravity = Vector2(2.08165e-12, -5)
 linear_accel_min = 5.0
 linear_accel_max = 10.0
 radial_accel_min = 1.0
 radial_accel_max = 1.0
-color_ramp = SubResource("Gradient_nl6rm")
+scale_amount_curve = SubResource("Curve_8c7q7")
+color_ramp = SubResource("Gradient_svksa")
 
 [node name="Smoke_Wood2" type="CPUParticles2D" parent="fire_particles"]
-position = Vector2(-168, -2)
-amount = 400
+position = Vector2(-136, 22)
+amount = 300
 lifetime = 5.0
 texture = ExtResource("7_4du6a")
 emission_shape = 1
-emission_sphere_radius = 80.0
+emission_sphere_radius = 30.0
 spread = 180.0
 gravity = Vector2(2.08165e-12, -5)
 linear_accel_min = 5.0
 linear_accel_max = 10.0
 radial_accel_min = 1.0
 radial_accel_max = 1.0
-color_ramp = SubResource("Gradient_nl6rm")
+scale_amount_curve = SubResource("Curve_8c7q7")
+color_ramp = SubResource("Gradient_svksa")
 
 [node name="Smoke_Wood3" type="CPUParticles2D" parent="fire_particles"]
-position = Vector2(17, 1)
-amount = 400
+position = Vector2(34, -29)
+amount = 300
 lifetime = 5.0
 texture = ExtResource("7_4du6a")
 emission_shape = 1
-emission_sphere_radius = 80.0
+emission_sphere_radius = 30.0
 spread = 180.0
 gravity = Vector2(2.08165e-12, -5)
 linear_accel_min = 5.0
 linear_accel_max = 10.0
 radial_accel_min = 1.0
 radial_accel_max = 1.0
-color_ramp = SubResource("Gradient_nl6rm")
+scale_amount_curve = SubResource("Curve_8c7q7")
+color_ramp = SubResource("Gradient_svksa")
 
 [node name="Smoke_Wood4" type="CPUParticles2D" parent="fire_particles"]
-position = Vector2(213, 1)
-amount = 400
+position = Vector2(185, 34)
+amount = 300
 lifetime = 5.0
 texture = ExtResource("7_4du6a")
 emission_shape = 1
-emission_sphere_radius = 80.0
+emission_sphere_radius = 30.0
 spread = 180.0
 gravity = Vector2(2.08165e-12, -5)
 linear_accel_min = 5.0
 linear_accel_max = 10.0
 radial_accel_min = 1.0
 radial_accel_max = 1.0
-color_ramp = SubResource("Gradient_nl6rm")
+scale_amount_curve = SubResource("Curve_8c7q7")
+color_ramp = SubResource("Gradient_svksa")
 
 [node name="Smoke_Wood5" type="CPUParticles2D" parent="fire_particles"]
-position = Vector2(384, 9)
-amount = 400
+position = Vector2(381, -4)
+amount = 300
 lifetime = 5.0
 texture = ExtResource("7_4du6a")
 emission_shape = 1
-emission_sphere_radius = 80.0
+emission_sphere_radius = 30.0
 spread = 180.0
 gravity = Vector2(2.08165e-12, -5)
 linear_accel_min = 5.0
 linear_accel_max = 10.0
 radial_accel_min = 1.0
 radial_accel_max = 1.0
-color_ramp = SubResource("Gradient_nl6rm")
+scale_amount_curve = SubResource("Curve_8c7q7")
+color_ramp = SubResource("Gradient_svksa")
 
 [connection signal="body_entered" from="block_last_level" to="." method="_on_block_last_level_body_entered"]

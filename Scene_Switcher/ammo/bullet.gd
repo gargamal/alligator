@@ -11,7 +11,7 @@ class_name Bullet
 @export var speed_shoot :float = 50.0
 @export var smooth :float = 2.0
 @export var direction :Vector2 :set = set_fire
-@export var power :int = 1
+@export var power :float = 1.0
 @export var origin :Vector2
 @export var distance_max :float = 400.0
 @export var flip_v :bool = false :set = set_flip_v

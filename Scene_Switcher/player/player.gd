@@ -29,12 +29,21 @@ const WEAPON_COLOR :Color = Color("4b4b4b")
 @onready var anim_weapon = $anim_weapon
 @onready var target_follow = $target_follow
 @onready var shadow = $cockpit_sprite/shadow
+@onready var smoke_20 = $Smokes/Smoke20
+@onready var smoke_40 = $Smokes/Smoke40
+@onready var smoke_60 = $Smokes/Smoke60
+@onready var smoke_80 = $Smokes/Smoke80
+@onready var death_smoke = $Smokes/Death_Smoke
+@onready var explosion_death = $explosion_death
+@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var explosion = $Explosion
 
 
 signal i_am_dead(my_self)
 
 
 @export var speed :float = 500.0
+@export var side_multiplier :float = 1.5
 @export var life :float = 50.0
 @export var life_max :float = 50.0 :set = set_life_max
 @export var smooth :float = 1.0
@@ -73,7 +82,8 @@ func _ready():
 
 
 func _physics_process(delta :float):
-	velocity = lerp(velocity, input_dir * get_speed(), smooth * delta)
+	velocity.x = lerp(velocity.x, input_dir.x * get_speed() * side_multiplier, smooth * delta)
+	velocity.y = lerp(velocity.y, input_dir.y * get_speed(), smooth * delta)
 	
 	cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
 	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
@@ -155,11 +165,12 @@ func triple_shoot():
 	basic_shoot(main_target,right_target)
 
 
-func take_hit(power: int):
+func take_hit(p_power: int):
 	var tween :Tween = get_tree().create_tween()
-	tween.tween_method(set_life, life, life - power, 1.0).set_trans(Tween.TRANS_SINE)
+	tween.tween_method(set_life, life, life - p_power, 1.0).set_trans(Tween.TRANS_SINE)
+	process_aniamtion_smoke()
 	
-	if level_weapon != Level_Weapon.BASIC:
+	if life < life_max * .5 and level_weapon != Level_Weapon.BASIC:
 		@warning_ignore("int_as_enum_without_cast")
 		level_weapon -= 1
 		animation_weapon()
@@ -170,6 +181,7 @@ func take_itembox(itembox :ItemBox.Type_ItemBox):
 		ItemBox.Type_ItemBox.HEAL:
 			var tween :Tween = get_tree().create_tween()
 			tween.tween_method(set_life, life, life + calculate_added_life(), 1.0).set_trans(Tween.TRANS_SINE)
+			process_aniamtion_smoke()
 			
 		ItemBox.Type_ItemBox.WEAPON:
 			if level_weapon != Level_Weapon.TRIPLE:
@@ -190,8 +202,14 @@ func set_life(new_life :float):
 	if life > 1.0:
 		life_level.texture.width = int(life / life_max * 100.0 + .5)
 	elif life_level.visible:
+		explosion.emitting = true
+		animated_sprite_2d.stop()
 		life_level.visible = false
+		death_smoke.emitting = true
+		explosion_death.play()
+		await get_tree().create_timer(1.5).timeout
 		emit_signal("i_am_dead")
+
 
 func animation_weapon():
 	match level_weapon:
@@ -240,6 +258,33 @@ func weapon_heat_process():
 										WEAPON_COLOR.b - weapon_heat * .25 / 100.0)
 	weapon_sprite.self_modulate = overheat_color
 	weapon_double_sprite.self_modulate = overheat_color
+
+
+func process_aniamtion_smoke():
+	var quotient:float = life/life_max
+	
+	if quotient > 0.8:
+		pass
+	elif quotient > 0.6:
+		smoke_20.emitting = true
+	elif quotient > 0.4:
+		if not smoke_20.emitting: smoke_20.emitting = true
+		smoke_40.emitting = true
+	elif quotient > 0.2:
+		if not smoke_20.emitting: smoke_20.emitting = true
+		if not smoke_40.emitting: smoke_40.emitting = true
+		smoke_60.emitting = true
+	elif quotient > 0.0:
+		if not smoke_20.emitting: smoke_20.emitting = true
+		if not smoke_40.emitting: smoke_40.emitting = true
+		if not smoke_60.emitting: smoke_60.emitting = true
+		smoke_80.emitting = true
+	else:
+		if not smoke_20.emitting: smoke_20.emitting = true
+		if not smoke_40.emitting: smoke_40.emitting = true
+		if not smoke_60.emitting: smoke_60.emitting = true
+		if not smoke_80.emitting: smoke_60.emitting = true
+		death_smoke.emitting = true
 
 
 static func get_life_max_with_difficulty(p_life_max :float, difficulty_level :App_Game.Type_Difficulty) -> float:

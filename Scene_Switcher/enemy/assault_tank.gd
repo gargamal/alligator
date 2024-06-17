@@ -8,12 +8,15 @@ class_name Assault_Tank
 func _specific_ready():
 	target = $body_sprite/tower_sprite/target
 	fire_sparkles = $body_sprite/tower_sprite/fire_sparkles
+	smoke_r = $body_sprite/move_smoke/smoke_r
+	smoke_l = $body_sprite/move_smoke/smoke_l
 
 func _physics_process(delta):
 	super(delta)
 	tower_sprite.global_rotation = -PI
 
 func rotation_animation(delta :float, direction :Vector2):
+	super(delta, direction)
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
 	collision.rotation = sprite_2d.rotation
 

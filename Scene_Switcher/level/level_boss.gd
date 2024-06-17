@@ -19,7 +19,8 @@ enum Map_Choice { BOSS_BUILDING, BOSS_FIRE, BOSS_HOLE }
 @onready var blocker = $blocker
 @onready var fire_particles = $fire_particles
 
-@export var boss_scene :PackedScene
+@export var boss_1_scene :PackedScene
+@export var boss_2_scene :PackedScene
 @export var world :Node2D
 @export var world_drop_item :Node2D
 @export var previous :Node2D
@@ -71,7 +72,11 @@ func block_player():
 
 func spawn():
 	emit_signal("spawn_boss")
-	var enemy_boss :Enemy = boss_scene.instantiate()
+	var enemy_boss :Enemy
+	if rng.randi() % 2 == 0:
+		enemy_boss= boss_1_scene.instantiate()
+	else:
+		enemy_boss= boss_2_scene.instantiate()
 	enemy_boss.world = bullet_world
 	enemy_boss.player = player
 	enemy_boss.connect("i_am_ready_enemy", _on_enemy_is_ready)
@@ -84,7 +89,7 @@ func _on_enemy_is_ready(enemy :Enemy):
 	enemy.is_running = true
 
 
-func _on_boss_is_dead(enemy_boss :Boss):
+func _on_boss_is_dead(enemy_boss :Enemy):
 	top_limit.collision_layer = 0
 	top_limit.collision_mask = 0
 	player_border.collision_layer = 0

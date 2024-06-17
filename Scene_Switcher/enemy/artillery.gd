@@ -11,6 +11,7 @@ class_name Artillery
 
 
 func rotation_animation(delta :float, direction :Vector2):
+	super(delta, direction)
 	sprite_2d.rotation = lerp_angle(sprite_2d.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
 	collision.rotation = sprite_2d.rotation
 	tower_rotation()
@@ -23,6 +24,8 @@ func tower_rotation():
 func _specific_ready():
 	target = $tower_sprite/target
 	fire_sparkles = $tower_sprite/fire_sparkles
+	smoke_r = $body_sprite/move_smoke/smoke_r
+	smoke_l = $body_sprite/move_smoke/smoke_l
 
 func fire_anim():
 	animation_player.play("fire_artillery")

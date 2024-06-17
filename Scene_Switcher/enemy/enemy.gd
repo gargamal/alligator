@@ -23,6 +23,7 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @onready var left_shoot = $left_shoot
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var explosion = $Explosion
+@onready var smokes = $Smokes
 @onready var smoke_20 = $Smokes/Smoke20
 @onready var smoke_40 = $Smokes/Smoke40
 @onready var smoke_60 = $Smokes/Smoke60
@@ -49,8 +50,8 @@ var margin_can_shoot :float = 400.0
 var rng = RandomNumberGenerator.new()
 var time_estimate_distance_can_shoot :float = 0.0
 var fire_sparkles
-var smoke_r
-var smoke_l
+var smoke_r :CPUParticles2D
+var smoke_l :CPUParticles2D
 
 func _ready():
 	margin_can_shoot = rng.randf_range(100.0 , 500.0)
@@ -91,8 +92,9 @@ func process_distance_can_shoot(delta :float):
 		margin_can_shoot = rng.randf_range(100.0 , 500.0)
 		time_estimate_distance_can_shoot = 0.0
 
-func rotation_animation(_delta :float, _direction :Vector2):
-	pass
+func rotation_animation(delta :float, direction :Vector2):
+	smokes.rotation = lerp_angle(smokes.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
+
 
 func estimate_angle_smooth() -> float:
 	match enemy_state:

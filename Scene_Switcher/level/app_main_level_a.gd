@@ -64,7 +64,7 @@ func get_life_enemy(life_max :float, difficulty_level :App_Game.Type_Difficulty)
 func _on_enemy_is_death(enemy :Enemy):
 	if rng.randf_range(0.0, 1.0) <= drop_chance:
 		var item_drop :ItemBox = item_drop_scene.instantiate()
-		world_drop_item.add_child(item_drop)
+		world_drop_item.call_deferred("add_child", item_drop)
 		item_drop.global_position = enemy.global_position
 	emit_signal("add_point", point_per_kill)
 
