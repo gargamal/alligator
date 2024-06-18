@@ -1,41 +1,119 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwtr4ed7eju1b"]
+[gd_scene load_steps=41 format=3 uid="uid://bwtr4ed7eju1b"]
 
-[ext_resource type="PackedScene" uid="uid://b4c1q3jiadym1" path="res://Scene_Switcher/level/level_A1.tscn" id="1_o0yc1"]
+[ext_resource type="PackedScene" uid="uid://b4c1q3jiadym1" path="res://Scene_Switcher/level/normal_city/level_A1_1.tscn" id="1_o0yc1"]
 [ext_resource type="Script" path="res://Scene_Switcher/level/game_level.gd" id="1_qdoty"]
 [ext_resource type="PackedScene" uid="uid://bapw7sr4haclc" path="res://Scene_Switcher/player/player.tscn" id="2_idgyi"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="3_2i3rj"]
-[ext_resource type="PackedScene" uid="uid://gnh2y3rvcs5f" path="res://Scene_Switcher/level/level_boss.tscn" id="3_3ci3x"]
-[ext_resource type="PackedScene" uid="uid://b3xdhj1rkw75f" path="res://Scene_Switcher/level/level_A2.tscn" id="3_yqq5o"]
+[ext_resource type="Script" path="res://Scene_Switcher/level/level_A2.gd" id="3_av0cf"]
 [ext_resource type="PackedScene" uid="uid://cuj3f472e368v" path="res://Scene_Switcher/camera/camera.tscn" id="4_6heqf"]
+[ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://Scene_Switcher/enemy/assault_tank.tscn" id="4_genfu"]
+[ext_resource type="PackedScene" uid="uid://bbtkbj3sj8rn1" path="res://Scene_Switcher/enemy/helicopter.tscn" id="5_4aagr"]
+[ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://Scene_Switcher/enemy/jeep.tscn" id="6_uvbpa"]
+[ext_resource type="PackedScene" uid="uid://mp15xma1rlvc" path="res://Scene_Switcher/enemy/artillery.tscn" id="7_pnq1y"]
 [ext_resource type="PackedScene" uid="uid://djag0ihwlgjgf" path="res://Scene_Switcher/Menu/menu_in_game.tscn" id="8_80n6j"]
 [ext_resource type="PackedScene" uid="uid://b152stqnpng2k" path="res://Scene_Switcher/Menu/hud_score.tscn" id="8_qq12p"]
+[ext_resource type="PackedScene" uid="uid://dgg148mcr147s" path="res://Scene_Switcher/enemy/Kamikaze.tscn" id="8_s2xbc"]
 [ext_resource type="PackedScene" uid="uid://b3we2oloqwtt0" path="res://Scene_Switcher/level/music_in_game.tscn" id="9_0okr8"]
 [ext_resource type="PackedScene" uid="uid://g7c5iqp4xy6m" path="res://Scene_Switcher/Menu/save_score_player.tscn" id="10_1tjh5"]
+[ext_resource type="Texture2D" uid="uid://btc0y4v68l28s" path="res://Scene_Switcher/level/asset/special_city/city_3_boss_hole2.jpg" id="10_tthhc"]
+[ext_resource type="Script" path="res://Scene_Switcher/level/level_boss.gd" id="11_d30eb"]
+[ext_resource type="PackedScene" uid="uid://bfh8txg0uot2h" path="res://Scene_Switcher/enemy/Boss/Boss1.tscn" id="12_ehvsd"]
+[ext_resource type="PackedScene" uid="uid://ufvjppq851hh" path="res://Scene_Switcher/enemy/Boss/Boss2.tscn" id="13_sivix"]
+[ext_resource type="Texture2D" uid="uid://xje47kbk3cgy" path="res://Scene_Switcher/level/asset/normal_city/city_1.png" id="14_dx0el"]
+[ext_resource type="Texture2D" uid="uid://c78rripahjn0t" path="res://Scene_Switcher/level/asset/special_city/city_boss_1.jpg" id="15_nltrm"]
+[ext_resource type="Texture2D" uid="uid://bvbgoux0rwbva" path="res://Scene_Switcher/level/asset/special_city/city_boss_2.jpg" id="16_3deqx"]
+[ext_resource type="Texture2D" uid="uid://cmef2iurt8tw7" path="res://Scene_Switcher/level/asset/special_city/city_3_boss_hole.jpg" id="17_yf5nf"]
+[ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="18_d84og"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
+size = Vector2(424.5, 1106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tvnd"]
+size = Vector2(393, 1106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygj74"]
+size = Vector2(82, 64.9412)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8b6yq"]
+size = Vector2(332.8, 1106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6md14"]
+size = Vector2(307.2, 1106)
+
+[sub_resource type="PackedScene" id="PackedScene_agsi0"]
+_bundled = {
+"conn_count": 2,
+"conns": PackedInt32Array(1073741845, 1073741844, 96, 95, 2, 0, 0, 1073741847, 1073741846, 98, 97, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("level_a2", "Node2D", "z_index", "script", "assault_tank_scene", "helicopter_scene", "jeep_scene", "artillery_scene", "kamikaze_scene", "item_drop_scene", "Sprites", "Node2D", "City_boss_hole2", "Sprite2D", "texture", "centered", "left_border", "Node2D", "position", "scale", "StaticBody2D", "StaticBody2D", "decor_static", "position", "scale", "collision_layer", "CollisionShape2D", "CollisionShape2D", "position", "shape", "StaticBody2D_Other", "Area2D", "decor_static", "position", "scale", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "limit", "StaticBody2D", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "right_border", "Node2D", "position", "scale", "StaticBody2D", "StaticBody2D", "position", "scale", "collision_layer", "CollisionShape2D", "CollisionShape2D", "position", "shape", "StaticBody2D_Other", "Area2D", "position", "scale", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "limit", "StaticBody2D", "position", "scale", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "spawn_point", "Node2D", "Marker2D", "Marker2D", "position", "Marker2D3", "Marker2D", "position", "Marker2D7", "Marker2D", "position", "_on_static_body_2d_other_body_entered", "body_entered", "_on_static_body_2d_other_body_entered", "body_entered"),
+"node_count": 21,
+"node_paths": [NodePath("."), NodePath("./Sprites"), NodePath("."), NodePath("./left_border"), NodePath("./left_border/StaticBody2D"), NodePath("./left_border"), NodePath("./left_border/StaticBody2D_Other"), NodePath("./left_border"), NodePath("./left_border/limit"), NodePath("."), NodePath("./right_border"), NodePath("./right_border/StaticBody2D"), NodePath("./right_border"), NodePath("./right_border/StaticBody2D_Other"), NodePath("./right_border"), NodePath("./right_border/limit"), NodePath("."), NodePath("./spawn_point"), NodePath("./spawn_point"), NodePath("./spawn_point"), NodePath("."), NodePath("left_border/StaticBody2D_Other"), NodePath("."), NodePath("right_border/StaticBody2D_Other")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 8, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 0, 1073741824, 0, 11, 10, -1, 0, 0, 1073741825, 0, 13, 12, -1, 2, 14, 8, 15, 9, 0, 1073741826, 0, 17, 16, -1, 2, 18, 10, 19, 11, 0, 1073741827, 0, 21, 20, -1, 3, 23, 12, 24, 13, 25, 14, 1, 22, 1073741828, 0, 27, 26, -1, 2, 28, 15, 29, 16, 0, 1073741829, 0, 31, 30, -1, 4, 33, 17, 34, 18, 35, 19, 36, 20, 1, 32, 1073741830, 0, 38, 37, -1, 2, 39, 21, 40, 22, 0, 1073741831, 0, 42, 41, -1, 2, 43, 23, 44, 24, 0, 1073741832, 0, 46, 45, -1, 3, 47, 25, 48, 26, 49, 27, 0, 1073741833, 0, 51, 50, -1, 2, 52, 28, 53, 29, 0, 1073741834, 0, 55, 54, -1, 3, 56, 30, 57, 31, 58, 32, 0, 1073741835, 0, 60, 59, -1, 2, 61, 33, 62, 34, 0, 1073741836, 0, 64, 63, -1, 4, 65, 35, 66, 36, 67, 37, 68, 38, 0, 1073741837, 0, 70, 69, -1, 2, 71, 39, 72, 40, 0, 1073741838, 0, 74, 73, -1, 4, 75, 41, 76, 42, 77, 43, 78, 44, 0, 1073741839, 0, 80, 79, -1, 3, 81, 45, 82, 46, 83, 47, 0, 1073741840, 0, 85, 84, -1, 0, 0, 1073741841, 0, 87, 86, -1, 1, 88, 48, 0, 1073741842, 0, 90, 89, -1, 1, 91, 49, 0, 1073741843, 0, 93, 92, -1, 1, 94, 50, 0),
+"variants": [-1, ExtResource("3_av0cf"), ExtResource("4_genfu"), ExtResource("5_4aagr"), ExtResource("6_uvbpa"), ExtResource("7_pnq1y"), ExtResource("8_s2xbc"), ExtResource("3_2i3rj"), ExtResource("10_tthhc"), false, Vector2(128, 544), Vector2(4, 17), Vector2(-32, -32), Vector2(0.25, 0.0588235), 16, Vector2(203.75, 552), SubResource("RectangleShape2D_y0j4l"), Vector2(-32, -32), Vector2(0.25, 0.0588235), 16, 271, Vector2(187.5, 552), SubResource("RectangleShape2D_7tvnd"), 16, 15, Vector2(7, 0.470589), SubResource("RectangleShape2D_ygj74"), Color(0.768046, 0.445917, 0.0402837, 0.42), Vector2(1760, 544), Vector2(5, 17), Vector2(-32, -32), Vector2(0.25, 0.0588235), 16, Vector2(89.6, 552), SubResource("RectangleShape2D_8b6yq"), Vector2(-32, -32), Vector2(0.25, 0.0588235), 16, 271, Vector2(102.4, 552), SubResource("RectangleShape2D_6md14"), Vector2(-326.4, 0), Vector2(0.8, 1), 16, 15, Vector2(406, 0.470589), SubResource("RectangleShape2D_ygj74"), Color(0.768046, 0.445917, 0.0402837, 0.42), Vector2(524, 336), Vector2(832, 472), Vector2(1248, 393)],
+"version": 3
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_862xo"]
+size = Vector2(424.5, 1106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htjal"]
+size = Vector2(82, 64.9412)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f37ut"]
+size = Vector2(332.8, 1106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5kvw"]
+size = Vector2(2400, 320)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_754kn"]
+size = Vector2(2410, 576)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvwh7"]
+size = Vector2(1930, 266)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bprwd"]
+size = Vector2(1930, 266)
+
+[sub_resource type="Curve" id="Curve_8c7q7"]
+min_value = 0.5
+max_value = 1.5
+_data = [Vector2(0, 1.48901), 0.0, 0.0, 0, 0, Vector2(0.55618, 1.23626), -1.00957, -1.00957, 0, 0, Vector2(0.988764, 0.494505), -2.59388, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_svksa"]
+offsets = PackedFloat32Array(0, 0.335878, 0.705521, 0.778626, 0.977099, 1)
+colors = PackedColorArray(0.834999, 0.891277, 0, 1, 0.67451, 0.321569, 0, 1, 0.658911, 1.22733e-06, 9.62615e-08, 1, 0, 0, 0, 1, 0, 0, 0, 0.103448, 1, 1, 1, 0)
+
+[sub_resource type="PackedScene" id="PackedScene_ieb43"]
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(1073741855, 1073741854, 204, 203, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("level_boss", "Node2D", "script", "boss_1_scene", "boss_2_scene", "item_drop_scene", "point_spawn", "Marker2D", "position", "Sprites", "Node2D", "City_boss_death", "Sprite2D", "visible", "texture", "centered", "City_boss_building", "Sprite2D", "visible", "texture", "centered", "City_boss_fire", "Sprite2D", "texture", "centered", "City_boss_hole", "Sprite2D", "visible", "texture", "centered", "left_border", "Node2D", "visible", "position", "scale", "StaticBody2D", "StaticBody2D", "decor_static", "position", "scale", "collision_layer", "CollisionShape2D", "CollisionShape2D", "position", "shape", "limit", "StaticBody2D", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "right_border", "Node2D", "visible", "position", "scale", "StaticBody2D", "StaticBody2D", "position", "scale", "collision_layer", "CollisionShape2D", "CollisionShape2D", "position", "shape", "limit", "StaticBody2D", "position", "scale", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "top_border", "StaticBody2D", "visible", "scale", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "player_border", "StaticBody2D", "visible", "position", "scale", "collision_layer", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "block_last_level", "Area2D", "visible", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "blocker", "StaticBody2D", "decor_static", "visible", "collision_layer", "collision_mask", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "fire_particles", "Node2D", "position", "Smoke_Wood", "CPUParticles2D", "position", "amount", "lifetime", "texture", "emission_shape", "emission_sphere_radius", "spread", "gravity", "linear_accel_min", "linear_accel_max", "radial_accel_min", "radial_accel_max", "scale_amount_curve", "color_ramp", "Smoke_Wood2", "CPUParticles2D", "position", "amount", "lifetime", "texture", "emission_shape", "emission_sphere_radius", "spread", "gravity", "linear_accel_min", "linear_accel_max", "radial_accel_min", "radial_accel_max", "scale_amount_curve", "color_ramp", "Smoke_Wood3", "CPUParticles2D", "position", "amount", "lifetime", "texture", "emission_shape", "emission_sphere_radius", "spread", "gravity", "linear_accel_min", "linear_accel_max", "radial_accel_min", "radial_accel_max", "scale_amount_curve", "color_ramp", "Smoke_Wood4", "CPUParticles2D", "position", "amount", "lifetime", "texture", "emission_shape", "emission_sphere_radius", "spread", "gravity", "linear_accel_min", "linear_accel_max", "radial_accel_min", "radial_accel_max", "scale_amount_curve", "color_ramp", "Smoke_Wood5", "CPUParticles2D", "position", "amount", "lifetime", "texture", "emission_shape", "emission_sphere_radius", "spread", "gravity", "linear_accel_min", "linear_accel_max", "radial_accel_min", "radial_accel_max", "scale_amount_curve", "color_ramp", "_on_block_last_level_body_entered", "body_entered"),
+"node_count": 31,
+"node_paths": [NodePath("."), NodePath("."), NodePath("./Sprites"), NodePath("./Sprites"), NodePath("./Sprites"), NodePath("./Sprites"), NodePath("."), NodePath("./left_border"), NodePath("./left_border/StaticBody2D"), NodePath("./left_border"), NodePath("./left_border/limit"), NodePath("."), NodePath("./right_border"), NodePath("./right_border/StaticBody2D"), NodePath("./right_border"), NodePath("./right_border/limit"), NodePath("."), NodePath("./top_border"), NodePath("."), NodePath("./player_border"), NodePath("."), NodePath("./block_last_level"), NodePath("."), NodePath("./blocker"), NodePath("."), NodePath("./fire_particles"), NodePath("./fire_particles"), NodePath("./fire_particles"), NodePath("./fire_particles"), NodePath("./fire_particles"), NodePath("."), NodePath("block_last_level")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 4, 2, 0, 3, 1, 4, 2, 5, 3, 0, 1073741824, 0, 7, 6, -1, 1, 8, 4, 0, 1073741825, 0, 10, 9, -1, 0, 0, 1073741826, 0, 12, 11, -1, 3, 13, 5, 14, 6, 15, 7, 0, 1073741827, 0, 17, 16, -1, 3, 18, 8, 19, 9, 20, 10, 0, 1073741828, 0, 22, 21, -1, 2, 23, 11, 24, 12, 0, 1073741829, 0, 26, 25, -1, 3, 27, 13, 28, 14, 29, 15, 0, 1073741830, 0, 31, 30, -1, 3, 32, 16, 33, 17, 34, 18, 0, 1073741831, 0, 36, 35, -1, 3, 38, 19, 39, 20, 40, 21, 1, 37, 1073741832, 0, 42, 41, -1, 2, 43, 22, 44, 23, 0, 1073741833, 0, 46, 45, -1, 2, 47, 24, 48, 25, 0, 1073741834, 0, 50, 49, -1, 3, 51, 26, 52, 27, 53, 28, 0, 1073741835, 0, 55, 54, -1, 3, 56, 29, 57, 30, 58, 31, 0, 1073741836, 0, 60, 59, -1, 3, 61, 32, 62, 33, 63, 34, 0, 1073741837, 0, 65, 64, -1, 2, 66, 35, 67, 36, 0, 1073741838, 0, 69, 68, -1, 4, 70, 37, 71, 38, 72, 39, 73, 40, 0, 1073741839, 0, 75, 74, -1, 3, 76, 41, 77, 42, 78, 43, 0, 1073741840, 0, 80, 79, -1, 4, 81, 44, 82, 45, 83, 46, 84, 47, 0, 1073741841, 0, 86, 85, -1, 3, 87, 48, 88, 49, 89, 50, 0, 1073741842, 0, 91, 90, -1, 4, 92, 51, 93, 52, 94, 53, 95, 54, 0, 1073741843, 0, 97, 96, -1, 3, 98, 55, 99, 56, 100, 57, 0, 1073741844, 0, 102, 101, -1, 1, 103, 58, 0, 1073741845, 0, 105, 104, -1, 3, 106, 59, 107, 60, 108, 61, 0, 1073741846, 0, 110, 109, -1, 3, 112, 62, 113, 63, 114, 64, 1, 111, 1073741847, 0, 116, 115, -1, 3, 117, 65, 118, 66, 119, 67, 0, 1073741848, 0, 121, 120, -1, 1, 122, 68, 0, 1073741849, 0, 124, 123, -1, 14, 125, 69, 126, 70, 127, 71, 128, 72, 129, 73, 130, 74, 131, 75, 132, 76, 133, 77, 134, 78, 135, 79, 136, 80, 137, 81, 138, 82, 0, 1073741850, 0, 140, 139, -1, 14, 141, 83, 142, 84, 143, 85, 144, 86, 145, 87, 146, 88, 147, 89, 148, 90, 149, 91, 150, 92, 151, 93, 152, 94, 153, 95, 154, 96, 0, 1073741851, 0, 156, 155, -1, 14, 157, 97, 158, 98, 159, 99, 160, 100, 161, 101, 162, 102, 163, 103, 164, 104, 165, 105, 166, 106, 167, 107, 168, 108, 169, 109, 170, 110, 0, 1073741852, 0, 172, 171, -1, 14, 173, 111, 174, 112, 175, 113, 176, 114, 177, 115, 178, 116, 179, 117, 180, 118, 181, 119, 182, 120, 183, 121, 184, 122, 185, 123, 186, 124, 0, 1073741853, 0, 188, 187, -1, 14, 189, 125, 190, 126, 191, 127, 192, 128, 193, 129, 194, 130, 195, 131, 196, 132, 197, 133, 198, 134, 199, 135, 200, 136, 201, 137, 202, 138, 0),
+"variants": [ExtResource("11_d30eb"), ExtResource("12_ehvsd"), ExtResource("13_sivix"), ExtResource("3_2i3rj"), Vector2(960, 832), false, ExtResource("14_dx0el"), false, false, ExtResource("15_nltrm"), false, ExtResource("16_3deqx"), false, false, ExtResource("17_yf5nf"), false, false, Vector2(128, 544), Vector2(4, 17), Vector2(-32, -32), Vector2(0.25, 0.0588235), 16, Vector2(203.75, 552), SubResource("RectangleShape2D_862xo"), 16, 271, Vector2(7, 0.470589), SubResource("RectangleShape2D_htjal"), Color(0.768046, 0.445917, 0.0402837, 0.42), false, Vector2(1760, 544), Vector2(5, 17), Vector2(-32, -32), Vector2(0.25, 0.0588235), 16, Vector2(89.6, 552), SubResource("RectangleShape2D_f37ut"), Vector2(-326.4, 0), Vector2(0.8, 1), 16, 271, Vector2(406, 0.470589), SubResource("RectangleShape2D_htjal"), Color(0.768046, 0.445917, 0.0402837, 0.42), false, Vector2(0.8, 1), 16, 271, Vector2(1200, 160), SubResource("RectangleShape2D_l5kvw"), Color(0.768046, 0.445917, 0.0402837, 0.42), false, Vector2(-326.4, 0), Vector2(0.8, 1), 128, Vector2(1603, 288), SubResource("RectangleShape2D_754kn"), Color(0, 0.640339, 0.351389, 0.42), false, Vector2(960, 704), SubResource("RectangleShape2D_dvwh7"), Color(0.647492, 0.521134, 3.85046e-07, 0.42), false, 0, 0, Vector2(960, 944), SubResource("RectangleShape2D_bprwd"), Color(0.954705, 0.109504, 0.462659, 0.42), Vector2(964, 110), Vector2(-330, -39), 300, 5.0, ExtResource("18_d84og"), 1, 30.0, 180.0, Vector2(2.08165e-12, -5), 5.0, 10.0, 1.0, 1.0, SubResource("Curve_8c7q7"), SubResource("Gradient_svksa"), Vector2(-136, 22), 300, 5.0, ExtResource("18_d84og"), 1, 30.0, 180.0, Vector2(2.08165e-12, -5), 5.0, 10.0, 1.0, 1.0, SubResource("Curve_8c7q7"), SubResource("Gradient_svksa"), Vector2(34, -29), 300, 5.0, ExtResource("18_d84og"), 1, 30.0, 180.0, Vector2(2.08165e-12, -5), 5.0, 10.0, 1.0, 1.0, SubResource("Curve_8c7q7"), SubResource("Gradient_svksa"), Vector2(185, 34), 300, 5.0, ExtResource("18_d84og"), 1, 30.0, 180.0, Vector2(2.08165e-12, -5), 5.0, 10.0, 1.0, 1.0, SubResource("Curve_8c7q7"), SubResource("Gradient_svksa"), Vector2(381, -4), 300, 5.0, ExtResource("18_d84og"), 1, 30.0, 180.0, Vector2(2.08165e-12, -5), 5.0, 10.0, 1.0, 1.0, SubResource("Curve_8c7q7"), SubResource("Gradient_svksa")],
+"version": 3
+}
 
 [node name="game_level" type="Node2D"]
 script = ExtResource("1_qdoty")
 level_scene_1 = ExtResource("1_o0yc1")
-level_scene_after_boss = ExtResource("3_yqq5o")
-level_scene_boss = ExtResource("3_3ci3x")
+level_scene_after_boss = SubResource("PackedScene_agsi0")
+level_scene_boss = SubResource("PackedScene_ieb43")
 item_scene = ExtResource("3_2i3rj")
 
 [node name="level" type="Node2D" parent="."]
 z_index = -2
 
-[node name="level_a0" parent="level" node_paths=PackedStringArray("next", "world_drop_item") instance=ExtResource("1_o0yc1")]
+[node name="level_a0" parent="level" instance=ExtResource("1_o0yc1")]
 position = Vector2(0, 1080)
-next = NodePath("../level_a1")
-world_drop_item = NodePath("../../drop_item")
 
-[node name="level_a1" parent="level" node_paths=PackedStringArray("previous", "next", "world_drop_item") instance=ExtResource("1_o0yc1")]
-previous = NodePath("../level_a0")
-next = NodePath("../level_a2")
-world_drop_item = NodePath("../../drop_item")
+[node name="level_a1" parent="level" instance=ExtResource("1_o0yc1")]
 
-[node name="level_a2" parent="level" node_paths=PackedStringArray("previous", "world_drop_item") instance=ExtResource("1_o0yc1")]
+[node name="level_a2" parent="level" instance=ExtResource("1_o0yc1")]
 position = Vector2(0, -1040)
-previous = NodePath("../level_a1")
-world_drop_item = NodePath("../../drop_item")
 
 [node name="enemy" type="Node2D" parent="."]
 

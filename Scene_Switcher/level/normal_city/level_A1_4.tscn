@@ -1,0 +1,211 @@
+[gd_scene load_steps=21 format=3 uid="uid://84aa6ukcxxyi"]
+
+[ext_resource type="Script" path="res://Scene_Switcher/level/level_A1.gd" id="1_safxa"]
+[ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://Scene_Switcher/enemy/assault_tank.tscn" id="2_whkg6"]
+[ext_resource type="PackedScene" uid="uid://bbtkbj3sj8rn1" path="res://Scene_Switcher/enemy/helicopter.tscn" id="3_dd3h7"]
+[ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://Scene_Switcher/enemy/jeep.tscn" id="4_7nklb"]
+[ext_resource type="PackedScene" uid="uid://mp15xma1rlvc" path="res://Scene_Switcher/enemy/artillery.tscn" id="5_l7yvm"]
+[ext_resource type="PackedScene" uid="uid://dgg148mcr147s" path="res://Scene_Switcher/enemy/Kamikaze.tscn" id="6_leh37"]
+[ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="7_kablb"]
+[ext_resource type="Texture2D" uid="uid://bp5jhml3bprt2" path="res://Scene_Switcher/level/asset/normal_city/city_1_left_and_right_free_street_3.png" id="8_usdrt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wuld"]
+size = Vector2(424.5, 375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2or1"]
+size = Vector2(393, 342)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1tx5"]
+size = Vector2(82, 16.8235)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5sb1"]
+size = Vector2(424.5, 295)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnvvr"]
+size = Vector2(393, 258)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rimnb"]
+size = Vector2(82, 13.0294)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o8nc"]
+size = Vector2(332.8, 288)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_764qq"]
+size = Vector2(307.2, 257)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5abfp"]
+size = Vector2(82, 13.4706)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrgfw"]
+size = Vector2(329.25, 370.794)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ifenp"]
+size = Vector2(307.2, 344)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b80t0"]
+size = Vector2(82.5, 16.9412)
+
+[node name="level_a1_4" type="Node2D"]
+z_index = -1
+script = ExtResource("1_safxa")
+assault_tank_scene = ExtResource("2_whkg6")
+helicopter_scene = ExtResource("3_dd3h7")
+jeep_scene = ExtResource("4_7nklb")
+artillery_scene = ExtResource("5_l7yvm")
+kamikaze_scene = ExtResource("6_leh37")
+item_drop_scene = ExtResource("7_kablb")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="Sprites"]
+z_index = -1
+position = Vector2(960, 540)
+texture = ExtResource("8_usdrt")
+
+[node name="left_border" type="Node2D" parent="."]
+position = Vector2(128, 544)
+scale = Vector2(4, 17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D"]
+position = Vector2(203.75, 892.5)
+shape = SubResource("RectangleShape2D_0wuld")
+
+[node name="StaticBody2D_Other" type="Area2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D_Other"]
+position = Vector2(187.5, 909)
+shape = SubResource("RectangleShape2D_u2or1")
+
+[node name="limit" type="StaticBody2D" parent="left_border"]
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/limit"]
+position = Vector2(7, 23.1176)
+shape = SubResource("RectangleShape2D_a1tx5")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-30, -73.4118)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D2"]
+position = Vector2(203.75, 852.5)
+shape = SubResource("RectangleShape2D_m5sb1")
+
+[node name="StaticBody2D_Other2" type="Area2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-30, -73.4118)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D_Other2"]
+position = Vector2(192, 839)
+shape = SubResource("RectangleShape2D_mnvvr")
+
+[node name="limit2" type="StaticBody2D" parent="left_border"]
+position = Vector2(2, -41.4118)
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/limit2"]
+position = Vector2(8, 16.0735)
+shape = SubResource("RectangleShape2D_rimnb")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="right_border" type="Node2D" parent="."]
+position = Vector2(1760, 544)
+scale = Vector2(5, 17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D"]
+position = Vector2(89.6, 143)
+shape = SubResource("RectangleShape2D_6o8nc")
+
+[node name="StaticBody2D_Other" type="Area2D" parent="right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D_Other"]
+position = Vector2(102.4, 127.5)
+shape = SubResource("RectangleShape2D_764qq")
+
+[node name="limit" type="StaticBody2D" parent="right_border"]
+position = Vector2(-326.4, 0)
+scale = Vector2(0.8, 1)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/limit"]
+position = Vector2(406, -25.2647)
+shape = SubResource("RectangleShape2D_5abfp")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D2"]
+position = Vector2(91.375, 894.603)
+shape = SubResource("RectangleShape2D_wrgfw")
+
+[node name="StaticBody2D_Other2" type="Area2D" parent="right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D_Other2"]
+position = Vector2(102.4, 908)
+shape = SubResource("RectangleShape2D_ifenp")
+
+[node name="limit2" type="StaticBody2D" parent="right_border"]
+position = Vector2(-326.4, 0)
+scale = Vector2(0.8, 1)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/limit2"]
+position = Vector2(406.75, 23.0588)
+shape = SubResource("RectangleShape2D_b80t0")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="spawn_point" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="spawn_point"]
+position = Vector2(524, 336)
+
+[node name="Marker2D3" type="Marker2D" parent="spawn_point"]
+position = Vector2(610, 670)
+
+[node name="Marker2D2" type="Marker2D" parent="spawn_point"]
+position = Vector2(1400, 743)
+
+[node name="Marker2D4" type="Marker2D" parent="spawn_point"]
+position = Vector2(983, 628)
+
+[node name="Marker2D7" type="Marker2D" parent="spawn_point"]
+position = Vector2(1248, 393)
+
+[node name="Marker2D5" type="Marker2D" parent="spawn_point"]
+position = Vector2(816, 961)
+
+[node name="Marker2D6" type="Marker2D" parent="spawn_point"]
+position = Vector2(1176, 919)

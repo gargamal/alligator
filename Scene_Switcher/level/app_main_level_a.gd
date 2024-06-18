@@ -1,97 +1,188 @@
 extends Node2D
 class_name App_Main_Level_A
 
-const WAIT_TIME_MSEC :int = 100
-const COLLISION_PLAYER :int = 1
-const COLLISION_DECOR :int = 16
 
-enum Type_City { CITY_1_BASIC, CITY_1_LEFT, CITY_1_RIGHT, CITY_1_LEFT_AND_RIGHT, CITY_2_BASIC, CITY_2_LEFT, CITY_2_RIGHT, CITY_2_LEFT_AND_RIGHT }
+@export var map_1 :Texture2D = load("res://Scene_Switcher/level/asset/map_city/map_city_1.png")
 
-signal spawn_new_level(my_self)
-signal next_level_is_boss(my_self)
-signal block_last_level(my_self)
-signal i_am_ready_level(my_self)
-signal add_point(point_value)
 
-@export var signal_next_level_has_sent :bool = false
-@export var signal_previous_level_has_sent :bool = false
-@export var block_player_is_done :bool = false
-@export var block_boss_is_done :bool = false
-@export var previous :Node2D
-@export var next :Node2D
-@export var world :Node2D
-@export var world_drop_item :Node2D
-@export var assault_tank_scene :PackedScene
-@export var helicopter_scene :PackedScene
-@export var jeep_scene :PackedScene
-@export var artillery_scene :PackedScene
-@export var kamikaze_scene :PackedScene
-@export var item_drop_scene :PackedScene
-@export_range(0.0, 1.0) var drop_chance :float = 0.2
-@export var point_per_kill :int = 1
+###########################################################
+#	o		#		o		#		o		#		o	
+#.	X	.	#	.	X	o	#	o	X	o	#	o	X	.
+#	o		#		o		#		o		#		o	
+###########################################################
+#	.		#		.		#		o		#		o	
+#.	X	.	#	.	X	o	#	o	X	o	#	o	X	.
+#	o		#		o		#		.		#		.	
+###########################################################
+#	o		#		o		#		.		#		.	
+#.	X	.	#	.	X	o	#	o	X	o	#	o	X	.
+#	.		#		.		#		o		#		o	
+###########################################################
+enum Type_Map {
+	ERROR = -1,
+	CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM, CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM, 
+	OPEN_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM, OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM,
+	CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM, CLOSE_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM, 
+	OPEN_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM, OPEN_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM,
+	CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM , CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__CLOSE_BOTTOM , 
+	OPEN_LEFT__OPEN_RIGHT_OPEN_TOP__CLOSE_BOTTOM , OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM ,
+	CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM 
+}
 
-var blocker :StaticBody2D
-var spawn_point :Node2D
+const COLOR_UNDEFINE :Color = Color("888888ff")
+const COLOR_OPEN :Color = Color("ffffffff")
+const COLOR_CLOSE :Color = Color("000000ff")
+const PIXEL_SIZE :Vector2 =Vector2(3, 3)
 
-var array_of_spawn :Array = []
-var scene_of_spawn :Array = []
-var sprite_of_map :Array = []
-var rng = RandomNumberGenerator.new()
-var boss_can_spawn :bool = false
+const COLOR_CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_CLOSE, COLOR_UNDEFINE, COLOR_CLOSE],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_CLOSE, COLOR_UNDEFINE, COLOR_OPEN],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_OPEN_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_OPEN, COLOR_UNDEFINE, COLOR_OPEN],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_OPEN, COLOR_UNDEFINE, COLOR_CLOSE],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+	[COLOR_CLOSE, COLOR_UNDEFINE, COLOR_CLOSE],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_CLOSE_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+	[COLOR_CLOSE, COLOR_UNDEFINE, COLOR_OPEN],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_OPEN_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+	[COLOR_OPEN, COLOR_UNDEFINE, COLOR_OPEN],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_OPEN_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+	[COLOR_OPEN, COLOR_UNDEFINE, COLOR_CLOSE],
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+]
+const COLOR_CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_CLOSE, COLOR_UNDEFINE, COLOR_CLOSE],
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+]
+const COLOR_CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__CLOSE_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_CLOSE, COLOR_UNDEFINE, COLOR_OPEN],
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+]
+const COLOR_OPEN_LEFT__OPEN_RIGHT_OPEN_TOP__CLOSE_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_OPEN, COLOR_UNDEFINE, COLOR_OPEN],
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+]
+const COLOR_OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_OPEN, COLOR_UNDEFINE],
+	[COLOR_OPEN, COLOR_UNDEFINE, COLOR_CLOSE],
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+]
+const COLOR_OPEN_LEFT__CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM = [
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+	[COLOR_OPEN, COLOR_UNDEFINE, COLOR_CLOSE],
+	[COLOR_UNDEFINE, COLOR_CLOSE, COLOR_UNDEFINE],
+]
 
-func spawn(number_of_spawn :int, player :Player, bullet_world :Node2D, difficulty_level :App_Game.Type_Difficulty):
-	var work_arr :Array = array_of_spawn.duplicate()
+
+var list_piece_map :Array = [
+	{"type" :Type_Map.CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM, "all_color": COLOR_CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM, "all_color": COLOR_CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.OPEN_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM, "all_color": COLOR_OPEN_LEFT__OPEN_RIGHT__OPEN_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM, "all_color": COLOR_OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM, "all_color": COLOR_CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.CLOSE_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM, "all_color": COLOR_CLOSE_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.OPEN_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM, "all_color": COLOR_OPEN_LEFT__OPEN_RIGHT__CLOSE_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.OPEN_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM, "all_color": COLOR_OPEN_LEFT__CLOSE_RIGHT__CLOSE_TOP__OPEN_BOTTOM},
+	{"type" :Type_Map.CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM , "all_color": COLOR_CLOSE_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM },
+	{"type" :Type_Map.CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__CLOSE_BOTTOM , "all_color": COLOR_CLOSE_LEFT__OPEN_RIGHT__OPEN_TOP__CLOSE_BOTTOM },
+	{"type" :Type_Map.OPEN_LEFT__OPEN_RIGHT_OPEN_TOP__CLOSE_BOTTOM , "all_color": COLOR_OPEN_LEFT__OPEN_RIGHT_OPEN_TOP__CLOSE_BOTTOM },
+	{"type" :Type_Map.OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM , "all_color": COLOR_OPEN_LEFT__CLOSE_RIGHT__OPEN_TOP__CLOSE_BOTTOM },
+	{"type" :Type_Map.CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM , "all_color": COLOR_OPEN_LEFT__CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM },
+	{"type" :Type_Map.CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM , "all_color": COLOR_OPEN_LEFT__CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM },
+	{"type" :Type_Map.CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM , "all_color": COLOR_OPEN_LEFT__CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM },
+	{"type" :Type_Map.CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM , "all_color": COLOR_OPEN_LEFT__CLOSE_LEFT__CLOSE_RIGHT__CLOSE_TOP__CLOSE_BOTTOM }
+]
+
+
+var rng :RandomNumberGenerator = RandomNumberGenerator.new()
+var texture_maps :Array = []
+
+
+func _ready():
+	if map_1: texture_maps.append(map_1)
+	print(generate_array_map())
+
+
+func generate_array_map() -> Array:
+	var image_texture :Texture2D = texture_maps[rng.randi_range(0, texture_maps.size() - 1)]
+	var array_map :Array = []
+	@warning_ignore("integer_division")
+	var nb_column :int = image_texture.get_width() / 3
+	@warning_ignore("integer_division")
+	var nb_line :int = image_texture.get_height() / 3
 	
-	for idx in range(number_of_spawn):
-		var index :int = rng.randi_range(0, work_arr.size() - 1)
-		var point_spawn :Marker2D = work_arr[index]
-		var enemy :Enemy = scene_of_spawn[rng.randi_range(0, scene_of_spawn.size() - 1)].instantiate()
-		enemy.world = bullet_world
-		enemy.player = player
-		enemy.life_max = get_life_enemy(enemy.life_max, difficulty_level)
-		enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
-		enemy.connect("i_am_death", _on_enemy_is_death)
-		world.add_child(enemy)
-		enemy.global_position = point_spawn.global_position
-		work_arr.remove_at(index)
-
-func get_life_enemy(life_max :float, difficulty_level :App_Game.Type_Difficulty) -> float:
-	match difficulty_level:
-		App_Game.Type_Difficulty.EASY: return life_max / 2.0 + 0.5
-		App_Game.Type_Difficulty.HARD: return life_max * 1.5 + 0.5
-		_: return life_max
-
-func _on_enemy_is_death(enemy :Enemy):
-	if rng.randf_range(0.0, 1.0) <= drop_chance:
-		var item_drop :ItemBox = item_drop_scene.instantiate()
-		world_drop_item.call_deferred("add_child", item_drop)
-		item_drop.global_position = enemy.global_position
-	emit_signal("add_point", point_per_kill)
-
-func _on_enemy_is_ready(enemy :Enemy):
-	enemy.is_running = true
-
-func _on_other_level_body_entered(body):
-	if not signal_next_level_has_sent and body is Player:
-		signal_next_level_has_sent = true
-		if boss_can_spawn:
-			emit_signal("next_level_is_boss", self)
-			boss_can_spawn = false
-		else:
-			emit_signal("spawn_new_level", self)
-
-func _on_block_last_level_body_entered(body):
-	if not signal_previous_level_has_sent and body is Player:
-		signal_previous_level_has_sent = true
-		emit_signal("block_last_level", self)
-
-func block_player():
-	if not block_player_is_done:
-		block_player_is_done = true
-		blocker.collision_layer = COLLISION_DECOR
-		blocker.collision_mask = COLLISION_PLAYER
+	var image :Image = image_texture.get_image()
+	for idx_line in range(nb_line):
+		var array_of_line :Array = []
+		for idx_column in range(nb_column):
+			var pixels :Array = [
+				[image.get_pixel(idx_column * PIXEL_SIZE.y, idx_line * PIXEL_SIZE.x),  
+				image.get_pixel(idx_column * PIXEL_SIZE.y + 1, idx_line * PIXEL_SIZE.x), 
+				image.get_pixel(idx_column * PIXEL_SIZE.y + 2, idx_line * PIXEL_SIZE.x)],
+				
+				[image.get_pixel(idx_column * PIXEL_SIZE.y, idx_line * PIXEL_SIZE.x + 1),
+				image.get_pixel(idx_column * PIXEL_SIZE.y + 1, idx_line * PIXEL_SIZE.x + 1),
+				image.get_pixel(idx_column * PIXEL_SIZE.y + 2, idx_line * PIXEL_SIZE.x + 1)],
+				
+				[image.get_pixel(idx_column * PIXEL_SIZE.y, idx_line * PIXEL_SIZE.x + 2),
+				image.get_pixel(idx_column * PIXEL_SIZE.y + 1, idx_line * PIXEL_SIZE.x + 2),
+				image.get_pixel(idx_column * PIXEL_SIZE.y + 2, idx_line * PIXEL_SIZE.x + 2)]
+			]
+			var type_map :Type_Map = get_type_map(pixels)
+			if type_map == Type_Map.ERROR:
+				printerr("type_map==Type_Map.ERROR - pixels=", pixels)
+				return []
+			else:
+				array_of_line.append(type_map)
+		array_map.append(array_of_line)
 	
+	return array_map
 
-func _on_static_body_2d_other_body_entered(body):
-	if body is Bullet:
-		body.queue_free()
+
+func get_type_map(pixels :Array) -> Type_Map:
+	for piece_map in list_piece_map:
+		if is_same_pixels(pixels, piece_map):
+			return piece_map.type
+	return Type_Map.ERROR
+
+
+func is_same_pixels(pixels :Array, piece_map :Dictionary) -> bool:
+	print("****is_same_pixels=>pixels=", pixels)
+	for idx in range(PIXEL_SIZE.x):
+		for idy in range(PIXEL_SIZE.y):
+			if idx == 1 and idy == 1: # ignor center
+				continue
+			
+			print("idx=", idx, "-idy=", idy, "-pixels[idx][idy]=", pixels[idx][idy], "-piece_map.all_color[idx][idy]=", piece_map.all_color[idx][idy])
+			if pixels[idx][idy] != piece_map.all_color[idx][idy]:
+				print("   false")
+				return false
+	print("   true")
+	return true
