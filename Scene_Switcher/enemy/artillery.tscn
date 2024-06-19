@@ -306,6 +306,8 @@ _data = {
 
 [node name="artillery" type="CharacterBody2D"]
 z_index = 1
+collision_layer = 4
+collision_mask = 285
 script = ExtResource("1_kjnej")
 bullet_cooldown = 1.5
 ammo_scene = ExtResource("2_hn3br")

@@ -20,23 +20,24 @@ const WEAPON_COLOR :Color = Color("4b4b4b")
 @onready var cockpit_sprite = $cockpit_sprite
 @onready var weapon_sprite = $cockpit_sprite/weapon_sprite
 @onready var weapon_double_sprite = $cockpit_sprite/weapon_double_sprite
-@onready var life_level = $life_level
+@onready var life_level = $hud_player/life_level
+@onready var heat_level = $hud_player/heat_level
 @onready var anim_smoke_fire_basic = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_basic
 @onready var anim_smoke_fire_left = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_left
 @onready var anim_smoke_fire_right = $cockpit_sprite/weapon_sprite/fire_sparkles/anim_smoke_fire_right
 @onready var overheat_gun = $sound/overheat_gun
-@onready var heat_level = $heat_level
 @onready var anim_weapon = $anim_weapon
 @onready var target_follow = $target_follow
 @onready var shadow = $cockpit_sprite/shadow
-@onready var smoke_20 = $Smokes/Smoke20
-@onready var smoke_40 = $Smokes/Smoke40
-@onready var smoke_60 = $Smokes/Smoke60
-@onready var smoke_80 = $Smokes/Smoke80
-@onready var death_smoke = $Smokes/Death_Smoke
+@onready var smoke_20 = $cockpit_sprite/Smokes/Smoke20
+@onready var smoke_40 = $cockpit_sprite/Smokes/Smoke40
+@onready var smoke_60 = $cockpit_sprite/Smokes/Smoke60
+@onready var smoke_80 = $cockpit_sprite/Smokes/Smoke80
+@onready var death_smoke = $cockpit_sprite/Smokes/Death_Smoke
 @onready var explosion_death = $explosion_death
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var explosion = $Explosion
+@onready var collision = $col
 
 
 signal i_am_dead(my_self)
@@ -67,6 +68,7 @@ var weapon_heat :float = 0.0
 var weapon_coldown :float = 0.01 
 var time_overheat_duration :float = 0.0
 var overheat :bool = false
+var vue_direction :Vector2 = Vector2(0, -1)
 
 
 func set_life_max(new_life_max :float):
@@ -82,11 +84,19 @@ func _ready():
 
 
 func _physics_process(delta :float):
-	velocity.x = lerp(velocity.x, input_dir.x * get_speed() * side_multiplier, smooth * delta)
-	velocity.y = lerp(velocity.y, input_dir.y * get_speed(), smooth * delta)
+	if abs(vue_direction.y) < 1:
+		velocity.x = lerp(velocity.x, input_dir.x * get_speed(), smooth * delta)
+		velocity.y = lerp(velocity.y, input_dir.y * get_speed() * side_multiplier, smooth * delta)
 	
-	cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
-	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
+		cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.y * PI/20.0, 0.1)
+		weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.y * PI/20.0, 0.1)
+		
+	elif abs(vue_direction.x) < 1:
+		velocity.x = lerp(velocity.x, input_dir.x * get_speed() * side_multiplier, smooth * delta)
+		velocity.y = lerp(velocity.y, input_dir.y * get_speed(), smooth * delta)
+	
+		cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
+		weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
 	
 	move_and_slide()
 
@@ -95,6 +105,15 @@ func _process(delta):
 	time_overheat_duration += delta
 	bullet_time += delta
 	manage_shoot()
+	
+	if Input.is_action_just_pressed("ui_right_rotate"):
+		vue_direction = vue_direction.rotated(PI / 2.0)
+	
+	elif Input.is_action_just_pressed("ui_left_rotate"):
+		vue_direction = vue_direction.rotated(-PI / 2.0)
+	
+	cockpit_sprite.rotation = lerp_angle(cockpit_sprite.rotation, vue_direction.angle_to(Vector2(0, -1)), delta * 10.0)
+	collision.rotation = cockpit_sprite.rotation
 
 
 func get_speed() -> float:
@@ -102,7 +121,11 @@ func get_speed() -> float:
 
 
 func _input(_event):
-	if Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
+	if Input.is_action_just_pressed("ui_left_rotate") or Input.is_action_just_pressed("ui_right_rotate"):
+		input_dir = Vector2.ZERO
+		movement_state = Movement_State.IDLE
+	
+	elif Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
 			or Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
 		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		input_dir = input_dir.rotated(rotation)
@@ -147,6 +170,7 @@ func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 		world.add_child(bullet)
 		bullet.exclude_body = self 
 		bullet.global_position = target_pos.global_position
+		bullet.global_rotation = cockpit_sprite.global_rotation
 		bullet.direction = (target_dir.global_position - global_position).normalized() 
 		bullet.origin = target_pos.global_position
 		bullet.power = power
@@ -209,7 +233,7 @@ func set_life(new_life :float):
 		death_smoke.emitting = true
 		explosion_death.play()
 		await get_tree().create_timer(1.5).timeout
-		emit_signal("i_am_dead")
+		emit_signal("i_am_dead", self)
 
 
 func animation_weapon():

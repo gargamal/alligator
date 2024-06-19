@@ -104,7 +104,7 @@ collision_mask = 271
 position = Vector2(192, 843)
 shape = SubResource("RectangleShape2D_uxtg1")
 
-[node name="limit2" type="StaticBody2D" parent="left_border"]
+[node name="limit2" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
 position = Vector2(2, -41.4118)
 collision_layer = 16
 collision_mask = 15
@@ -118,7 +118,7 @@ debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
 position = Vector2(1760, 544)
 scale = Vector2(5, 17)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="right_border"]
+[node name="StaticBody2D" type="StaticBody2D" parent="right_border" groups=["decor_static"]]
 position = Vector2(-32, -32)
 scale = Vector2(0.25, 0.0588235)
 collision_layer = 16
@@ -137,7 +137,7 @@ collision_mask = 271
 position = Vector2(102.4, 552)
 shape = SubResource("RectangleShape2D_6md14")
 
-[node name="limit" type="StaticBody2D" parent="right_border"]
+[node name="limit" type="StaticBody2D" parent="right_border" groups=["decor_static"]]
 position = Vector2(-326.4, 0)
 scale = Vector2(0.8, 1)
 collision_layer = 16

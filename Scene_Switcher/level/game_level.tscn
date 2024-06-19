@@ -42,5 +42,5 @@ visible = false
 [node name="music_in_game" parent="." instance=ExtResource("9_0okr8")]
 process_mode = 3
 
-[connection signal="i_am_dead" from="player/player" to="." method="_on_player_dead"]
+[connection signal="i_am_dead" from="player/player" to="." method="_on_player_i_am_dead"]
 [connection signal="player_persisted" from="save_score_player" to="." method="_on_save_score_player_player_persisted"]

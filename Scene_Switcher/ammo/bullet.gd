@@ -24,7 +24,7 @@ func set_flip_v(new_flip_v :bool):
 	sprite_2d.flip_v = flip_v
 	shadow.flip_v = flip_v
 
-func _process(_delta):
+func _physics_process(_delta):
 	if is_firing and explosion and not explosion.emitting:
 		if origin.distance_to(global_position) > distance_max:
 			queue_free()

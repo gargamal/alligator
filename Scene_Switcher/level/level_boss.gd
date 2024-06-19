@@ -63,13 +63,6 @@ func choice_map():
 		emit_signal("next_map", self)
 
 
-func block_player():
-	if not block_player_is_done:
-		block_player_is_done = true
-		blocker.collision_layer = App_Main_Level_A.COLLISION_DECOR
-		blocker.collision_mask = App_Main_Level_A.COLLISION_PLAYER
-
-
 func spawn():
 	emit_signal("spawn_boss")
 	var enemy_boss :Enemy

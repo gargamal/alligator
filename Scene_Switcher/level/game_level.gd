@@ -24,6 +24,10 @@ var points:int = 0
 var nb_boss_spawned :int = 0
 var game :Dictionary = {}
 var nb_kill :int = 0
+var map_active :Level_A
+var map_spawn :Dictionary = {}
+var matrix_of_scene :Array = []
+
 
 func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
@@ -36,18 +40,85 @@ func _ready():
 	player.minimun_healing = Player.get_minimun_healing_with_difficulty(player.minimun_healing, game.game_level.difficulty)
 	hud_score.init_hud(int(game.game_level.difficulty) as App_Game.Type_Difficulty)
 	create_all_map()
-	player.global_position = Vector2(WIDTH / 2.0, HEIGHT / 2.0)
+	player.global_position.y = HEIGHT * matrix_of_scene.size() - HEIGHT / 2.0
+	player.global_position.x = WIDTH * rng.randi_range(1, matrix_of_scene[0].size()) - WIDTH / 2.0
+	manage_map_spawn(false)
+
+
+func _process(_delta):
+	if map_active:
+		if player.global_position.x < map_active.global_position.x or player.global_position.y < map_active.global_position.y or \
+			player.global_position.x > map_active.global_position.x + WIDTH or player.global_position.y > map_active.global_position.y + HEIGHT:
+			manage_map_spawn()
+
+
+func manage_map_spawn(with_spawn_enemy :bool = true):
+	@warning_ignore("integer_division")
+	var idx :int = int(int(player.global_position.x) / WIDTH)
+	@warning_ignore("integer_division")
+	var idy :int = int(int(player.global_position.y) / HEIGHT)
+	
+	for coord_x in range(-1, 2):
+		for coord_y in range(-1, 2):
+			if coord_x == 0 and coord_y == 0:
+				spawn_map(idx + coord_x, idy + coord_y, with_spawn_enemy)
+			else:
+				spawn_map(idx + coord_x, idy + coord_y)
+	
+	for coord_x in range(-2, 3):
+		for coord_y in range(-2, 3):
+			if coord_x in [-1, 0 , 1] and coord_y in [-1, 0 , 1]:
+				continue
+			de_spawn_map(idx + coord_x, idy + coord_y)
+	
+	var key_map :String = get_key_map(idx, idy, Vector2(idx * WIDTH, idy * HEIGHT))
+	map_active = map_spawn.get(key_map)
+
+
+# if null kel return empty string
+func get_key_map(idx :int, idy :int, origin_point :Vector2) -> String:
+	if idx < 0 or idx > matrix_of_scene[0].size() - 1 or idy < 0 or idy > matrix_of_scene.size() - 1:
+		return ""
+	return "map_" + str(origin_point.x) + "x" + str(origin_point.y)
+
+
+func de_spawn_map(idx :int, idy :int):
+	var origin_point :Vector2 = Vector2(idx * WIDTH, idy * HEIGHT)
+	var key_map :String = get_key_map(idx, idy, origin_point)
+	if key_map == "": return
+	
+	var map_spawned :Level_A = map_spawn.get(key_map)
+	if map_spawned != null:
+		map_spawn.erase(key_map)
+		map_spawned.queue_free()
+
+
+func spawn_map(idx :int, idy :int, with_spawn_enemy: bool = true):
+	var origin_point :Vector2 = Vector2(idx * WIDTH, idy * HEIGHT)
+	var key_map :String = get_key_map(idx, idy, origin_point)
+	if key_map == "": return
+	
+	var map_spawned :Level_A = map_spawn.get(key_map)
+	if map_spawned == null:
+		var scene_inst :Level_A = matrix_of_scene[idy][idx].instantiate()
+		level.add_child(scene_inst)
+		scene_inst.global_position = origin_point
+		scene_inst.name = key_map
+		scene_inst.connect("add_point", _on_add_point)
+		if with_spawn_enemy:
+			scene_inst.spawn_enemies(player, enemy, drop_item, bullet, game.game_level.difficulty as App_Game.Type_Difficulty)
+		map_spawn[key_map] = scene_inst
 
 
 func create_all_map():
 	var matrix_map :Array = App_Main_Level_A.get_matrix_map()
 	for idx in range(matrix_map.size()):
+		var line_of_scene :Array = []
 		for idy in range(matrix_map[idx].size()):
 			var all_scene :Array = App_Main_Level_A.get_all_scene(matrix_map[idx][idy])
-			var scene_inst :Level_A = all_scene[rng.randi_range(0, all_scene.size() - 1)].instantiate()
-			level.add_child(scene_inst)
-			scene_inst.global_position = Vector2(idy * WIDTH, idx * HEIGHT)
-	
+			line_of_scene.append(all_scene[rng.randi_range(0, all_scene.size() - 1)])
+		matrix_of_scene.append(line_of_scene)
+
 
 func _on_add_point(point_value :int):
 	points += point_value
@@ -56,17 +127,18 @@ func _on_add_point(point_value :int):
 		nb_kill += 1
 
 
-func _on_player_dead():
-	save_score_player.score = hud_score.score
-	save_score_player.difficulty = int(game.game_level.difficulty) as App_Game.Type_Difficulty
-	save_score_player.visible = true
-
-
 func _input(_event):
 	if Input.is_action_pressed("pause_game"):
 		game_over.title_name = "Pause"
 		game_over.visible = true
 
+
 func _on_save_score_player_player_persisted():
 	game_over.title_name = "GAME OVER"
 	game_over.visible = true
+
+
+func _on_player_i_am_dead(_my_self):
+	save_score_player.score = hud_score.score
+	save_score_player.difficulty = int(game.game_level.difficulty) as App_Game.Type_Difficulty
+	save_score_player.visible = true

@@ -21,7 +21,7 @@ texture = ExtResource("1_2gvdr")
 position = Vector2(1760, 544)
 scale = Vector2(5, 17)
 
-[node name="limit" type="StaticBody2D" parent="border"]
+[node name="limit" type="StaticBody2D" parent="border" groups=["decor_static"]]
 position = Vector2(-326.4, 0)
 scale = Vector2(0.8, 1)
 collision_layer = 16

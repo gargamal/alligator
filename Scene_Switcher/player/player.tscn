@@ -34,6 +34,10 @@ _data = {
 "player_fire_right": ExtResource("10_dgs86")
 }
 
+[sub_resource type="Gradient" id="Gradient_glqfr"]
+offsets = PackedFloat32Array(0, 0.705521, 1)
+colors = PackedColorArray(0.219501, 0.219501, 0.219501, 1, 0.490196, 0.490196, 0.490196, 1, 1, 1, 1, 0)
+
 [sub_resource type="Animation" id="Animation_yho3y"]
 length = 0.001
 tracks/0/type = "value"
@@ -86,7 +90,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("heat_level:modulate")
+tracks/0/path = NodePath("hud_player/heat_level:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -102,7 +106,7 @@ step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("heat_level:modulate")
+tracks/0/path = NodePath("hud_player/heat_level:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -129,10 +133,6 @@ min_value = -200.0
 max_value = 200.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.117978, 81.3187), 601.86, 601.86, 0, 0, Vector2(0.292135, 164.835), 253.135, 253.135, 0, 0, Vector2(0.983146, 200), 0.0, 0.0, 0, 0]
 point_count = 4
-
-[sub_resource type="Gradient" id="Gradient_glqfr"]
-offsets = PackedFloat32Array(0, 0.705521, 1)
-colors = PackedColorArray(0.219501, 0.219501, 0.219501, 1, 0.490196, 0.490196, 0.490196, 1, 1, 1, 1, 0)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 4
@@ -241,8 +241,105 @@ scale = Vector2(1.1, 1.1)
 texture = ExtResource("5_thjcd")
 offset = Vector2(0, 29.5082)
 
+[node name="Smokes" type="Node2D" parent="cockpit_sprite"]
+scale = Vector2(3.28205, 3.28205)
+
+[node name="Smoke20" type="CPUParticles2D" parent="cockpit_sprite/Smokes"]
+z_index = 5
+position = Vector2(-1, 44)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("21_mf2bx")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_glqfr")
+
+[node name="Smoke40" type="CPUParticles2D" parent="cockpit_sprite/Smokes"]
+z_index = 5
+position = Vector2(-6, -86)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("21_mf2bx")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_glqfr")
+
+[node name="Smoke60" type="CPUParticles2D" parent="cockpit_sprite/Smokes"]
+z_index = 5
+position = Vector2(-18, -26)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("21_mf2bx")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_glqfr")
+
+[node name="Smoke80" type="CPUParticles2D" parent="cockpit_sprite/Smokes"]
+z_index = 5
+position = Vector2(-19, 10)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("21_mf2bx")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_glqfr")
+
+[node name="Death_Smoke" type="CPUParticles2D" parent="cockpit_sprite/Smokes"]
+z_index = 5
+position = Vector2(0, -57)
+emitting = false
+amount = 100
+lifetime = 3.0
+texture = ExtResource("21_mf2bx")
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_glqfr")
+
 [node name="col" type="CollisionPolygon2D" parent="."]
-visible = false
 polygon = PackedVector2Array(0, -93, -28, -74, -28, -7, -13, 2, -12, 44, -24, 44, -24, 61, -11, 96, 13, 96, 23, 57, 23, 44, 10, 44, 11, 3, 29, -8, 28, -73)
 
 [node name="AnimatedSprite2D" type="AnimationPlayer" parent="."]
@@ -252,12 +349,14 @@ libraries = {
 autoplay = "rotor"
 speed_scale = 2.0
 
-[node name="life_level" type="Sprite2D" parent="."]
+[node name="hud_player" type="Node2D" parent="."]
+
+[node name="life_level" type="Sprite2D" parent="hud_player"]
 position = Vector2(-50, 110)
 texture = SubResource("GradientTexture2D_sif7m")
 centered = false
 
-[node name="heat_level" type="TextureProgressBar" parent="."]
+[node name="heat_level" type="TextureProgressBar" parent="hud_player"]
 offset_left = -50.0
 offset_top = 120.0
 offset_right = 50.0
@@ -313,103 +412,6 @@ z_index = 5
 lifetime = 1.5
 linear_accel_curve = SubResource("Curve_72eys")
 radial_accel_curve = SubResource("Curve_cnauy")
-
-[node name="Smokes" type="Node2D" parent="."]
-
-[node name="Smoke20" type="CPUParticles2D" parent="Smokes"]
-z_index = 5
-position = Vector2(-1, 44)
-emitting = false
-amount = 100
-lifetime = 3.0
-texture = ExtResource("21_mf2bx")
-emission_shape = 1
-emission_sphere_radius = 8.0
-spread = 180.0
-gravity = Vector2(2.08165e-12, -5)
-linear_accel_min = 5.0
-linear_accel_max = 10.0
-radial_accel_min = 1.0
-radial_accel_max = 1.0
-scale_amount_min = 0.5
-scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_glqfr")
-
-[node name="Smoke40" type="CPUParticles2D" parent="Smokes"]
-z_index = 5
-position = Vector2(-6, -86)
-emitting = false
-amount = 100
-lifetime = 3.0
-texture = ExtResource("21_mf2bx")
-emission_shape = 1
-emission_sphere_radius = 8.0
-spread = 180.0
-gravity = Vector2(2.08165e-12, -5)
-linear_accel_min = 5.0
-linear_accel_max = 10.0
-radial_accel_min = 1.0
-radial_accel_max = 1.0
-scale_amount_min = 0.5
-scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_glqfr")
-
-[node name="Smoke60" type="CPUParticles2D" parent="Smokes"]
-z_index = 5
-position = Vector2(-18, -26)
-emitting = false
-amount = 100
-lifetime = 3.0
-texture = ExtResource("21_mf2bx")
-emission_shape = 1
-emission_sphere_radius = 8.0
-spread = 180.0
-gravity = Vector2(2.08165e-12, -5)
-linear_accel_min = 5.0
-linear_accel_max = 10.0
-radial_accel_min = 1.0
-radial_accel_max = 1.0
-scale_amount_min = 0.5
-scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_glqfr")
-
-[node name="Smoke80" type="CPUParticles2D" parent="Smokes"]
-z_index = 5
-position = Vector2(-19, 10)
-emitting = false
-amount = 100
-lifetime = 3.0
-texture = ExtResource("21_mf2bx")
-emission_shape = 1
-emission_sphere_radius = 8.0
-spread = 180.0
-gravity = Vector2(2.08165e-12, -5)
-linear_accel_min = 5.0
-linear_accel_max = 10.0
-radial_accel_min = 1.0
-radial_accel_max = 1.0
-scale_amount_min = 0.5
-scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_glqfr")
-
-[node name="Death_Smoke" type="CPUParticles2D" parent="Smokes"]
-z_index = 5
-position = Vector2(0, -57)
-emitting = false
-amount = 100
-lifetime = 3.0
-texture = ExtResource("21_mf2bx")
-emission_shape = 1
-emission_sphere_radius = 8.0
-spread = 180.0
-gravity = Vector2(2.08165e-12, -5)
-linear_accel_min = 5.0
-linear_accel_max = 10.0
-radial_accel_min = 1.0
-radial_accel_max = 1.0
-scale_amount_min = 0.5
-scale_amount_max = 2.0
-color_ramp = SubResource("Gradient_glqfr")
 
 [node name="explosion_death" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_wmpp0")

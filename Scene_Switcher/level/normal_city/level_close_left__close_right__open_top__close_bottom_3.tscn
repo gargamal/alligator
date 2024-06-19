@@ -97,7 +97,7 @@ collision_mask = 271
 position = Vector2(768, 909)
 shape = SubResource("RectangleShape2D_7tvnd")
 
-[node name="limit" type="StaticBody2D" parent="left_border"]
+[node name="limit" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
 collision_layer = 16
 collision_mask = 15
 
@@ -125,7 +125,7 @@ collision_mask = 271
 position = Vector2(192, 1100)
 shape = SubResource("RectangleShape2D_cpbyr")
 
-[node name="limit2" type="StaticBody2D" parent="left_border"]
+[node name="limit2" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
 position = Vector2(2, -41.4118)
 collision_layer = 16
 collision_mask = 15
@@ -139,7 +139,7 @@ debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
 position = Vector2(1760, 544)
 scale = Vector2(5, 17)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="right_border"]
+[node name="StaticBody2D" type="StaticBody2D" parent="right_border" groups=["decor_static"]]
 position = Vector2(-32, -32)
 scale = Vector2(0.25, 0.0588235)
 collision_layer = 16
@@ -158,7 +158,7 @@ collision_mask = 271
 position = Vector2(102.4, 539.5)
 shape = SubResource("RectangleShape2D_6md14")
 
-[node name="limit" type="StaticBody2D" parent="right_border"]
+[node name="limit" type="StaticBody2D" parent="right_border" groups=["decor_static"]]
 position = Vector2(-326.4, 0)
 scale = Vector2(0.8, 1)
 collision_layer = 16
@@ -178,19 +178,13 @@ position = Vector2(524, 336)
 position = Vector2(610, 670)
 
 [node name="Marker2D2" type="Marker2D" parent="spawn_point"]
-position = Vector2(1400, 743)
+position = Vector2(1296, 608)
 
 [node name="Marker2D4" type="Marker2D" parent="spawn_point"]
 position = Vector2(983, 628)
 
 [node name="Marker2D7" type="Marker2D" parent="spawn_point"]
 position = Vector2(1248, 393)
-
-[node name="Marker2D5" type="Marker2D" parent="spawn_point"]
-position = Vector2(816, 961)
-
-[node name="Marker2D6" type="Marker2D" parent="spawn_point"]
-position = Vector2(1176, 919)
 
 [node name="Left_Smokes" type="Node2D" parent="."]
 position = Vector2(168, 552)

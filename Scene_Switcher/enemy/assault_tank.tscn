@@ -68,7 +68,7 @@ _data = {
 [node name="assault_tank" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 4
-collision_mask = 13
+collision_mask = 285
 script = ExtResource("1_4tft8")
 bullet_cooldown = 2.0
 ammo_scene = ExtResource("2_d5cl6")
