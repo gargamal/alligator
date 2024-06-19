@@ -1,0 +1,363 @@
+[gd_scene load_steps=23 format=3 uid="uid://4jk4dg4sws3q"]
+
+[ext_resource type="Script" path="res://Scene_Switcher/level/level_A.gd" id="1_o65bp"]
+[ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://Scene_Switcher/enemy/assault_tank.tscn" id="2_u245a"]
+[ext_resource type="PackedScene" uid="uid://bbtkbj3sj8rn1" path="res://Scene_Switcher/enemy/helicopter.tscn" id="3_hf771"]
+[ext_resource type="PackedScene" uid="uid://pu6gx570i247" path="res://Scene_Switcher/enemy/jeep.tscn" id="4_sjed0"]
+[ext_resource type="PackedScene" uid="uid://mp15xma1rlvc" path="res://Scene_Switcher/enemy/artillery.tscn" id="5_n3imu"]
+[ext_resource type="PackedScene" uid="uid://dgg148mcr147s" path="res://Scene_Switcher/enemy/Kamikaze.tscn" id="6_oygw5"]
+[ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="7_k3i1f"]
+[ext_resource type="Texture2D" uid="uid://bqhpasvcsy1n8" path="res://Scene_Switcher/level/asset/normal_city/city_bottom_end.png" id="8_fxxha"]
+[ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="9_vjpth"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
+size = Vector2(1504, 375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tvnd"]
+size = Vector2(1536, 342)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygj74"]
+size = Vector2(398, 16.8235)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kjt1"]
+size = Vector2(424.5, 703.001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpbyr"]
+size = Vector2(393, 792)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hfplp"]
+size = Vector2(82, 46.5882)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8b6yq"]
+size = Vector2(332.8, 1082)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6md14"]
+size = Vector2(307.2, 1081)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1okq1"]
+size = Vector2(82, 63.5294)
+
+[sub_resource type="Curve" id="Curve_qy0bc"]
+min_value = 0.5
+max_value = 1.5
+_data = [Vector2(0, 1.48901), 0.0, 0.0, 0, 0, Vector2(0.55618, 1.23626), -1.00957, -1.00957, 0, 0, Vector2(0.988764, 0.494505), -2.59388, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_6611s"]
+offsets = PackedFloat32Array(0, 0.335878, 0.705521, 0.778626, 0.977099, 1)
+colors = PackedColorArray(0.834999, 0.891277, 0, 1, 0.67451, 0.321569, 0, 1, 0.658911, 1.22733e-06, 9.62615e-08, 1, 0, 0, 0, 1, 0, 0, 0, 0.103448, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_ev8tr"]
+min_value = 0.5
+max_value = 1.5
+_data = [Vector2(0, 1.48901), 0.0, 0.0, 0, 0, Vector2(0.55618, 1.23626), -1.00957, -1.00957, 0, 0, Vector2(0.988764, 0.494505), -2.59388, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_efsel"]
+offsets = PackedFloat32Array(0, 0.335878, 0.705521, 0.778626, 0.977099, 1)
+colors = PackedColorArray(0.834999, 0.891277, 0, 1, 0.67451, 0.321569, 0, 1, 0.658911, 1.22733e-06, 9.62615e-08, 1, 0, 0, 0, 1, 0, 0, 0, 0.103448, 1, 1, 1, 0)
+
+[node name="level_close_left__close_right__open_top__close_bottom_3" type="Node2D"]
+z_index = -1
+script = ExtResource("1_o65bp")
+assault_tank_scene = ExtResource("2_u245a")
+helicopter_scene = ExtResource("3_hf771")
+jeep_scene = ExtResource("4_sjed0")
+artillery_scene = ExtResource("5_n3imu")
+kamikaze_scene = ExtResource("6_oygw5")
+item_drop_scene = ExtResource("7_k3i1f")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="Sprites"]
+z_index = -1
+position = Vector2(960, 540)
+texture = ExtResource("8_fxxha")
+
+[node name="left_border" type="Node2D" parent="."]
+position = Vector2(128, 544)
+scale = Vector2(4, 17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D"]
+position = Vector2(752, 892.5)
+shape = SubResource("RectangleShape2D_y0j4l")
+
+[node name="StaticBody2D_Other" type="Area2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D_Other"]
+position = Vector2(768, 909)
+shape = SubResource("RectangleShape2D_7tvnd")
+
+[node name="limit" type="StaticBody2D" parent="left_border"]
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/limit"]
+position = Vector2(167, 23.1176)
+shape = SubResource("RectangleShape2D_ygj74")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-30, -73.4118)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D2"]
+position = Vector2(203.75, 1056.5)
+shape = SubResource("RectangleShape2D_4kjt1")
+
+[node name="StaticBody2D_Other2" type="Area2D" parent="left_border" groups=["decor_static"]]
+position = Vector2(-30, -73.4118)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D_Other2"]
+position = Vector2(192, 1100)
+shape = SubResource("RectangleShape2D_cpbyr")
+
+[node name="limit2" type="StaticBody2D" parent="left_border"]
+position = Vector2(2, -41.4118)
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/limit2"]
+position = Vector2(8, 32.7059)
+shape = SubResource("RectangleShape2D_hfplp")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="right_border" type="Node2D" parent="."]
+position = Vector2(1760, 544)
+scale = Vector2(5, 17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D"]
+position = Vector2(89.6, 540)
+shape = SubResource("RectangleShape2D_8b6yq")
+
+[node name="StaticBody2D_Other" type="Area2D" parent="right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D_Other"]
+position = Vector2(102.4, 539.5)
+shape = SubResource("RectangleShape2D_6md14")
+
+[node name="limit" type="StaticBody2D" parent="right_border"]
+position = Vector2(-326.4, 0)
+scale = Vector2(0.8, 1)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/limit"]
+position = Vector2(406, -0.294117)
+shape = SubResource("RectangleShape2D_1okq1")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="spawn_point" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="spawn_point"]
+position = Vector2(524, 336)
+
+[node name="Marker2D3" type="Marker2D" parent="spawn_point"]
+position = Vector2(610, 670)
+
+[node name="Marker2D2" type="Marker2D" parent="spawn_point"]
+position = Vector2(1400, 743)
+
+[node name="Marker2D4" type="Marker2D" parent="spawn_point"]
+position = Vector2(983, 628)
+
+[node name="Marker2D7" type="Marker2D" parent="spawn_point"]
+position = Vector2(1248, 393)
+
+[node name="Marker2D5" type="Marker2D" parent="spawn_point"]
+position = Vector2(816, 961)
+
+[node name="Marker2D6" type="Marker2D" parent="spawn_point"]
+position = Vector2(1176, 919)
+
+[node name="Left_Smokes" type="Node2D" parent="."]
+position = Vector2(168, 552)
+
+[node name="Smoke_Vehicle" type="CPUParticles2D" parent="Left_Smokes"]
+position = Vector2(245, -82)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_qy0bc")
+color_ramp = SubResource("Gradient_6611s")
+
+[node name="Smoke_Vehicle2" type="CPUParticles2D" parent="Left_Smokes"]
+position = Vector2(108, -95)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_qy0bc")
+color_ramp = SubResource("Gradient_6611s")
+
+[node name="Smoke_Vehicle3" type="CPUParticles2D" parent="Left_Smokes"]
+position = Vector2(168, 24)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_qy0bc")
+color_ramp = SubResource("Gradient_6611s")
+
+[node name="Smoke_Vehicle4" type="CPUParticles2D" parent="Left_Smokes"]
+position = Vector2(126, 141)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_qy0bc")
+color_ramp = SubResource("Gradient_6611s")
+
+[node name="Smoke_Vehicle5" type="CPUParticles2D" parent="Left_Smokes"]
+position = Vector2(236, 164)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_qy0bc")
+color_ramp = SubResource("Gradient_6611s")
+
+[node name="Right_Smokes" type="Node2D" parent="."]
+position = Vector2(1776, 592)
+
+[node name="Smoke_Vehicle" type="CPUParticles2D" parent="Right_Smokes"]
+position = Vector2(-133, -137)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_ev8tr")
+color_ramp = SubResource("Gradient_efsel")
+
+[node name="Smoke_Vehicle2" type="CPUParticles2D" parent="Right_Smokes"]
+position = Vector2(-265, -127)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_ev8tr")
+color_ramp = SubResource("Gradient_efsel")
+
+[node name="Smoke_Vehicle3" type="CPUParticles2D" parent="Right_Smokes"]
+position = Vector2(-191, -24)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_ev8tr")
+color_ramp = SubResource("Gradient_efsel")
+
+[node name="Smoke_Vehicle4" type="CPUParticles2D" parent="Right_Smokes"]
+position = Vector2(-144, 104)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_ev8tr")
+color_ramp = SubResource("Gradient_efsel")
+
+[node name="Smoke_Vehicle5" type="CPUParticles2D" parent="Right_Smokes"]
+position = Vector2(-274, 121)
+amount = 300
+lifetime = 5.0
+texture = ExtResource("9_vjpth")
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -5)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_curve = SubResource("Curve_ev8tr")
+color_ramp = SubResource("Gradient_efsel")
+
+[connection signal="body_entered" from="left_border/StaticBody2D_Other" to="." method="_on_static_body_2d_other_body_entered"]
+[connection signal="body_entered" from="left_border/StaticBody2D_Other2" to="." method="_on_static_body_2d_other_body_entered"]
+[connection signal="body_entered" from="right_border/StaticBody2D_Other" to="." method="_on_static_body_2d_other_body_entered"]
