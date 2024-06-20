@@ -13,6 +13,7 @@ const max_dist_diedbody :int = 3000
 @onready var hud_score = $Score
 @onready var game_over = $Game_Over
 @onready var save_score_player = $save_score_player
+@onready var hud_extract_map = $hud_extract_map
 
 
 var level_scene_instianble :Array =[]
@@ -26,7 +27,7 @@ var nb_kill :int = 0
 var map_active :Level_A
 var map_spawn :Dictionary = {}
 var matrix_of_scene :Array = []
-
+var extract_area_idx :Vector2i
 
 func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
@@ -41,6 +42,11 @@ func _ready():
 	create_all_map()
 	player.global_position.y = HEIGHT * matrix_of_scene.size() - HEIGHT / 2.0
 	player.global_position.x = WIDTH * rng.randi_range(1, matrix_of_scene[0].size()) - WIDTH / 2.0
+	
+	extract_area_idx.x = rng.randi_range(0, matrix_of_scene.size() - 1)
+	extract_area_idx.y = 0
+	hud_extract_map.extract_point = Vector2(extract_area_idx.x * WIDTH + Level_A.EXTRACT_AREA_POSITION.x, Level_A.EXTRACT_AREA_POSITION.y)
+	
 	manage_map_spawn(false)
 
 
@@ -89,7 +95,7 @@ func de_spawn_map(idx :int, idy :int):
 	var map_spawned :Level_A = map_spawn.get(key_map)
 	if map_spawned != null:
 		map_spawn.erase(key_map)
-		map_spawned.free_map()
+		map_spawned.free_map(map_active, player)
 
 
 # return true if spawn or false is not spawn
@@ -105,11 +111,18 @@ func spawn_map(idx :int, idy :int, with_spawn_enemy: bool = true) -> bool:
 		scene_inst.global_position = origin_point
 		scene_inst.name = key_map
 		scene_inst.connect("add_point", _on_add_point)
+		if idx == extract_area_idx.x and idy == extract_area_idx.y:
+			scene_inst.add_extract_area()
+			scene_inst.connect("end_game", _on_end_game)
 		if with_spawn_enemy:
 			scene_inst.spawn_enemies(player, enemy, drop_item, bullet, game.game_level.difficulty as App_Game.Type_Difficulty)
 		map_spawn[key_map] = scene_inst
 	
 	return true
+
+
+func _on_end_game():
+	_on_player_i_am_dead(null)
 
 
 func create_all_map():

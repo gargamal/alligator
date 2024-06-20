@@ -17,7 +17,7 @@ grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="cont_bg"]
 layout_mode = 2
-color = Color(0.366595, 0.366595, 0.366595, 0.376471)
+color = Color(0, 0, 0, 0.752941)
 
 [node name="cont" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(672, 0)

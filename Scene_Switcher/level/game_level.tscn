@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwtr4ed7eju1b"]
+[gd_scene load_steps=9 format=3 uid="uid://bwtr4ed7eju1b"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/level/game_level.gd" id="1_qdoty"]
 [ext_resource type="PackedScene" uid="uid://bapw7sr4haclc" path="res://Scene_Switcher/player/player.tscn" id="2_idgyi"]
 [ext_resource type="PackedScene" uid="uid://cuj3f472e368v" path="res://Scene_Switcher/camera/camera.tscn" id="4_6heqf"]
+[ext_resource type="PackedScene" uid="uid://bnk18ri36v3qk" path="res://Scene_Switcher/Menu/hud_extract_map.tscn" id="7_2om8b"]
 [ext_resource type="PackedScene" uid="uid://djag0ihwlgjgf" path="res://Scene_Switcher/Menu/menu_in_game.tscn" id="8_80n6j"]
 [ext_resource type="PackedScene" uid="uid://b152stqnpng2k" path="res://Scene_Switcher/Menu/hud_score.tscn" id="8_qq12p"]
 [ext_resource type="PackedScene" uid="uid://b3we2oloqwtt0" path="res://Scene_Switcher/level/music_in_game.tscn" id="9_0okr8"]
@@ -30,14 +31,18 @@ player = NodePath("../player")
 [node name="bullet" type="Node2D" parent="."]
 
 [node name="Score" parent="." instance=ExtResource("8_qq12p")]
+layer = 2
 
 [node name="Game_Over" parent="." instance=ExtResource("8_80n6j")]
-layer = 2
+layer = 3
 visible = false
 
 [node name="save_score_player" parent="." instance=ExtResource("10_1tjh5")]
-layer = 2
+layer = 3
 visible = false
+
+[node name="hud_extract_map" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_2om8b")]
+player = NodePath("../player/player")
 
 [node name="music_in_game" parent="." instance=ExtResource("9_0okr8")]
 process_mode = 3

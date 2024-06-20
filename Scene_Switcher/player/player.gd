@@ -109,10 +109,10 @@ func _process(delta):
 		manage_shoot()
 		
 		if Input.is_action_just_pressed("ui_right_rotate"):
-			vue_direction = vue_direction.rotated(PI / 2.0)
+			vue_direction = vue_direction.rotated(-PI / 2.0)
 		
 		elif Input.is_action_just_pressed("ui_left_rotate"):
-			vue_direction = vue_direction.rotated(-PI / 2.0)
+			vue_direction = vue_direction.rotated(PI / 2.0)
 		
 		cockpit_sprite.rotation = lerp_angle(cockpit_sprite.rotation, vue_direction.angle_to(Vector2(0, -1)), delta * 10.0)
 		collision.rotation = cockpit_sprite.rotation
@@ -171,7 +171,8 @@ func basic_shoot(target_dir :Marker2D, target_pos :Marker2D):
 	if not overheat:
 		var bullet :Bullet = bullet_scene.instantiate()
 		world.add_child(bullet)
-		bullet.exclude_body = self 
+		bullet.exclude_body = self
+		bullet.distance_max = 800.0
 		bullet.global_position = target_pos.global_position
 		bullet.global_rotation = cockpit_sprite.global_rotation
 		bullet.direction = (target_dir.global_position - global_position).normalized() 

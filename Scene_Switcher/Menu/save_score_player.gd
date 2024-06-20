@@ -32,6 +32,7 @@ func _on_button_pressed():
 
 func _on_visibility_changed():
 	if visible and not get_tree().paused:
+		player_name.grab_focus()
 		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 		get_tree().paused = true
 		mouse_sound.is_playable = true

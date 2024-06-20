@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnk18ri36v3qk"]
+
+[ext_resource type="Texture2D" uid="uid://wa5e5r2hsipl" path="res://Scene_Switcher/Menu/asset/hud_asset/arrow.png" id="1_1jqxj"]
+[ext_resource type="Script" path="res://Scene_Switcher/Menu/hud_extract_map.gd" id="1_nrs4w"]
+
+[node name="hud_extract_map" type="CanvasLayer"]
+script = ExtResource("1_nrs4w")
+
+[node name="arrow_sprite" type="Sprite2D" parent="."]
+modulate = Color(0, 0.992157, 0, 0.501961)
+position = Vector2(0, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_1jqxj")
