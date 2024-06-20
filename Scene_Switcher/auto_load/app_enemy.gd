@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name App_Enemy
 
 const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
+const LENGHT_FOLLOW_PLAYER :float = 1920.0
 
 @export var speed :float = 200.0
 @export var speed_up :float = 800.0
@@ -43,6 +44,7 @@ signal i_am_death(my_self)
 enum Enemy_State { IDLE, MOVE_UP, MOVE_DOWN, MOVE_SIDE_LEFT, MOVE_SIDE_RIGHT, SHOOT }
 
 var target
+var distance_player :float
 var enemy_state :Enemy_State = Enemy_State.IDLE
 var previous_enemy_state :Enemy_State = Enemy_State.IDLE
 var bullet_time :float = 0.0

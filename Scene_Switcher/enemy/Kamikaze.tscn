@@ -122,6 +122,10 @@ collision_mask = 283
 script = ExtResource("1_tiqgf")
 life_max = 5.0
 
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 2)
+polygon = PackedVector2Array(0, -63, -19, 3, -10, 38, 11, 38, 19, 2)
+
 [node name="Sprite2D" type="Node2D" parent="."]
 scale = Vector2(0.75, 0.75)
 
@@ -267,10 +271,6 @@ texture = ExtResource("7_hw52h")
 flip_v = true
 vframes = 3
 frame = 2
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0, 2)
-polygon = PackedVector2Array(0, -63, -19, 3, -10, 38, 11, 38, 19, 2)
 
 [node name="target" type="Marker2D" parent="."]
 position = Vector2(0, 72)

@@ -119,6 +119,10 @@ ui_right_rotate={
 avoidance/layer_1="alive"
 avoidance/layer_2="death"
 
+[navigation]
+
+2d/default_cell_size=4.0
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true

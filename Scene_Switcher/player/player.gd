@@ -209,7 +209,6 @@ func take_itembox(itembox :ItemBox.Type_ItemBox):
 		ItemBox.Type_ItemBox.HEAL:
 			var tween :Tween = get_tree().create_tween()
 			tween.tween_method(set_life, life, life + calculate_added_life(), 1.0).set_trans(Tween.TRANS_SINE)
-			process_aniamtion_smoke()
 			
 		ItemBox.Type_ItemBox.WEAPON:
 			if level_weapon != Level_Weapon.TRIPLE:
@@ -222,6 +221,7 @@ func calculate_added_life() -> float:
 	life_added = minimun_healing if life_added < minimun_healing else life_added
 	if life + life_added > life_max:
 		life_added = life_max - life
+	process_aniamtion_smoke()
 	return life_added
 
 

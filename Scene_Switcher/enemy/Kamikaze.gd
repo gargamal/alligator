@@ -56,7 +56,8 @@ func rotation_animation(_delta :float, direction :Vector2):
 	shadow.skew = lerp(shadow.skew, -direction.x * PI/15.0, 0.1)
 
 func _physics_process(delta :float):
-	if is_running and is_alive:
+	distance_player = (player.global_position - global_position).length()
+	if is_running and is_alive and distance_player < App_Enemy.LENGHT_FOLLOW_PLAYER:
 		nav_agent_2d.target_position = player.global_position
 		var next_pos :Vector2 = nav_agent_2d.get_next_path_position()
 		if not next_pos.is_finite() or abs(next_pos.x) > 50000.0 or abs(next_pos.y) > 50000.0 :
@@ -64,13 +65,14 @@ func _physics_process(delta :float):
 		
 		var direction :Vector2
 		if not nav_agent_2d.is_target_reachable() and velocity.length() < 0.1:
-			direction = lerp(velocity.normalized(), (player.global_position - global_position).normalized(), 0.25)
+			direction = lerp(velocity.normalized(), player.global_position - global_position.normalized(), 0.25)
 		else:
 			direction = lerp(velocity.normalized(), (next_pos - global_position).normalized(), 0.25)
 		direction = direction.normalized()
 		
 		var new_velocity :Vector2 = direction * speed
 		sprite_2d.rotation = atan2(-direction.x, direction.y)
+		collision_shape_2d.rotation = sprite_2d.rotation
 		
 		if nav_agent_2d.avoidance_enabled:
 			nav_agent_2d.velocity = new_velocity
@@ -79,7 +81,7 @@ func _physics_process(delta :float):
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
-	if is_alive:
+	if is_alive and distance_player < App_Enemy.LENGHT_FOLLOW_PLAYER:
 		velocity = lerp(velocity, safe_velocity, 0.25)
 		move_and_slide()
 	

@@ -8,15 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dgg148mcr147s" path="res://Scene_Switcher/enemy/Kamikaze.tscn" id="6_ryhxm"]
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="7_qmnfc"]
 [ext_resource type="Texture2D" uid="uid://c8agg1qxqxnoc" path="res://Scene_Switcher/level/asset/normal_city/city_bottom_end_free_street_1.png" id="8_2644l"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_pf4nd"]
-vertices = PackedVector2Array(1494, 386, 1918, 386, 1918, 694, 1494, 694, 1494, 695, 2, 695, 2, 386, 426, 386, 1494, 2, 426, 2)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6, 7), PackedInt32Array(0, 3, 7), PackedInt32Array(8, 0, 7, 9)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 1928, -8, 1928, 1088, -8, 1088)])
-parsed_geometry_type = 1
-parsed_collision_mask = 4294966288
-source_geometry_group_name = &"navigation_polygon_source_group"
-cell_size = 4.0
+[ext_resource type="NavigationPolygon" uid="uid://b3agydcysk2gb" path="res://Scene_Switcher/level/asset/navigation_city.tres" id="9_cfdog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6o8nc"]
 size = Vector2(332.8, 377)
@@ -95,7 +87,7 @@ position = Vector2(786, 228)
 position = Vector2(1146, 186)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_pf4nd")
+navigation_polygon = ExtResource("9_cfdog")
 
 [node name="right_border" type="Node2D" parent="NavigationRegion2D"]
 position = Vector2(1760, 544)

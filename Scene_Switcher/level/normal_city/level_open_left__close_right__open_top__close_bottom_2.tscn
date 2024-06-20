@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://lelxh7g8rbr0"]
+[gd_scene load_steps=22 format=3 uid="uid://lelxh7g8rbr0"]
 
 [ext_resource type="Script" path="res://Scene_Switcher/level/level_A.gd" id="1_cecsv"]
 [ext_resource type="PackedScene" uid="uid://dg5dmtikklnwn" path="res://Scene_Switcher/enemy/assault_tank.tscn" id="2_checf"]
@@ -9,6 +9,25 @@
 [ext_resource type="PackedScene" uid="uid://bgntfh7ttfv45" path="res://Scene_Switcher/enemy/Drop/item_drop.tscn" id="7_u6p2o"]
 [ext_resource type="Texture2D" uid="uid://he34hp20ev2p" path="res://Scene_Switcher/level/asset/normal_city/city_bottom_end_free_street_3.png" id="8_yp1lf"]
 [ext_resource type="Texture2D" uid="uid://c8qa45bgvehb1" path="res://Scene_Switcher/enemy/asset/vortex.png" id="9_o6geo"]
+
+[sub_resource type="Curve" id="Curve_8dh2v"]
+min_value = 0.5
+max_value = 1.5
+_data = [Vector2(0, 1.48901), 0.0, 0.0, 0, 0, Vector2(0.55618, 1.23626), -1.00957, -1.00957, 0, 0, Vector2(0.988764, 0.494505), -2.59388, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_qr1bj"]
+offsets = PackedFloat32Array(0, 0.335878, 0.705521, 0.778626, 0.977099, 1)
+colors = PackedColorArray(0.834999, 0.891277, 0, 1, 0.67451, 0.321569, 0, 1, 0.658911, 1.22733e-06, 9.62615e-08, 1, 0, 0, 0, 1, 0, 0, 0, 0.103448, 1, 1, 1, 0)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_38c37"]
+vertices = PackedVector2Array(1494, 2, 1494, 695, 2, 695, 426, 386, 2, 386, 426, 2)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 3), PackedInt32Array(0, 3, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 1928, -8, 1928, 1088, -8, 1088)])
+parsed_geometry_type = 1
+parsed_collision_mask = 4294966288
+source_geometry_group_name = &"navigation_polygon_source_group"
+cell_size = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0j4l"]
 size = Vector2(1512.5, 375)
@@ -37,16 +56,6 @@ size = Vector2(307.2, 1081)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1okq1"]
 size = Vector2(82, 63.5294)
 
-[sub_resource type="Curve" id="Curve_8dh2v"]
-min_value = 0.5
-max_value = 1.5
-_data = [Vector2(0, 1.48901), 0.0, 0.0, 0, 0, Vector2(0.55618, 1.23626), -1.00957, -1.00957, 0, 0, Vector2(0.988764, 0.494505), -2.59388, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_qr1bj"]
-offsets = PackedFloat32Array(0, 0.335878, 0.705521, 0.778626, 0.977099, 1)
-colors = PackedColorArray(0.834999, 0.891277, 0, 1, 0.67451, 0.321569, 0, 1, 0.658911, 1.22733e-06, 9.62615e-08, 1, 0, 0, 0, 1, 0, 0, 0, 0.103448, 1, 1, 1, 0)
-
 [node name="level_open_left__close_right__open_top__close_bottom_2" type="Node2D"]
 z_index = -1
 script = ExtResource("1_cecsv")
@@ -63,101 +72,6 @@ item_drop_scene = ExtResource("7_u6p2o")
 z_index = -1
 position = Vector2(960, 540)
 texture = ExtResource("8_yp1lf")
-
-[node name="left_border" type="Node2D" parent="."]
-position = Vector2(128, 544)
-scale = Vector2(4, 17)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
-position = Vector2(-32, -32)
-scale = Vector2(0.25, 0.0588235)
-collision_layer = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D"]
-position = Vector2(747.75, 892.5)
-shape = SubResource("RectangleShape2D_y0j4l")
-
-[node name="StaticBody2D_Other" type="Area2D" parent="left_border" groups=["decor_static"]]
-position = Vector2(-32, -32)
-scale = Vector2(0.25, 0.0588235)
-collision_layer = 16
-collision_mask = 271
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D_Other"]
-position = Vector2(763.5, 909)
-shape = SubResource("RectangleShape2D_7tvnd")
-
-[node name="limit" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
-collision_layer = 16
-collision_mask = 15
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/limit"]
-position = Vector2(165, 23.1176)
-shape = SubResource("RectangleShape2D_ygj74")
-debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
-position = Vector2(-30, -73.4118)
-scale = Vector2(0.25, 0.0588235)
-collision_layer = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D2"]
-position = Vector2(199.75, 892.5)
-shape = SubResource("RectangleShape2D_4kjt1")
-
-[node name="StaticBody2D_Other2" type="Area2D" parent="left_border" groups=["decor_static"]]
-position = Vector2(-30, -73.4118)
-scale = Vector2(0.25, 0.0588235)
-collision_layer = 16
-collision_mask = 271
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/StaticBody2D_Other2"]
-position = Vector2(185.75, 879)
-shape = SubResource("RectangleShape2D_cpbyr")
-
-[node name="limit2" type="StaticBody2D" parent="left_border" groups=["decor_static"]]
-position = Vector2(2, -41.4118)
-collision_layer = 16
-collision_mask = 15
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_border/limit2"]
-position = Vector2(8, 17.9559)
-shape = SubResource("RectangleShape2D_hfplp")
-debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
-
-[node name="right_border" type="Node2D" parent="."]
-position = Vector2(1760, 544)
-scale = Vector2(5, 17)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="right_border" groups=["decor_static"]]
-position = Vector2(-32, -32)
-scale = Vector2(0.25, 0.0588235)
-collision_layer = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D"]
-position = Vector2(89.6, 540)
-shape = SubResource("RectangleShape2D_8b6yq")
-
-[node name="StaticBody2D_Other" type="Area2D" parent="right_border"]
-position = Vector2(-32, -32)
-scale = Vector2(0.25, 0.0588235)
-collision_layer = 16
-collision_mask = 271
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/StaticBody2D_Other"]
-position = Vector2(102.4, 539.5)
-shape = SubResource("RectangleShape2D_6md14")
-
-[node name="limit" type="StaticBody2D" parent="right_border" groups=["decor_static"]]
-position = Vector2(-326.4, 0)
-scale = Vector2(0.8, 1)
-collision_layer = 16
-collision_mask = 271
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right_border/limit"]
-position = Vector2(406, -0.294117)
-shape = SubResource("RectangleShape2D_1okq1")
-debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
 
 [node name="spawn_point" type="Node2D" parent="."]
 
@@ -259,6 +173,104 @@ radial_accel_max = 1.0
 scale_amount_curve = SubResource("Curve_8dh2v")
 color_ramp = SubResource("Gradient_qr1bj")
 
-[connection signal="body_entered" from="left_border/StaticBody2D_Other" to="." method="_on_static_body_2d_other_body_entered"]
-[connection signal="body_entered" from="left_border/StaticBody2D_Other2" to="." method="_on_static_body_2d_other_body_entered"]
-[connection signal="body_entered" from="right_border/StaticBody2D_Other" to="." method="_on_static_body_2d_other_body_entered"]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_38c37")
+
+[node name="left_border" type="Node2D" parent="NavigationRegion2D"]
+position = Vector2(128, 544)
+scale = Vector2(4, 17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D/left_border" groups=["decor_static"]]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/left_border/StaticBody2D"]
+position = Vector2(747.75, 892.5)
+shape = SubResource("RectangleShape2D_y0j4l")
+
+[node name="StaticBody2D_Other" type="Area2D" parent="NavigationRegion2D/left_border" groups=["decor_static"]]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/left_border/StaticBody2D_Other"]
+position = Vector2(763.5, 909)
+shape = SubResource("RectangleShape2D_7tvnd")
+
+[node name="limit" type="StaticBody2D" parent="NavigationRegion2D/left_border" groups=["decor_static"]]
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/left_border/limit"]
+position = Vector2(165, 23.1176)
+shape = SubResource("RectangleShape2D_ygj74")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="NavigationRegion2D/left_border" groups=["decor_static"]]
+position = Vector2(-30, -73.4118)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/left_border/StaticBody2D2"]
+position = Vector2(199.75, 892.5)
+shape = SubResource("RectangleShape2D_4kjt1")
+
+[node name="StaticBody2D_Other2" type="Area2D" parent="NavigationRegion2D/left_border" groups=["decor_static"]]
+position = Vector2(-30, -73.4118)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/left_border/StaticBody2D_Other2"]
+position = Vector2(185.75, 879)
+shape = SubResource("RectangleShape2D_cpbyr")
+
+[node name="limit2" type="StaticBody2D" parent="NavigationRegion2D/left_border" groups=["decor_static"]]
+position = Vector2(2, -41.4118)
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/left_border/limit2"]
+position = Vector2(8, 17.9559)
+shape = SubResource("RectangleShape2D_hfplp")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[node name="right_border" type="Node2D" parent="NavigationRegion2D"]
+position = Vector2(1760, 544)
+scale = Vector2(5, 17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D/right_border" groups=["decor_static"]]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/right_border/StaticBody2D"]
+position = Vector2(89.6, 540)
+shape = SubResource("RectangleShape2D_8b6yq")
+
+[node name="StaticBody2D_Other" type="Area2D" parent="NavigationRegion2D/right_border"]
+position = Vector2(-32, -32)
+scale = Vector2(0.25, 0.0588235)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/right_border/StaticBody2D_Other"]
+position = Vector2(102.4, 539.5)
+shape = SubResource("RectangleShape2D_6md14")
+
+[node name="limit" type="StaticBody2D" parent="NavigationRegion2D/right_border" groups=["decor_static"]]
+position = Vector2(-326.4, 0)
+scale = Vector2(0.8, 1)
+collision_layer = 16
+collision_mask = 271
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/right_border/limit"]
+position = Vector2(406, -0.294117)
+shape = SubResource("RectangleShape2D_1okq1")
+debug_color = Color(0.768046, 0.445917, 0.0402837, 0.42)
+
+[connection signal="body_entered" from="NavigationRegion2D/left_border/StaticBody2D_Other" to="." method="_on_static_body_2d_other_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/left_border/StaticBody2D_Other2" to="." method="_on_static_body_2d_other_body_entered"]
+[connection signal="body_entered" from="NavigationRegion2D/right_border/StaticBody2D_Other" to="." method="_on_static_body_2d_other_body_entered"]
