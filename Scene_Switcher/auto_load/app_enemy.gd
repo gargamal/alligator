@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name App_Enemy
 
 const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
-const LENGHT_FOLLOW_PLAYER :float = 1920.0
+const LENGHT_FOLLOW_PLAYER :float = 1000.0
 
 @export var speed :float = 200.0
 @export var speed_up :float = 800.0
@@ -18,8 +18,6 @@ const LENGHT_FOLLOW_PLAYER :float = 1920.0
 @export var is_alive : bool = true
 
 # scene node
-var left_wall
-var right_wall
 var collision
 var right_shoot
 var left_shoot
@@ -36,12 +34,13 @@ var target_follow
 var anim_target_follow
 var fire_weapon
 var explosion_death
+var nav_agent_2d
 
 
 signal i_am_ready_enemy(my_self)
 signal i_am_death(my_self)
 
-enum Enemy_State { IDLE, MOVE_UP, MOVE_DOWN, MOVE_SIDE_LEFT, MOVE_SIDE_RIGHT, SHOOT }
+enum Enemy_State { IDLE, MOVE, SHOOT, AIMING }
 
 var target
 var distance_player :float
@@ -56,12 +55,9 @@ var fire_sparkles
 var smoke_r :CPUParticles2D
 var smoke_l :CPUParticles2D
 
+
 func _init_ready():
-	left_wall = $left_wall
-	right_wall = $right_wall
 	collision = $CollisionShape2D
-	right_shoot = $right_shoot
-	left_shoot = $left_shoot
 	collision_shape_2d = $CollisionShape2D
 	explosion = $Explosion
 	smokes = $Smokes
@@ -70,36 +66,38 @@ func _init_ready():
 	smoke_60 = $Smokes/Smoke60
 	smoke_80 = $Smokes/Smoke80
 	death_smoke = $Smokes/Death_Smoke
-	animation_player = $AnimationPlayer
-	target_follow = $target_follow
-	anim_target_follow = $anim_target_follow
-	fire_weapon = $fire_weapon
 	explosion_death = $explosion_death
+	nav_agent_2d = $NavigationAgent2D
 	
 	margin_can_shoot = rng.randf_range(100.0 , 500.0)
 	time_estimate_distance_can_shoot = rng.randf_range(0.0, TIME_ESTIMATE_DISTANCE_CAN_SHOOT)
 	_specific_ready()
-	fire_sparkles.visible = false
+	if fire_sparkles:
+		fire_sparkles.visible = false
 	emit_signal("i_am_ready_enemy", self)
 
-func set_life_max(new_life_max :float):
-	life_max = new_life_max
-	life = life_max
 
 func _specific_ready():
 	target = $target
 	fire_sparkles = $fire_sparkles
 	smoke_r = $body_sprite/move_smoke/smoke_r
 	smoke_l = $body_sprite/move_smoke/smoke_l
+	right_shoot = $right_shoot
+	left_shoot = $left_shoot
+	animation_player = $AnimationPlayer
+	target_follow = $target_follow
+	fire_weapon = $fire_weapon
+	anim_target_follow = $anim_target_follow
+
+
+func set_life_max(new_life_max :float):
+	life_max = new_life_max
+	life = life_max
+
 
 func _physics_process(delta :float):
 	if is_running and is_alive:
-		var direction :Vector2 = process_direction()
-		velocity = lerp(velocity, process_velocity(direction), smooth * delta)
-		rotation_animation(delta, direction)
-		move_and_slide()
-		
-		previous_enemy_state = enemy_state
+		pass
 
 func _process(delta :float):
 	if is_running and is_alive:
@@ -114,14 +112,6 @@ func process_distance_can_shoot(delta :float):
 		margin_can_shoot = rng.randf_range(100.0 , 500.0)
 		time_estimate_distance_can_shoot = 0.0
 
-func rotation_animation(delta :float, direction :Vector2):
-	smokes.rotation = lerp_angle(smokes.rotation, estimate_target_angle(direction), estimate_angle_smooth() * delta)
-
-
-func estimate_angle_smooth() -> float:
-	match enemy_state:
-		Enemy_State.MOVE_SIDE_LEFT, Enemy_State.MOVE_SIDE_RIGHT: return 2.0
-		_: return 5.0
 
 func estimate_target_angle(direction :Vector2) -> float:
 	if right_shoot.is_colliding() and left_shoot.is_colliding():
@@ -129,85 +119,9 @@ func estimate_target_angle(direction :Vector2) -> float:
 	else:
 		return atan2(-direction.x, direction.y)
 
-func process_direction():
-	var estimate_direction :Vector2 = Vector2.ZERO
-	match enemy_state:
-		Enemy_State.MOVE_SIDE_LEFT: estimate_direction = Vector2(-1, 0)
-		Enemy_State.MOVE_SIDE_RIGHT: estimate_direction = Vector2(1, 0)
-		Enemy_State.MOVE_UP: estimate_direction = Vector2(0, -1)
-		Enemy_State.MOVE_DOWN: estimate_direction = Vector2(0, 1)
-	return estimate_direction.rotated(rotation)
-
-func process_velocity(direction :Vector2) -> Vector2:
-	var estimate_velocity :Vector2 = Vector2.ZERO
-	match enemy_state:
-		Enemy_State.MOVE_SIDE_LEFT: estimate_velocity = direction * speed
-		Enemy_State.MOVE_SIDE_RIGHT: estimate_velocity = direction * speed
-		Enemy_State.MOVE_UP: estimate_velocity = direction * speed_up
-		Enemy_State.MOVE_DOWN: estimate_velocity = direction * speed
-	return estimate_velocity
 
 func state_machine():
-	match enemy_state:
-		Enemy_State.IDLE:
-			if must_move_up():
-				enemy_state = Enemy_State.MOVE_UP
-			elif must_move_down():
-				enemy_state = Enemy_State.MOVE_DOWN
-			elif right_shoot.is_colliding() and left_shoot.is_colliding():
-				enemy_state = Enemy_State.SHOOT
-			else:
-				enemy_state = choice_side_direction()
-		
-		Enemy_State.MOVE_SIDE_LEFT, Enemy_State.MOVE_SIDE_RIGHT:
-			if must_move_up():
-				enemy_state = Enemy_State.MOVE_UP
-			elif must_move_down():
-					enemy_state = Enemy_State.MOVE_DOWN
-			elif right_shoot.is_colliding() and left_shoot.is_colliding():
-				enemy_state = Enemy_State.SHOOT
-			else:
-				enemy_state = choice_side_direction()
-		
-		Enemy_State.SHOOT:
-			if must_move_up():
-				enemy_state = Enemy_State.MOVE_UP
-			elif must_move_down():
-				enemy_state = Enemy_State.MOVE_DOWN
-			elif not right_shoot.is_colliding() or not left_shoot.is_colliding():
-				enemy_state = choice_side_direction()
-		
-		Enemy_State.MOVE_UP:
-			if not must_move_up():
-				enemy_state = choice_side_direction()
-			elif must_move_down():
-				enemy_state = Enemy_State.MOVE_DOWN
-			elif right_shoot.is_colliding() and left_shoot.is_colliding():
-				enemy_state = Enemy_State.SHOOT
-		
-		Enemy_State.MOVE_DOWN:
-			if not must_move_down():
-				enemy_state = choice_side_direction()
-			elif must_move_up():
-				enemy_state = Enemy_State.MOVE_UP
-			elif right_shoot.is_colliding() and left_shoot.is_colliding():
-				enemy_state = Enemy_State.SHOOT
-
-func choice_side_direction() -> Enemy_State:
-	if left_wall.is_colliding():
-		return Enemy_State.MOVE_SIDE_RIGHT
-	elif right_wall.is_colliding():
-		return Enemy_State.MOVE_SIDE_LEFT
-	elif abs(global_position.y - player.global_position.y) > max_distance_between_player:
-		return Enemy_State.IDLE
-	else:
-		return Enemy_State.MOVE_SIDE_RIGHT if global_position.x < player.global_position.x else Enemy_State.MOVE_SIDE_LEFT
-
-func must_move_up() -> bool:
-	return global_position.y > player.global_position.y - margin_can_shoot
-
-func must_move_down() -> bool:
-	return global_position.y < player.global_position.y - margin_shoot_range and global_position.y - player.global_position.y > -max_distance_between_player
+	pass
 
 func fire(delta :float):
 	if previous_enemy_state != enemy_state and enemy_state == Enemy_State.SHOOT:
@@ -264,7 +178,8 @@ func death():
 		collision_mask = 4
 		collision_layer = 32
 		z_index = 0
-		target_follow.visible = false
+		if target_follow:
+			target_follow.visible = false
 		process_explosion()
 		if smoke_r and smoke_l:
 			smoke_r.emitting = false
@@ -276,9 +191,10 @@ func process_explosion():
 	explosion.emitting = true
 
 func process_target_follow():
-	target_follow.visible = enemy_state == Enemy_State.SHOOT
-	if player and target_follow.visible:
-		target_follow.global_position = player.target_follow.global_position
-		anim_target_follow.play("target_on_player")
-	elif anim_target_follow.is_playing() and not target_follow.visible:
-		anim_target_follow.stop()
+	if target_follow:
+		target_follow.visible = enemy_state == Enemy_State.SHOOT
+		if player and target_follow.visible:
+			target_follow.global_position = player.target_follow.global_position
+			anim_target_follow.play("target_on_player")
+		elif anim_target_follow.is_playing() and not target_follow.visible:
+			anim_target_follow.stop()

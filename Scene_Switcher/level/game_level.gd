@@ -89,7 +89,7 @@ func de_spawn_map(idx :int, idy :int):
 	var map_spawned :Level_A = map_spawn.get(key_map)
 	if map_spawned != null:
 		map_spawn.erase(key_map)
-		map_spawned.queue_free()
+		map_spawned.free_map()
 
 
 # return true if spawn or false is not spawn

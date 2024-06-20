@@ -22,6 +22,7 @@ signal add_point(point_value)
 var world_drop_item :Node2D
 var array_of_spawn :Array = []
 var scene_of_spawn :Array = []
+var array_of_enemy :Array = []
 var rng = RandomNumberGenerator.new()
 
 
@@ -62,8 +63,16 @@ func spawn_enemies(player :Player, world :Node2D, bullet_world :Node2D, p_world_
 		enemy.connect("i_am_ready_enemy", _on_enemy_is_ready)
 		enemy.connect("i_am_death", _on_enemy_is_death)
 		world.add_child(enemy)
+		array_of_enemy.append(enemy)
 		enemy.global_position = point_spawn.global_position
 		work_arr.remove_at(index)
+
+
+func free_map():
+	while array_of_enemy.size() > 0:
+		array_of_enemy[0].queue_free()
+		array_of_enemy.remove_at(0)
+	queue_free()
 
 
 func _on_enemy_is_death(enemy :App_Enemy):

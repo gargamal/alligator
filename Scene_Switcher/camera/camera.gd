@@ -2,7 +2,6 @@ extends Camera2D
 class_name Camera
 
 const WIDTH :float = 1920.0
-const OFFSET :int = 100
 
 @export var player :Player
 
@@ -11,5 +10,5 @@ func _ready():
 
 func _process(_delta):
 	if player:
-		global_position.y = player.global_position.y - OFFSET
-		global_position.x = player.global_position.x - OFFSET
+		global_position.y = player.global_position.y
+		global_position.x = player.global_position.x
