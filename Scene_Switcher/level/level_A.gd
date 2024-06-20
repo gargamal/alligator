@@ -30,14 +30,14 @@ func _ready():
 		array_of_spawn = spawn_point.get_children()
 		
 		if array_of_spawn.size() > 0:
-			if assault_tank_scene:
-				scene_of_spawn.append(assault_tank_scene)
-			if helicopter_scene:
-				scene_of_spawn.append(helicopter_scene)
-			if jeep_scene:
-				scene_of_spawn.append(jeep_scene)
-			if artillery_scene:
-				scene_of_spawn.append(artillery_scene)
+			#if assault_tank_scene:
+				#scene_of_spawn.append(assault_tank_scene)
+			#if helicopter_scene:
+				#scene_of_spawn.append(helicopter_scene)
+			#if jeep_scene:
+				#scene_of_spawn.append(jeep_scene)
+			#if artillery_scene:
+				#scene_of_spawn.append(artillery_scene)
 			if kamikaze_scene:
 				scene_of_spawn.append(kamikaze_scene)
 			
@@ -55,7 +55,7 @@ func spawn_enemies(player :Player, world :Node2D, bullet_world :Node2D, p_world_
 	for idx in range(number_of_spawn):
 		var index :int = rng.randi_range(0, work_arr.size() - 1)
 		var point_spawn :Marker2D = work_arr[index]
-		var enemy :Enemy = scene_of_spawn[rng.randi_range(0, scene_of_spawn.size() - 1)].instantiate()
+		var enemy :App_Enemy = scene_of_spawn[rng.randi_range(0, scene_of_spawn.size() - 1)].instantiate()
 		enemy.world = bullet_world
 		enemy.player = player
 		enemy.life_max = get_life_enemy(enemy.life_max, difficulty_level)
@@ -66,7 +66,7 @@ func spawn_enemies(player :Player, world :Node2D, bullet_world :Node2D, p_world_
 		work_arr.remove_at(index)
 
 
-func _on_enemy_is_death(enemy :Enemy):
+func _on_enemy_is_death(enemy :App_Enemy):
 	if rng.randf_range(0.0, 1.0) <= drop_chance:
 		var item_drop :ItemBox = item_drop_scene.instantiate()
 		world_drop_item.call_deferred("add_child", item_drop)
@@ -74,7 +74,7 @@ func _on_enemy_is_death(enemy :Enemy):
 	emit_signal("add_point", point_per_kill)
 
 
-func _on_enemy_is_ready(enemy :Enemy):
+func _on_enemy_is_ready(enemy :App_Enemy):
 	enemy.is_running = true
 
 

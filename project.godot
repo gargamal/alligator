@@ -24,7 +24,8 @@ buses/channel_disable_threshold_db=-40.0
 [autoload]
 
 AppGame="*res://Scene_Switcher/auto_load/app_game.gd"
-AppMainLevelA="*res://Scene_Switcher/level/app_main_level_a.gd"
+AppMainLevelA="*res://Scene_Switcher/auto_load/app_main_level_a.gd"
+AppEnemy="*res://Scene_Switcher/auto_load/app_enemy.gd"
 
 [display]
 
@@ -104,7 +105,9 @@ ui_right_rotate={
 [layer_names]
 
 2d_physics/layer_1="player"
+2d_navigation/layer_1="alive"
 2d_physics/layer_2="air_enemy"
+2d_navigation/layer_2="death"
 2d_physics/layer_3="ground_enemy"
 2d_physics/layer_4="bullet"
 2d_physics/layer_5="decor_static"
@@ -113,6 +116,8 @@ ui_right_rotate={
 2d_physics/layer_8="blocker_player"
 2d_physics/layer_9="boss"
 2d_physics/layer_10="missille_impact"
+avoidance/layer_1="alive"
+avoidance/layer_2="death"
 
 [rendering]
 

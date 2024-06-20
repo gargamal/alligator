@@ -1,4 +1,4 @@
-extends Enemy
+extends App_Enemy
 class_name Artillery
 
 @onready var sprite_2d = $body_sprite
@@ -8,6 +8,10 @@ class_name Artillery
 @onready var tower_pos = $body_sprite/tower_pos
 
 @export var rotation_speed :float = 0.01
+
+
+func _ready(): 
+	_init_ready()
 
 
 func rotation_animation(delta :float, direction :Vector2):

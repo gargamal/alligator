@@ -65,7 +65,7 @@ func choice_map():
 
 func spawn():
 	emit_signal("spawn_boss")
-	var enemy_boss :Enemy
+	var enemy_boss :App_Enemy
 	if rng.randi() % 2 == 0:
 		enemy_boss= boss_1_scene.instantiate()
 	else:
@@ -78,11 +78,11 @@ func spawn():
 	enemy_boss.global_position = point_spawn.global_position
 
 
-func _on_enemy_is_ready(enemy :Enemy):
+func _on_enemy_is_ready(enemy :App_Enemy):
 	enemy.is_running = true
 
 
-func _on_boss_is_dead(enemy_boss :Enemy):
+func _on_boss_is_dead(enemy_boss :App_Enemy):
 	top_limit.collision_layer = 0
 	top_limit.collision_mask = 0
 	player_border.collision_layer = 0

@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Enemy
+class_name App_Enemy
 
 const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 
@@ -16,24 +16,25 @@ const TIME_ESTIMATE_DISTANCE_CAN_SHOOT :float = 4.0
 @export var is_running :bool = false
 @export var is_alive : bool = true
 
-@onready var left_wall = $left_wall
-@onready var right_wall = $right_wall
-@onready var collision = $CollisionShape2D
-@onready var right_shoot = $right_shoot
-@onready var left_shoot = $left_shoot
-@onready var collision_shape_2d = $CollisionShape2D
-@onready var explosion = $Explosion
-@onready var smokes = $Smokes
-@onready var smoke_20 = $Smokes/Smoke20
-@onready var smoke_40 = $Smokes/Smoke40
-@onready var smoke_60 = $Smokes/Smoke60
-@onready var smoke_80 = $Smokes/Smoke80
-@onready var death_smoke = $Smokes/Death_Smoke
-@onready var animation_player = $AnimationPlayer
-@onready var target_follow = $target_follow
-@onready var anim_target_follow = $anim_target_follow
-@onready var fire_weapon = $fire_weapon
-@onready var explosion_death = $explosion_death
+# scene node
+var left_wall
+var right_wall
+var collision
+var right_shoot
+var left_shoot
+var collision_shape_2d
+var explosion
+var smokes
+var smoke_20
+var smoke_40
+var smoke_60
+var smoke_80
+var death_smoke
+var animation_player
+var target_follow
+var anim_target_follow
+var fire_weapon
+var explosion_death
 
 
 signal i_am_ready_enemy(my_self)
@@ -53,7 +54,26 @@ var fire_sparkles
 var smoke_r :CPUParticles2D
 var smoke_l :CPUParticles2D
 
-func _ready():
+func _init_ready():
+	left_wall = $left_wall
+	right_wall = $right_wall
+	collision = $CollisionShape2D
+	right_shoot = $right_shoot
+	left_shoot = $left_shoot
+	collision_shape_2d = $CollisionShape2D
+	explosion = $Explosion
+	smokes = $Smokes
+	smoke_20 = $Smokes/Smoke20
+	smoke_40 = $Smokes/Smoke40
+	smoke_60 = $Smokes/Smoke60
+	smoke_80 = $Smokes/Smoke80
+	death_smoke = $Smokes/Death_Smoke
+	animation_player = $AnimationPlayer
+	target_follow = $target_follow
+	anim_target_follow = $anim_target_follow
+	fire_weapon = $fire_weapon
+	explosion_death = $explosion_death
+	
 	margin_can_shoot = rng.randf_range(100.0 , 500.0)
 	time_estimate_distance_can_shoot = rng.randf_range(0.0, TIME_ESTIMATE_DISTANCE_CAN_SHOOT)
 	_specific_ready()

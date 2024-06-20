@@ -1,10 +1,13 @@
-extends Enemy
+extends App_Enemy
 class_name Helicopter
 
 @onready var animation_player_rotor = $Sprite2D/AnimationPlayer
 @onready var cockpit_sprite = $Sprite2D/cockpit_sprite
 @onready var weapon_sprite = $Sprite2D/weapon_sprite
 @onready var shadow = $Sprite2D/shadow
+
+func _ready(): 
+	_init_ready()
 
 func death():
 	super()

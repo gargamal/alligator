@@ -333,4 +333,10 @@ bus = &"SFX"
 
 [node name="Bullet_Impacts" parent="." instance=ExtResource("14_7uush")]
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+neighbor_distance = 800.0
+max_speed = 1000.0
+debug_enabled = true
+
 [connection signal="body_entered" from="Explosion_Range" to="." method="_on_explosion_range_body_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

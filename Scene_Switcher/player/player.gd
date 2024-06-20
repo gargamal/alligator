@@ -69,7 +69,7 @@ var weapon_coldown :float = 0.01
 var time_overheat_duration :float = 0.0
 var overheat :bool = false
 var vue_direction :Vector2 = Vector2(0, -1)
-
+var is_alive :bool = true
 
 func set_life_max(new_life_max :float):
 	life_max = new_life_max
@@ -84,36 +84,38 @@ func _ready():
 
 
 func _physics_process(delta :float):
-	if abs(vue_direction.y) < 1:
-		velocity.x = lerp(velocity.x, input_dir.x * get_speed(), smooth * delta)
-		velocity.y = lerp(velocity.y, input_dir.y * get_speed() * side_multiplier, smooth * delta)
-	
-		cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.y * PI/20.0, 0.1)
-		weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.y * PI/20.0, 0.1)
+	if is_alive:
+		if abs(vue_direction.y) < 1:
+			velocity.x = lerp(velocity.x, input_dir.x * get_speed(), smooth * delta)
+			velocity.y = lerp(velocity.y, input_dir.y * get_speed() * side_multiplier, smooth * delta)
 		
-	elif abs(vue_direction.x) < 1:
-		velocity.x = lerp(velocity.x, input_dir.x * get_speed() * side_multiplier, smooth * delta)
-		velocity.y = lerp(velocity.y, input_dir.y * get_speed(), smooth * delta)
-	
-		cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
-		weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
-	
-	move_and_slide()
+			cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.y * PI/20.0, 0.1)
+			weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.y * PI/20.0, 0.1)
+			
+		elif abs(vue_direction.x) < 1:
+			velocity.x = lerp(velocity.x, input_dir.x * get_speed() * side_multiplier, smooth * delta)
+			velocity.y = lerp(velocity.y, input_dir.y * get_speed(), smooth * delta)
+		
+			cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
+			weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
+		
+		move_and_slide()
 
 
 func _process(delta):
-	time_overheat_duration += delta
-	bullet_time += delta
-	manage_shoot()
-	
-	if Input.is_action_just_pressed("ui_right_rotate"):
-		vue_direction = vue_direction.rotated(PI / 2.0)
-	
-	elif Input.is_action_just_pressed("ui_left_rotate"):
-		vue_direction = vue_direction.rotated(-PI / 2.0)
-	
-	cockpit_sprite.rotation = lerp_angle(cockpit_sprite.rotation, vue_direction.angle_to(Vector2(0, -1)), delta * 10.0)
-	collision.rotation = cockpit_sprite.rotation
+	if is_alive:
+		time_overheat_duration += delta
+		bullet_time += delta
+		manage_shoot()
+		
+		if Input.is_action_just_pressed("ui_right_rotate"):
+			vue_direction = vue_direction.rotated(PI / 2.0)
+		
+		elif Input.is_action_just_pressed("ui_left_rotate"):
+			vue_direction = vue_direction.rotated(-PI / 2.0)
+		
+		cockpit_sprite.rotation = lerp_angle(cockpit_sprite.rotation, vue_direction.angle_to(Vector2(0, -1)), delta * 10.0)
+		collision.rotation = cockpit_sprite.rotation
 
 
 func get_speed() -> float:
@@ -121,26 +123,27 @@ func get_speed() -> float:
 
 
 func _input(_event):
-	if Input.is_action_just_pressed("ui_left_rotate") or Input.is_action_just_pressed("ui_right_rotate"):
-		input_dir = Vector2.ZERO
-		movement_state = Movement_State.IDLE
-	
-	elif Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
-			or Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
-		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-		input_dir = input_dir.rotated(rotation)
-		movement_state = Movement_State.RUN
+	if is_alive:
+		if Input.is_action_just_pressed("ui_left_rotate") or Input.is_action_just_pressed("ui_right_rotate"):
+			input_dir = Vector2.ZERO
+			movement_state = Movement_State.IDLE
+		
+		elif Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
+				or Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+			input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+			input_dir = input_dir.rotated(rotation)
+			movement_state = Movement_State.RUN
 
-	elif Input.is_action_just_released("ui_down") or Input.is_action_just_released("ui_up") \
-			or Input.is_action_just_released("ui_left") or Input.is_action_just_released("ui_right"):
-		input_dir = Vector2.ZERO
-		movement_state = Movement_State.IDLE
-	
-	if not overheat and Input.is_action_pressed("ui_shoot"):
-		shoot_state = Shoot_State.SHOOT
-	
-	elif shoot_state != Shoot_State.IDLE and Input.is_action_just_released("ui_shoot"):
-		shoot_state = Shoot_State.IDLE
+		elif Input.is_action_just_released("ui_down") or Input.is_action_just_released("ui_up") \
+				or Input.is_action_just_released("ui_left") or Input.is_action_just_released("ui_right"):
+			input_dir = Vector2.ZERO
+			movement_state = Movement_State.IDLE
+		
+		if not overheat and Input.is_action_pressed("ui_shoot"):
+			shoot_state = Shoot_State.SHOOT
+		
+		elif shoot_state != Shoot_State.IDLE and Input.is_action_just_released("ui_shoot"):
+			shoot_state = Shoot_State.IDLE
 
 
 func manage_shoot():
@@ -227,12 +230,14 @@ func set_life(new_life :float):
 	if life > 1.0:
 		life_level.texture.width = int(life / life_max * 100.0 + .5)
 	elif life_level.visible:
+		is_alive = false
 		explosion.emitting = true
 		animated_sprite_2d.stop()
+		animated_sprite_2d.play("death_anim")
 		life_level.visible = false
 		death_smoke.emitting = true
 		explosion_death.play()
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(2.0).timeout
 		emit_signal("i_am_dead", self)
 
 

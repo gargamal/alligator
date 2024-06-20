@@ -40,7 +40,7 @@ func _physics_process(_delta):
 					if obj_colide is Player:
 						obj_colide.take_hit(power)
 						free_bullet()
-					elif obj_colide is Enemy and obj_colide.is_alive:
+					elif obj_colide is App_Enemy and obj_colide.is_alive:
 						obj_colide.take_hit(power)
 						free_bullet()
 					elif "decor_static" in obj_colide.get_groups():

@@ -1,7 +1,10 @@
-extends Enemy
+extends App_Enemy
 class_name Jeep
 
 @onready var sprite_2d = $body_sprite
+
+func _ready(): 
+	_init_ready()
 
 func _specific_ready():
 	target = $target

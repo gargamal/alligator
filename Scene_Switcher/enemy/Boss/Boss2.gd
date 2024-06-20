@@ -1,4 +1,4 @@
-extends Enemy
+extends App_Enemy
 class_name Boss_2
 
 @onready var tower_sprite = $mesh/tripod_sprite/turret_sprite
@@ -12,6 +12,10 @@ class_name Boss_2
 
 signal i_am_dead_boss(my_self)
 var kamikaze_time :float = 0.0
+
+func _ready(): 
+	_init_ready()
+
 
 func _specific_ready():
 	smoke_r = $move_smoke/smoke_r

@@ -1,8 +1,12 @@
-extends Enemy
+extends App_Enemy
 class_name Assault_Tank
 
 @onready var sprite_2d = $body_sprite
 @onready var tower_sprite = $body_sprite/tower_sprite
+
+
+func _ready(): 
+	_init_ready()
 
 
 func _specific_ready():

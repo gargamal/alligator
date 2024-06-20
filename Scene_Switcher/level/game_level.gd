@@ -14,7 +14,6 @@ const max_dist_diedbody :int = 3000
 @onready var game_over = $Game_Over
 @onready var save_score_player = $save_score_player
 
-@export var Menu_scene :PackedScene
 
 var level_scene_instianble :Array =[]
 var rng = RandomNumberGenerator.new()
@@ -93,10 +92,11 @@ func de_spawn_map(idx :int, idy :int):
 		map_spawned.queue_free()
 
 
-func spawn_map(idx :int, idy :int, with_spawn_enemy: bool = true):
+# return true if spawn or false is not spawn
+func spawn_map(idx :int, idy :int, with_spawn_enemy: bool = true) -> bool:
 	var origin_point :Vector2 = Vector2(idx * WIDTH, idy * HEIGHT)
 	var key_map :String = get_key_map(idx, idy, origin_point)
-	if key_map == "": return
+	if key_map == "": return false
 	
 	var map_spawned :Level_A = map_spawn.get(key_map)
 	if map_spawned == null:
@@ -108,6 +108,8 @@ func spawn_map(idx :int, idy :int, with_spawn_enemy: bool = true):
 		if with_spawn_enemy:
 			scene_inst.spawn_enemies(player, enemy, drop_item, bullet, game.game_level.difficulty as App_Game.Type_Difficulty)
 		map_spawn[key_map] = scene_inst
+	
+	return true
 
 
 func create_all_map():

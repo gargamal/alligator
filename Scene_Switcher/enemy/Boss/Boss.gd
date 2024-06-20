@@ -1,7 +1,10 @@
-extends Enemy
+extends App_Enemy
 class_name Boss
 
 @onready var insight_shoot = $mesh/weapon/Weapon_Sprite/RayCast2D
+
+func _ready(): 
+	_init_ready()
 
 func death():
 	if is_alive:
