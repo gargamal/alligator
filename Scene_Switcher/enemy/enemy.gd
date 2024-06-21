@@ -71,7 +71,7 @@ func _specific_ready():
 	smoke_l = $body_sprite/move_smoke/smoke_l
 
 func _physics_process(delta :float):
-	if is_running and is_alive:
+	if is_running and is_alive and player.is_alive:
 		var direction :Vector2 = process_direction()
 		velocity = lerp(velocity, process_velocity(direction), smooth * delta)
 		rotation_animation(delta, direction)
@@ -80,7 +80,7 @@ func _physics_process(delta :float):
 		previous_enemy_state = enemy_state
 
 func _process(delta :float):
-	if is_running and is_alive:
+	if is_running and is_alive and player.is_alive:
 		process_distance_can_shoot(delta)
 		state_machine()
 		fire(delta)

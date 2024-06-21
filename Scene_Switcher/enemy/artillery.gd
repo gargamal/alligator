@@ -98,17 +98,17 @@ func must_move_down() -> bool:
 	return global_position.y < player.global_position.y - margin_shoot_range and global_position.y - player.global_position.y > -max_distance_between_player
 
 func fire(delta :float):
-	#
-	bullet_time += delta
-	if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
-		for i in range (5):
-			fire_weapon.fire()
-			var ammo = ammo_scene.instantiate()
-			world.add_child(ammo)
-			ammo.speed_shoot = 10.0
-			ammo.exclude_body = self 
-			ammo.global_position = target.global_position
-			ammo.origin = target.global_position 
-			ammo.direction = (target.global_position - global_position + Vector2(-i*5,i*10)).normalized()
-		bullet_time = 0.0
-		fire_anim()
+	if player.is_alive:
+		bullet_time += delta
+		if bullet_time > bullet_cooldown and enemy_state == Enemy_State.SHOOT:
+			for i in range (5):
+				fire_weapon.fire()
+				var ammo = ammo_scene.instantiate()
+				world.add_child(ammo)
+				ammo.speed_shoot = 10.0
+				ammo.exclude_body = self 
+				ammo.global_position = target.global_position
+				ammo.origin = target.global_position 
+				ammo.direction = (target.global_position - global_position + Vector2(-i*5,i*10)).normalized()
+			bullet_time = 0.0
+			fire_anim()
