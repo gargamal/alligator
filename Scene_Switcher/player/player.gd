@@ -29,11 +29,11 @@ const WEAPON_COLOR :Color = Color("4b4b4b")
 @onready var anim_weapon = $anim_weapon
 @onready var target_follow = $target_follow
 @onready var shadow = $cockpit_sprite/shadow
-@onready var smoke_20 = $Smokes/Smoke20
-@onready var smoke_40 = $Smokes/Smoke40
-@onready var smoke_60 = $Smokes/Smoke60
-@onready var smoke_80 = $Smokes/Smoke80
-@onready var death_smoke = $Smokes/Death_Smoke
+@onready var smoke_20 = $cockpit_sprite/Smokes/Smoke20
+@onready var smoke_40 = $cockpit_sprite/Smokes/Smoke40
+@onready var smoke_60 = $cockpit_sprite/Smokes/Smoke60
+@onready var smoke_80 = $cockpit_sprite/Smokes/Smoke80
+@onready var death_smoke = $cockpit_sprite/Smokes/Death_Smoke
 @onready var explosion_death = $explosion_death
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var explosion = $Explosion
@@ -67,6 +67,7 @@ var weapon_heat :float = 0.0
 var weapon_coldown :float = 0.01 
 var time_overheat_duration :float = 0.0
 var overheat :bool = false
+var is_alive :bool = true
 
 
 func set_life_max(new_life_max :float):
@@ -82,19 +83,21 @@ func _ready():
 
 
 func _physics_process(delta :float):
-	velocity.x = lerp(velocity.x, input_dir.x * get_speed() * side_multiplier, smooth * delta)
-	velocity.y = lerp(velocity.y, input_dir.y * get_speed(), smooth * delta)
-	
-	cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
-	weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
-	
-	move_and_slide()
+	if is_alive:
+		velocity.x = lerp(velocity.x, input_dir.x * get_speed() * side_multiplier, smooth * delta)
+		velocity.y = lerp(velocity.y, input_dir.y * get_speed(), smooth * delta)
+		
+		cockpit_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
+		weapon_sprite.skew = lerp(cockpit_sprite.skew, input_dir.x * PI/20.0, 0.1)
+		
+		move_and_slide()
 
 
 func _process(delta):
-	time_overheat_duration += delta
-	bullet_time += delta
-	manage_shoot()
+	if is_alive:
+		time_overheat_duration += delta
+		bullet_time += delta
+		manage_shoot()
 
 
 func get_speed() -> float:
@@ -102,22 +105,23 @@ func get_speed() -> float:
 
 
 func _input(_event):
-	if Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
-			or Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
-		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-		input_dir = input_dir.rotated(rotation)
-		movement_state = Movement_State.RUN
+	if is_alive:
+		if Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up") \
+				or Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
+			input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+			input_dir = input_dir.rotated(rotation)
+			movement_state = Movement_State.RUN
 
-	elif Input.is_action_just_released("ui_down") or Input.is_action_just_released("ui_up") \
-			or Input.is_action_just_released("ui_left") or Input.is_action_just_released("ui_right"):
-		input_dir = Vector2.ZERO
-		movement_state = Movement_State.IDLE
-	
-	if not overheat and Input.is_action_pressed("ui_shoot"):
-		shoot_state = Shoot_State.SHOOT
-	
-	elif shoot_state != Shoot_State.IDLE and Input.is_action_just_released("ui_shoot"):
-		shoot_state = Shoot_State.IDLE
+		elif Input.is_action_just_released("ui_down") or Input.is_action_just_released("ui_up") \
+				or Input.is_action_just_released("ui_left") or Input.is_action_just_released("ui_right"):
+			input_dir = Vector2.ZERO
+			movement_state = Movement_State.IDLE
+		
+		if not overheat and Input.is_action_pressed("ui_shoot"):
+			shoot_state = Shoot_State.SHOOT
+		
+		elif shoot_state != Shoot_State.IDLE and Input.is_action_just_released("ui_shoot"):
+			shoot_state = Shoot_State.IDLE
 
 
 func manage_shoot():
@@ -182,7 +186,6 @@ func take_itembox(itembox :ItemBox.Type_ItemBox):
 		ItemBox.Type_ItemBox.HEAL:
 			var tween :Tween = get_tree().create_tween()
 			tween.tween_method(set_life, life, life + calculate_added_life(), 1.0).set_trans(Tween.TRANS_SINE)
-			process_aniamtion_smoke()
 			
 		ItemBox.Type_ItemBox.WEAPON:
 			if level_weapon != Level_Weapon.TRIPLE:
@@ -195,6 +198,7 @@ func calculate_added_life() -> float:
 	life_added = minimun_healing if life_added < minimun_healing else life_added
 	if life + life_added > life_max:
 		life_added = life_max - life
+	process_aniamtion_smoke()
 	return life_added
 
 
@@ -203,12 +207,14 @@ func set_life(new_life :float):
 	if life > 1.0:
 		life_level.texture.width = int(life / life_max * 100.0 + .5)
 	elif life_level.visible:
+		is_alive = false
 		explosion.emitting = true
 		animated_sprite_2d.stop()
+		animated_sprite_2d.play("death_anim")
 		life_level.visible = false
 		death_smoke.emitting = true
 		explosion_death.play()
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(2.50).timeout
 		emit_signal("i_am_dead")
 
 
